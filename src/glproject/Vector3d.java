@@ -20,6 +20,10 @@ public class Vector3d {
     public Vector3d subtract(Vector3d other) {
 	return this.add(other.multiply(-1));
     }
+    
+    public Vector3d divide(float scalar) {
+	return this.multiply(1.0f/scalar);
+    }
 
     public Vector3d dot(Vector3d other) {
 	return new Vector3d(x * other.x, y * other.y, z * other.z);
