@@ -2,6 +2,10 @@ package glproject;
 
 public class Vector3d {
     public float x, y, z;
+    
+    public Vector3d() {
+	this.x = this.y = this.z = 0.0f;
+    }
 
     public Vector3d(float x, float y, float z) {
 	this.x = x;
@@ -47,5 +51,9 @@ public class Vector3d {
     public float distanceTo(Vector3d other) {
 	return (float) Math.sqrt(Math.pow(other.x - x, 2)
 		+ Math.pow(other.y - y, 2) + Math.pow(other.z - z, 2));
+    }
+    
+    public boolean equals(Vector3d other) {
+	return (this.x == other.x && this.y == other.y && this.z == other.z);
     }
 }

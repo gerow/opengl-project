@@ -8,6 +8,8 @@ public class Mesh {
     ArrayList<Polygon> triangles;
     ArrayList<Polygon> quads;
     ArrayList<Polygon> polygons;
+    
+    ArrayList<Polygon> allPolys;
     Vector3d translation;
     //This is in DEGREES
     Vector3d rotation;
@@ -18,6 +20,7 @@ public class Mesh {
 	this.rotation = rotation;
 	this.scaling = scaling;
 	for (Polygon p : polys) {
+	    this.allPolys.add(p);
 	    if (p.type == Polygon.Type.TRIANGLE)
 		this.triangles.add(p);
 	    else if (p.type == Polygon.Type.QUAD)
@@ -60,6 +63,29 @@ public class Mesh {
     }
     
     public void calculateVertexNormals() {
-	//TODO THIS!
+	for (Polygon p : this.allPolys) {
+	    for (Vertex v : p.verticies) {
+		if (v.normal == null)
+		    this.calculateNormalsForVertex(v);
+	    }
+	}
+    }
+    
+    private void calculateNormalsForVertex(Vertex v) {
+	ArrayList<Vertex> commonVerticies = new ArrayList<Vertex>();
+	Vector3d sum = new Vector3d();
+	commonVerticies.add(v);
+	sum = sum.add(v.surfaceNormal);
+	for (Polygon p : this.allPolys) {
+	    for (Vertex vert : p.verticies) {
+		if (vert.normal != null && vert.location.equals(v.location)){
+		    commonVerticies.add(vert);
+		    sum = sum.add(vert.surfaceNormal);
+		}
+	    }
+	}
+	Vector3d normal = sum.divide(commonVerticies.size());
+	for (Vertex vert : commonVerticies)
+	    vert.normal = normal;
     }
 }

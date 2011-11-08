@@ -28,6 +28,8 @@ public class Polygon {
 	this.surfaceNormal = this.computeSurfaceNormal(
 		verticies.get(0).location, verticies.get(1).location,
 		verticies.get(2).location);
+	for (Vertex v : this.verticies)
+	    v.surfaceNormal = this.surfaceNormal;
     }
 
     private Vector3d computeSurfaceNormal(Vector3d vec1, Vector3d vec2,
@@ -36,11 +38,12 @@ public class Polygon {
 	Vector3d V = vec1.vectorTo(vec3);
 	return U.cross(V);
     }
-    
+
     public void render(GL2 gl) {
 	for (Vertex v : this.verticies) {
 	    gl.glColor3f(v.color.x, v.color.y, v.color.z);
-	    gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+	    if (v.normal != null)
+		gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
 	    gl.glVertex3f(v.location.x, v.location.y, v.location.z);
 	}
     }
