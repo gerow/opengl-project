@@ -1,5 +1,6 @@
 package glproject;
 
+import java.awt.AWTException;
 import java.util.ArrayList;
 
 import javax.media.opengl.GL;
@@ -8,10 +9,11 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
 public class World {
-    Camera camera = new Camera();
+    Camera camera;
     ArrayList<Mesh> meshes = new ArrayList<Mesh>();
 
-    public World() {
+    public World() throws AWTException {
+	camera = new Camera();
 	camera.location.z = -250;
     }
 

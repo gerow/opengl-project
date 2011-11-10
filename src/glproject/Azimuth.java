@@ -9,11 +9,11 @@ public class Azimuth {
     private float heading = 0;
     private float altitude = 0;
     public float getHeading() {
-	float delta = heading - this.heading;
-	this.direction = Matrix3by3.getRotationY(delta).multiply(this.direction);
 	return heading;
     }
     public void setHeading(float heading) {
+	float delta = heading - this.heading;
+	this.direction = Matrix3by3.getRotationY(delta).multiply(this.direction);
 	this.heading = heading;
     }
     public float getAltitude() {

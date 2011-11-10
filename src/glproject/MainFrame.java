@@ -24,10 +24,10 @@ public class MainFrame extends JFrame implements GLEventListener {
     GLU glu = new GLU();
     GLCanvas canvas = new GLCanvas();
     Animator animator = new Animator(this.canvas);
-    World world = new World();
-    Robot robot;
+    World world;
     
     public MainFrame() throws IOException, AWTException {
+	world = new World();
 	this.setTitle("OpenGL Project version 1");
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.add(canvas);
@@ -36,7 +36,6 @@ public class MainFrame extends JFrame implements GLEventListener {
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
         canvas.addGLEventListener(this);
         this.world.meshes.add(Mesh.loadMeshFromObjFile("teapot.obj"));
-        robot = new Robot();
     }
 
     @Override
@@ -57,7 +56,6 @@ public class MainFrame extends JFrame implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable drawable) {
-	robot.mouseMove(320, 240);
 	this.world.render(drawable, this.glu);
     }
 
@@ -84,6 +82,7 @@ public class MainFrame extends JFrame implements GLEventListener {
 	mainFrame.animator.start();
 	mainFrame.canvas.addKeyListener(mainFrame.world.camera);
 	mainFrame.canvas.addMouseMotionListener(mainFrame.world.camera);
+	mainFrame.canvas.addMouseListener(mainFrame.world.camera);
 	mainFrame.canvas.requestFocus();
     }
 }

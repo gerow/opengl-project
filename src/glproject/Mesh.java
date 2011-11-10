@@ -140,7 +140,9 @@ public class Mesh {
 	    }
 	}
 
-	return new Mesh(polygons, new Vector3d(0, 0, 0), new Vector3d(0, 0, 0),
+	Mesh out = new Mesh(polygons, new Vector3d(0, 0, 0), new Vector3d(0, 0, 0),
 		new Vector3d(1, 1, 1), null);
+	out.calculateVertexNormals();
+	return out;
     }
 }
