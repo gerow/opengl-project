@@ -3,7 +3,6 @@ package glproject;
 import java.util.ArrayList;
 
 import javax.media.opengl.GL2;
-import javax.media.opengl.GL3;
 
 public class Polygon {
     public enum Type {
