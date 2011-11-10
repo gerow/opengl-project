@@ -3,6 +3,8 @@ package glproject;
 import java.util.ArrayList;
 
 import javax.media.opengl.GL2;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.glu.GLU;
 
 public class Polygon {
     public enum Type {
@@ -38,7 +40,8 @@ public class Polygon {
 	return U.cross(V);
     }
 
-    public void render(GL2 gl) {
+    public void render(GLAutoDrawable drawable, GLU glu) {
+	GL2 gl = drawable.getGL().getGL2();
 	for (Vertex v : this.verticies) {
 	    if (v.textureCoordinate != null)
 		gl.glTexCoord2f(v.textureCoordinate.x, v.textureCoordinate.y);
