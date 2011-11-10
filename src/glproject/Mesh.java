@@ -15,7 +15,9 @@ public class Mesh {
     Vector3d rotation;
     Vector3d scaling;
     
-    public Mesh(ArrayList<Polygon> polys, Vector3d translation, Vector3d rotation, Vector3d scaling) {
+    Integer textureIndex = null;
+    
+    public Mesh(ArrayList<Polygon> polys, Vector3d translation, Vector3d rotation, Vector3d scaling, Integer textureIndex) {
 	this.translation = translation;
 	this.rotation = rotation;
 	this.scaling = scaling;
@@ -28,9 +30,12 @@ public class Mesh {
 	    else
 		this.polygons.add(p);
 	}
+	this.textureIndex = textureIndex;
     }
     
     public void render(GL2 gl) {
+	if (this.textureIndex != null)
+	    gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureIndex);
 	gl.glTranslatef(translation.x, translation.y, translation.z);
 	gl.glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 	gl.glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);

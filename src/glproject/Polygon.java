@@ -41,7 +41,10 @@ public class Polygon {
 
     public void render(GL2 gl) {
 	for (Vertex v : this.verticies) {
-	    gl.glColor3f(v.color.x, v.color.y, v.color.z);
+	    if (v.textureCoordinate != null)
+		gl.glTexCoord2f(v.textureCoordinate.x, v.textureCoordinate.y);
+	    else
+		gl.glColor3f(v.color.x, v.color.y, v.color.z);
 	    if (v.normal != null)
 		gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
 	    gl.glVertex3f(v.location.x, v.location.y, v.location.z);
