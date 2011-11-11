@@ -5,6 +5,8 @@ import glproject.World;
 import java.awt.AWTException;
 import java.awt.Frame;
 import java.awt.Robot;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.media.opengl.GL;
@@ -17,14 +19,19 @@ import javax.media.opengl.fixedfunc.GLLightingFunc;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
+import javax.swing.Timer;
+
+import sceneobjects.Teapot;
 
 import com.jogamp.opengl.util.Animator;
 
-public class MainFrame extends JFrame implements GLEventListener {
+public class MainFrame extends JFrame implements GLEventListener, ActionListener {
+    public static final int TICKRATE = 33;
     GLU glu = new GLU();
     GLCanvas canvas = new GLCanvas();
     Animator animator = new Animator(this.canvas);
     World world;
+    private Timer t = new Timer(1000 / MainFrame.TICKRATE, this);
     
     public MainFrame() throws IOException, AWTException {
 	world = new World();
@@ -35,7 +42,9 @@ public class MainFrame extends JFrame implements GLEventListener {
 	this.setUndecorated(true);
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
         canvas.addGLEventListener(this);
-        this.world.meshes.add(Mesh.loadMeshFromObjFile("teapot.obj"));
+        Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
+        this.world.meshes.add(teapot);
+        this.world.addSceneObject(new Teapot(teapot));
     }
 
     @Override
@@ -58,6 +67,10 @@ public class MainFrame extends JFrame implements GLEventListener {
     public void display(GLAutoDrawable drawable) {
 	this.world.render(drawable, this.glu);
     }
+    
+    public void step() {
+	this.world.step();
+    }
 
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int width,
@@ -73,16 +86,30 @@ public class MainFrame extends JFrame implements GLEventListener {
         //glu.gluLookAt(eyeX, eyeY, eyeZ, centerX, centerY, centerZ, upX, upY, upZ)
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
-	
+    }
+    
+    public void start() {
+	this.t.start();
+    }
+    
+    public void stop() {
+	this.t.stop();
     }
     
     public static void main(String args[]) throws IOException, AWTException {
 	MainFrame mainFrame = new MainFrame();
 	mainFrame.setVisible(true);
+	mainFrame.start();
+	mainFrame.animator.setRunAsFastAsPossible(true);
 	mainFrame.animator.start();
 	mainFrame.canvas.addKeyListener(mainFrame.world.camera);
 	mainFrame.canvas.addMouseMotionListener(mainFrame.world.camera);
 	mainFrame.canvas.addMouseListener(mainFrame.world.camera);
 	mainFrame.canvas.requestFocus();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent arg0) {
+	this.step();
     }
 }

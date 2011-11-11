@@ -11,10 +11,21 @@ import javax.media.opengl.glu.GLU;
 public class World {
     Camera camera;
     ArrayList<Mesh> meshes = new ArrayList<Mesh>();
+    ArrayList<SceneObject> sceneObjects = new ArrayList<SceneObject>();
+    private boolean displayFps = true;
 
     public World() throws AWTException {
 	camera = new Camera();
 	camera.location.z = -250;
+    }
+    
+    public void addSceneObject(SceneObject sceneObject) {
+	this.sceneObjects.add(sceneObject);
+    }
+    
+    public void step() {
+	for (SceneObject o : this.sceneObjects)
+	    o.step();
     }
 
     public void render(GLAutoDrawable drawable, GLU glu) {
@@ -31,7 +42,6 @@ public class World {
 	glu.gluLookAt(camera.location.x, camera.location.y, camera.location.z,
 		reference.x, reference.y, reference.z, 0.0f, 1.0f, 0.0f);
 	for (Mesh m : meshes) {
-	    m.step();
 	    m.render(drawable, glu);
 	}
 	gl.glPopMatrix();

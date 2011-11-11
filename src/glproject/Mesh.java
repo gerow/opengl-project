@@ -14,18 +14,18 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
 public class Mesh {
-    ArrayList<Polygon> triangles = new ArrayList<Polygon>();
-    ArrayList<Polygon> quads = new ArrayList<Polygon>();
-    ArrayList<Polygon> polygons = new ArrayList<Polygon>();
+    public ArrayList<Polygon> triangles = new ArrayList<Polygon>();
+    public ArrayList<Polygon> quads = new ArrayList<Polygon>();
+    public ArrayList<Polygon> polygons = new ArrayList<Polygon>();
 
-    ArrayList<Polygon> allPolys = new ArrayList<Polygon>();
-    Vector3d translation;
+    public ArrayList<Polygon> allPolys = new ArrayList<Polygon>();
+    public Vector3d translation;
     // This is in DEGREES
-    Vector3d rotation;
-    Vector3d scaling;
-    static Random random = new Random();
+    public Vector3d rotation;
+    public Vector3d scaling;
+    public static Random random = new Random();
 
-    Integer textureIndex = null;
+    public Integer textureIndex = null;
 
     public Mesh(ArrayList<Polygon> polys, Vector3d translation,
 	    Vector3d rotation, Vector3d scaling, Integer textureIndex) {
@@ -146,10 +146,5 @@ public class Mesh {
 		new Vector3d(1, 1, 1), null);
 	out.calculateVertexNormals();
 	return out;
-    }
-    
-    public void step() {
-	this.rotation.y += 1;
-	this.rotation.x += 1;
     }
 }
