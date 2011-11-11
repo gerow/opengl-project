@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
@@ -22,6 +23,7 @@ public class Mesh {
     // This is in DEGREES
     Vector3d rotation;
     Vector3d scaling;
+    static Random random = new Random();
 
     Integer textureIndex = null;
 
@@ -120,7 +122,7 @@ public class Mesh {
 		v.location.x = Float.valueOf(splitLines[1]);
 		v.location.y = Float.valueOf(splitLines[2]);
 		v.location.z = Float.valueOf(splitLines[3]);
-		v.color = new Vector3d(1, 0, 0);
+		v.color = new Vector3d(random.nextFloat(), random.nextFloat(), random.nextFloat());
 		verticies.add(v);
 		//System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
@@ -144,5 +146,10 @@ public class Mesh {
 		new Vector3d(1, 1, 1), null);
 	out.calculateVertexNormals();
 	return out;
+    }
+    
+    public void step() {
+	this.rotation.y += 1;
+	this.rotation.x += 1;
     }
 }

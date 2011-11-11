@@ -40,7 +40,17 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	if (back)
 	    this.location = this.location.add(this.azimuth.direction
 		    .multiply(-SPEED));
-	// azimuth.setAltitude(azimuth.getAltitude() + Mouse.getDY());
+	//if (left)
+	//    this.location = this.location.add(this.getUnitLeft().multiply(SPEED));
+	//if (right)
+	//    this.location = this.location.add(this.getUnitLeft().multiply(-SPEED));
+    }
+    
+    public Vector3d getUnitLeft() {
+	Vector3d out = new Vector3d(azimuth.direction);
+	out.y = 0;
+	out.x = -out.x;
+	return out.normalize();
     }
 
     public void keyPressed(KeyEvent arg0) {
@@ -50,6 +60,15 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	    break;
 	case KeyEvent.VK_S:
 	    this.back = true;
+	    break;
+	case KeyEvent.VK_A:
+	    this.left = true;
+	    break;
+	case KeyEvent.VK_D:
+	    this.right = true;
+	    break;
+	case KeyEvent.VK_ESCAPE:
+	    this.mouseListening = false;
 	    break;
 	}
     }
@@ -62,8 +81,11 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	case KeyEvent.VK_S:
 	    this.back = false;
 	    break;
-	case KeyEvent.VK_ESCAPE:
-	    this.mouseListening = false;
+	case KeyEvent.VK_A:
+	    this.left = false;
+	    break;
+	case KeyEvent.VK_D:
+	    this.right = true;
 	    break;
 	}
     }
@@ -93,8 +115,8 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent arg0) {
-	this.mouseListening = true;
 	robot.mouseMove(MOUSE_LOCATION_X, MOUSE_LOCATION_Y);
+	this.mouseListening = true;
     }
 
     @Override

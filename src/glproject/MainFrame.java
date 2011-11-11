@@ -31,7 +31,7 @@ public class MainFrame extends JFrame implements GLEventListener {
 	this.setTitle("OpenGL Project version 1");
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.add(canvas);
-	this.setSize(640, 480);
+	this.setSize(1280, 1024);
 	this.setUndecorated(true);
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
         canvas.addGLEventListener(this);

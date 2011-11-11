@@ -6,6 +6,12 @@ public class Vector3d {
     public Vector3d() {
 	this.x = this.y = this.z = 0.0f;
     }
+    
+    public Vector3d(Vector3d other) {
+	this.x = other.x;
+	this.y = other.y;
+	this.z = other.z;
+    }
 
     public Vector3d(float x, float y, float z) {
 	this.x = x;
