@@ -25,28 +25,25 @@ import sceneobjects.Teapot;
 
 import com.jogamp.opengl.util.Animator;
 
-public class MainFrame extends JFrame implements GLEventListener, ActionListener {
-    public static final int TICKRATE = 33;
-    GLU glu = new GLU();
-    GLCanvas canvas = new GLCanvas();
-    Animator animator = new Animator(this.canvas);
+public class MainFrame extends JFrame {
+    //public static final int TICKRATE = 33;
+    //GLU glu = new GLU();
+    //GLCanvas canvas = new GLCanvas();
+    //Animator animator = new Animator(this.canvas);
     World world;
-    private Timer t = new Timer(1000 / MainFrame.TICKRATE, this);
+    //private Timer t = new Timer(1000 / MainFrame.TICKRATE, this);
     
     public MainFrame() throws IOException, AWTException {
 	world = new World();
 	this.setTitle("OpenGL Project version 1");
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	this.add(canvas);
+	this.add(world);
 	this.setSize(1280, 1024);
 	this.setUndecorated(true);
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
-        canvas.addGLEventListener(this);
-        Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
-        this.world.addMesh(teapot);
-        this.world.addSceneObject(new Teapot(teapot));
     }
 
+    /*
     @Override
     public void init(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
@@ -57,6 +54,7 @@ public class MainFrame extends JFrame implements GLEventListener, ActionListener
         gl.glDepthFunc(GL.GL_LEQUAL);
         gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
     }
+
 
     @Override
     public void dispose(GLAutoDrawable drawable) {
@@ -95,21 +93,28 @@ public class MainFrame extends JFrame implements GLEventListener, ActionListener
     public void stop() {
 	this.t.stop();
     }
+    */
     
     public static void main(String args[]) throws IOException, AWTException {
 	MainFrame mainFrame = new MainFrame();
 	mainFrame.setVisible(true);
-	mainFrame.start();
-	mainFrame.animator.setRunAsFastAsPossible(true);
-	mainFrame.animator.start();
-	mainFrame.canvas.addKeyListener(mainFrame.world.getActiveCamera());
-	mainFrame.canvas.addMouseMotionListener(mainFrame.world.getActiveCamera());
-	mainFrame.canvas.addMouseListener(mainFrame.world.getActiveCamera());
-	mainFrame.canvas.requestFocus();
+	//mainFrame.animator.setRunAsFastAsPossible(true);
+	//mainFrame.animator.start();
+	//mainFrame.canvas.addKeyListener(mainFrame.world.getActiveCamera());
+	//mainFrame.canvas.addMouseMotionListener(mainFrame.world.getActiveCamera());
+	//mainFrame.canvas.addMouseListener(mainFrame.world.getActiveCamera());
+	//mainFrame.canvas.requestFocus();
+        Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
+        mainFrame.world.addMesh(teapot);
+        mainFrame.world.addSceneObject(new Teapot(teapot));
+	mainFrame.world.startRender();
+	mainFrame.world.startLogic();
     }
 
+    /*
     @Override
     public void actionPerformed(ActionEvent arg0) {
 	this.step();
     }
+    */
 }
