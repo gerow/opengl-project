@@ -43,7 +43,7 @@ public class MainFrame extends JFrame implements GLEventListener, ActionListener
         this.setExtendedState(Frame.MAXIMIZED_BOTH);
         canvas.addGLEventListener(this);
         Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
-        this.world.meshes.add(teapot);
+        this.world.addMesh(teapot);
         this.world.addSceneObject(new Teapot(teapot));
     }
 
@@ -102,9 +102,9 @@ public class MainFrame extends JFrame implements GLEventListener, ActionListener
 	mainFrame.start();
 	mainFrame.animator.setRunAsFastAsPossible(true);
 	mainFrame.animator.start();
-	mainFrame.canvas.addKeyListener(mainFrame.world.camera);
-	mainFrame.canvas.addMouseMotionListener(mainFrame.world.camera);
-	mainFrame.canvas.addMouseListener(mainFrame.world.camera);
+	mainFrame.canvas.addKeyListener(mainFrame.world.getActiveCamera());
+	mainFrame.canvas.addMouseMotionListener(mainFrame.world.getActiveCamera());
+	mainFrame.canvas.addMouseListener(mainFrame.world.getActiveCamera());
 	mainFrame.canvas.requestFocus();
     }
 

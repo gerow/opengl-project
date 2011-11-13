@@ -2,26 +2,34 @@ package glproject;
 
 /**
  * @author gerow
- *
+ * 
  */
 public class Azimuth {
-    Vector3d direction = new Vector3d(0, 0, 1);
+    private static final Vector3d identity = new Vector3d(0, 0, 1);
+    Vector3d direction = Azimuth.identity;
     private float heading = 0;
     private float altitude = 0;
+
     public float getHeading() {
 	return heading;
     }
+
     public void setHeading(float heading) {
-	float delta = heading - this.heading;
-	this.direction = Matrix3by3.getRotationY(delta).multiply(this.direction);
 	this.heading = heading;
+	this.recalculateDirection();
     }
+
+    public void recalculateDirection() {
+	this.direction = Matrix3by3.getRotationX((float) Math.toRadians(this.altitude)).multiply(Azimuth.identity);
+	this.direction = Matrix3by3.getRotationY((float) Math.toRadians(this.heading)).multiply(this.direction);
+    }
+
     public float getAltitude() {
 	return altitude;
     }
+
     public void setAltitude(float altitude) {
-	float delta = altitude - this.altitude;
-	this.direction = Matrix3by3.getRotationX(delta).multiply(this.direction);
 	this.altitude = altitude;
+	this.recalculateDirection();
     }
 }

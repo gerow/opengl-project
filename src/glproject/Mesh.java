@@ -23,7 +23,6 @@ public class Mesh {
     // This is in DEGREES
     public Vector3d rotation;
     public Vector3d scaling;
-    public static Random random = new Random();
 
     public Integer textureIndex = null;
 
@@ -122,7 +121,7 @@ public class Mesh {
 		v.location.x = Float.valueOf(splitLines[1]);
 		v.location.y = Float.valueOf(splitLines[2]);
 		v.location.z = Float.valueOf(splitLines[3]);
-		v.color = new Vector3d(random.nextFloat(), random.nextFloat(), random.nextFloat());
+		v.color = new Vector3d(0.0f, 1.0f, 0.0f);
 		verticies.add(v);
 		//System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {

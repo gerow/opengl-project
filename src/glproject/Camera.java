@@ -54,6 +54,8 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
     }
 
     public void keyPressed(KeyEvent arg0) {
+	System.out.println("Key pressed");
+	System.out.println(this.azimuth.direction.x + " " + this.azimuth.direction.y + " " + this.azimuth.direction.z);
 	switch (arg0.getKeyCode()) {
 	case KeyEvent.VK_W:
 	    this.forward = true;
@@ -106,9 +108,9 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
     public void mouseMoved(MouseEvent arg0) {
 	if (this.mouseListening) {
 	    this.azimuth.setHeading(this.azimuth.getHeading()
-		    - (arg0.getXOnScreen() - MOUSE_LOCATION_X) / 10.0f);
+		    - (arg0.getXOnScreen() - MOUSE_LOCATION_X) * 4.0f);
 	    this.azimuth.setAltitude(this.azimuth.getAltitude()
-		    + (arg0.getYOnScreen() - MOUSE_LOCATION_Y) / 10.0f);
+		    + (arg0.getYOnScreen() - MOUSE_LOCATION_Y) * 4.0f);
 	    robot.mouseMove(MOUSE_LOCATION_X, MOUSE_LOCATION_Y);
 	}
     }
