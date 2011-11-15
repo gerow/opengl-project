@@ -11,7 +11,8 @@ public class Teapot implements SceneObject {
 	this.teapot = teapot;
     }
     public void step() {
-	//this.teapot.rotation.x += 1;
+	this.teapot.rotation.x += 1;
+	this.teapot.rotation.z += 2;
 	//this.teapot.scaling.x += 0.01;
     }
     public void initialize(World world) {

@@ -26,14 +26,14 @@ public class Polygon {
 	    this.type = Type.QUAD;
 	else
 	    this.type = Type.POLY;
-	this.surfaceNormal = this.computeSurfaceNormal(
+	this.surfaceNormal = Polygon.computeSurfaceNormal(
 		verticies.get(0).location, verticies.get(1).location,
 		verticies.get(2).location);
 	for (Vertex v : this.verticies)
 	    v.surfaceNormal = this.surfaceNormal;
     }
 
-    private Vector3d computeSurfaceNormal(Vector3d vec1, Vector3d vec2,
+    public static Vector3d computeSurfaceNormal(Vector3d vec1, Vector3d vec2,
 	    Vector3d vec3) {
 	Vector3d U = vec1.vectorTo(vec2);
 	Vector3d V = vec1.vectorTo(vec3);
