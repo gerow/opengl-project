@@ -115,4 +115,21 @@ public abstract class DynamicSceneObject implements SceneObject {
     public Vector3d getScalingAcceleration() {
 	return this.scalingAcceleration;
     }
+    
+    public void scalingVelocityMove() {
+	this.setScale(this.scale.add(this.scalingVelocity));
+    }
+    
+    public void scalingAccelerationMove() {
+	this.scalingVelocity = this.scalingVelocity.add(this.scalingAcceleration);
+	this.scalingVelocityMove();
+    }
+    
+    public void rotationalVelocityMove() {
+	this.setRotation(this.rotation.add(this.rotationalVelocity));
+    }
+    
+    public void rotationalAccelerationMove() {
+	this.rotationalVelocity = this.rotationalVelocity.add(this.rotationalAcceleration);
+    }
 }

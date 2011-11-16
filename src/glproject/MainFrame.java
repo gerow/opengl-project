@@ -120,6 +120,8 @@ public class MainFrame extends JFrame {
 	//mainFrame.world.addMesh(m);
 	mainFrame.world.addSceneObject(orbiter1);
 	mainFrame.world.addSceneObject(orbiter2);
+	orbiter1.setRotationalVelocity(new Vector3d(3, 1, 0));
+	orbiter2.setRotationalVelocity(new Vector3d(0, 1, 0));
 	//mainFrame.world.addMesh(m2);
 	mainFrame.world.startRender();
 	mainFrame.world.startLogic();

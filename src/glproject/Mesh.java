@@ -73,8 +73,7 @@ public class Mesh {
 	    }
 	    gl.glEndList();
 	}
-	else
-	    gl.glCallList(this.displayListId);
+	gl.glCallList(this.displayListId);
 	gl.glPopMatrix();
     }
 

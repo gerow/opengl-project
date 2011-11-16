@@ -47,6 +47,7 @@ public class Orbiter extends DynamicSceneObject {
 
     public void step() {
 	this.orbitMove();
+	this.rotationalVelocityMove();
     }
 
 }
