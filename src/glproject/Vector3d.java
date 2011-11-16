@@ -62,4 +62,8 @@ public class Vector3d {
     public boolean equals(Vector3d other) {
 	return (this.x == other.x && this.y == other.y && this.z == other.z);
     }
+    
+    public float magnitude() {
+	return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
 }
