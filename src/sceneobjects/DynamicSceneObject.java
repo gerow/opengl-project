@@ -14,6 +14,12 @@ public abstract class DynamicSceneObject implements SceneObject {
     private Vector3d acceleration = new Vector3d(0, 0, 0);
     
     private Vector3d rotation = new Vector3d(0, 0, 0);
+    private Vector3d rotationalVelocity = new Vector3d(0, 0, 0);
+    private Vector3d rotationalAcceleration = new Vector3d(0, 0, 0);
+    
+    private Vector3d scale = new Vector3d(1, 1, 1);
+    private Vector3d scalingVelocity = new Vector3d(0, 0, 0);
+    private Vector3d scalingAcceleration = new Vector3d(0, 0, 0);
     
     public DynamicSceneObject(Mesh mesh) {
 	this.mesh = mesh;
@@ -26,6 +32,7 @@ public abstract class DynamicSceneObject implements SceneObject {
     
     public void initialize(World world) {
 	this.world = world;
+	this.world.addMesh(this.mesh);
     }
     
     public void velocityMove() {
@@ -65,9 +72,47 @@ public abstract class DynamicSceneObject implements SceneObject {
     
     public void setRotation(Vector3d rotation) {
 	this.rotation = rotation;
+	this.mesh.rotation = this.rotation;
     }
     
     public Vector3d getRotation() {
 	return this.rotation;
+    }
+    
+    public void setRotationalVelocity(Vector3d rotationalVelocity) {
+	this.rotationalVelocity = rotationalVelocity;
+    }
+    
+    public Vector3d getRotationalVelocity() {
+	return this.rotationalVelocity;
+    }
+    
+    public void setRotationalAcceleration(Vector3d rotationalAcceleration) {
+	this.rotationalAcceleration = rotationalAcceleration;
+    }
+    
+    public void setScale(Vector3d scale) {
+	this.scale = scale;
+	this.mesh.scaling = this.scale;
+    }
+    
+    public Vector3d getScale() {
+	return this.scale;
+    }
+    
+    public void setScalingVelocity(Vector3d scalingVelocity) {
+	this.scalingVelocity = scalingVelocity;
+    }
+    
+    public Vector3d getScalingVelocity() {
+	return this.scalingVelocity;
+    }
+    
+    public void setScalingAcceleration(Vector3d scalingAcceleration) {
+	this.scalingAcceleration = scalingAcceleration;
+    }
+    
+    public Vector3d getScalingAcceleration() {
+	return this.scalingAcceleration;
     }
 }

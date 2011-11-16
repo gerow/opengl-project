@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import glproject.Mesh;
 import glproject.Vector3d;
 
+/**
+ * 
+ * @author gerow
+ * @deprecated
+ */
 public class GravityMover extends DynamicSceneObject {
     public static float G = (float) (6 * Math.pow(10, -11));
     private float mass = 0;

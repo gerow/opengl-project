@@ -12,6 +12,18 @@ public class Vertex {
 	this.textureCoordinate = textureCoordinate;
     }
     
+    public Vertex(Vertex copy) {
+	this.location = new Vector3d(copy.location);
+	if (copy.normal != null)
+	    this.normal = new Vector3d(copy.normal);
+	if (copy.surfaceNormal != null)
+	    this.surfaceNormal = new Vector3d(copy.surfaceNormal);
+	if (copy.textureCoordinate != null)
+	    this.textureCoordinate = new Vector2d(copy.textureCoordinate);
+	if (copy.color != null)
+	    this.color = new Vector3d(copy.color);
+    }
+    
     public Vertex() {
 	this.location = new Vector3d(0.0f, 0.0f, 0.0f);
     }

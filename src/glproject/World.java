@@ -38,17 +38,18 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	this.addGLEventListener(this);
 	this.animator.setRunAsFastAsPossible(true);
 	this.setActiveCamera(new Camera());
-	this.activeCamera.location.z = -250;
+	this.activeCamera.location.z = -200;
+	new Controller(this);
     }
     
     public void setActiveCamera(Camera camera) {
-	this.removeKeyListener(this.activeCamera);
-	this.removeMouseListener(this.activeCamera);
-	this.removeMouseMotionListener(this.activeCamera);
+	//this.removeKeyListener(this.activeCamera);
+	//this.removeMouseListener(this.activeCamera);
+	//this.removeMouseMotionListener(this.activeCamera);
 	this.activeCamera = camera;
-	this.addKeyListener(this.activeCamera);
-	this.addMouseMotionListener(this.activeCamera);
-	this.addMouseListener(this.activeCamera);
+	//this.addKeyListener(this.activeCamera);
+	//this.addMouseMotionListener(this.activeCamera);
+	//this.addMouseListener(this.activeCamera);
 	this.requestFocus();
     }
     
@@ -73,6 +74,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     }
     
     public void addSceneObject(SceneObject sceneObject) {
+	sceneObject.initialize(this);
 	this.sceneObjects.add(sceneObject);
     }
     
@@ -90,8 +92,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	GL2 gl = drawable.getGL().getGL2();
 	
 	//TEST CODE
-        float[] lightPosition = {-75, 0, 0, 1};
-        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0);
+        //float[] lightPosition = {-75, 0, 0, 1};
+        //gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0);
         //TEST CODE
 	
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
@@ -125,8 +127,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
         gl.glEnable(GL2.GL_DEPTH_TEST);
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
-        gl.glEnable(GL2.GL_LIGHTING);
-        gl.glEnable(GL2.GL_LIGHT0);
+        //gl.glEnable(GL2.GL_LIGHTING);
+        //gl.glEnable(GL2.GL_LIGHT0);
     }
 
     @Override
@@ -150,7 +152,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
         float h = (float) width / (float) height;
         gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(50.0f, h, 1.0, 1000.0);
+        glu.gluPerspective(50.0f, h, 1.0, 100000.0);
         gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
         gl.glLoadIdentity();
     }

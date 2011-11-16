@@ -25,6 +25,7 @@ public class Mesh {
     public Vector3d scaling;
 
     public Integer textureIndex = null;
+    private Integer displayListId = null;
 
     public Mesh(ArrayList<Polygon> polys, Vector3d translation,
 	    Vector3d rotation, Vector3d scaling, Integer textureIndex) {
@@ -45,6 +46,7 @@ public class Mesh {
 
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
+	gl.glPushMatrix();
 	if (this.textureIndex != null)
 	    gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureIndex);
 	gl.glTranslatef(translation.x, translation.y, translation.z);
@@ -52,29 +54,27 @@ public class Mesh {
 	gl.glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
 	gl.glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
 	gl.glScalef(scaling.x, scaling.y, scaling.z);
-	// Start triangles
-	gl.glBegin(GL2.GL_TRIANGLES);
-	for (Polygon p : this.triangles)
-	    p.render(drawable, glu);
-	gl.glEnd();
-	gl.glBegin(GL2.GL_QUADS);
-	for (Polygon p : this.quads)
-	    p.render(drawable, glu);
-	gl.glEnd();
-	for (Polygon p : this.polygons) {
-	    gl.glBegin(GL2.GL_POLYGON);
-	    p.render(drawable, glu);
+	// Start verticies
+	if (this.displayListId == null) {
+	    this.displayListId = gl.glGenLists(1);
+	    gl.glNewList(this.displayListId, GL2.GL_COMPILE);
+	    gl.glBegin(GL2.GL_TRIANGLES);
+	    for (Polygon p : this.triangles)
+		p.render(drawable, glu);
 	    gl.glEnd();
+	    gl.glBegin(GL2.GL_QUADS);
+	    for (Polygon p : this.quads)
+		p.render(drawable, glu);
+	    gl.glEnd();
+	    for (Polygon p : this.polygons) {
+		gl.glBegin(GL2.GL_POLYGON);
+		p.render(drawable, glu);
+		gl.glEnd();
+	    }
+	    gl.glEndList();
 	}
-	// Pop the scaling matrix
-	gl.glPopMatrix();
-	// Pop the rotx matrix
-	gl.glPopMatrix();
-	// Pop the roty matrix
-	gl.glPopMatrix();
-	// Pop the rotz matrix
-	gl.glPopMatrix();
-	// Pop the translation matrix
+	else
+	    gl.glCallList(this.displayListId);
 	gl.glPopMatrix();
     }
 
@@ -107,13 +107,14 @@ public class Mesh {
 
     public static Mesh loadMeshFromObjFile(String filename) throws IOException {
 	ArrayList<Vertex> verticies = new ArrayList<Vertex>();
+	ArrayList<Vector2d> textureCoordinates = new ArrayList<Vector2d>();
 	ArrayList<Polygon> polygons = new ArrayList<Polygon>();
 	BufferedReader reader = null;
 	reader = new BufferedReader(
 		new FileReader("assets/objects/" + filename));
 	String line;
 	String splitLines[];
-	int textureCount = 0;
+	Random r = new Random();
 	while ((line = reader.readLine()) != null) {
 	    splitLines = line.split("\\s+");
 	    if (splitLines[0].equals("v")) {
@@ -121,28 +122,36 @@ public class Mesh {
 		v.location.x = Float.valueOf(splitLines[1]);
 		v.location.y = Float.valueOf(splitLines[2]);
 		v.location.z = Float.valueOf(splitLines[3]);
-		v.color = new Vector3d(0.0f, 1.0f, 0.0f);
+		v.color = new Vector3d(r.nextFloat(), r.nextFloat(),
+			r.nextFloat());
 		verticies.add(v);
-		//System.out.println("Adding new vertex " + line);
+		System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
 		float u = Float.valueOf(splitLines[1]);
 		float v = Float.valueOf(splitLines[2]);
-		verticies.get(textureCount).textureCoordinate = new Vector2d(u,
-			v);
-		textureCount++;
+		textureCoordinates.add(new Vector2d(u, v));
 	    } else if (splitLines[0].equals("f")) {
+		System.out.println("Adding new face " + line);
 		ArrayList<Vertex> polygonVerticies = new ArrayList<Vertex>();
 		for (int i = 1; i < splitLines.length; ++i) {
-		    polygonVerticies.add(verticies.get(Integer
-			    .valueOf(splitLines[i]) - 1));
+		    String[] slashSplitLines = splitLines[i].split("/");
+		    Vertex tempVertex = null;
+		    tempVertex = new Vertex(verticies.get(Integer
+			    .valueOf(slashSplitLines[0]) - 1));
+		    if (slashSplitLines.length >= 2) {
+			tempVertex.textureCoordinate = new Vector2d(
+				textureCoordinates.get(Integer
+					.valueOf(slashSplitLines[1]) - 1));
+		    }
+		    polygonVerticies.add(tempVertex);
 		}
 		Polygon p = new Polygon(polygonVerticies);
 		polygons.add(p);
 	    }
 	}
 
-	Mesh out = new Mesh(polygons, new Vector3d(0, 0, 0), new Vector3d(0, 0, 0),
-		new Vector3d(1, 1, 1), null);
+	Mesh out = new Mesh(polygons, new Vector3d(0, 0, 0), new Vector3d(0, 0,
+		0), new Vector3d(1, 1, 1), null);
 	out.calculateVertexNormals();
 	return out;
     }

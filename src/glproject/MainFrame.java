@@ -3,6 +3,7 @@ package glproject;
 import glproject.World;
 
 import java.awt.AWTException;
+import java.awt.Cursor;
 import java.awt.Frame;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
+import sceneobjects.Orbiter;
 import sceneobjects.Teapot;
 
 import com.jogamp.opengl.util.Animator;
@@ -104,9 +106,21 @@ public class MainFrame extends JFrame {
 	//mainFrame.canvas.addMouseMotionListener(mainFrame.world.getActiveCamera());
 	//mainFrame.canvas.addMouseListener(mainFrame.world.getActiveCamera());
 	//mainFrame.canvas.requestFocus();
-        Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
-        mainFrame.world.addMesh(teapot);
-        mainFrame.world.addSceneObject(new Teapot(teapot));
+        //Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
+        //mainFrame.world.addMesh(teapot);
+        //mainFrame.world.addSceneObject(new Teapot(teapot));
+	Mesh m = Mesh.loadMeshFromObjFile("teapot.obj");
+	Orbiter orbiter1 = new Orbiter(m);
+	Mesh m2 = Mesh.loadMeshFromObjFile("teapot.obj");
+	Orbiter orbiter2 = new Orbiter(m2);
+	orbiter1.addAffectedBy(orbiter2);
+	//orbiter2.addAffectedBy(orbiter1);
+	orbiter1.setLocation(new Vector3d(100, 100, 100));
+	orbiter1.setVelocity(new Vector3d(0, 9, 1));
+	//mainFrame.world.addMesh(m);
+	mainFrame.world.addSceneObject(orbiter1);
+	mainFrame.world.addSceneObject(orbiter2);
+	//mainFrame.world.addMesh(m2);
 	mainFrame.world.startRender();
 	mainFrame.world.startLogic();
     }

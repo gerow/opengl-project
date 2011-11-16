@@ -8,6 +8,9 @@ public class Vector3d {
     }
     
     public Vector3d(Vector3d other) {
+	if (other == null) {
+	    return;
+	}
 	this.x = other.x;
 	this.y = other.y;
 	this.z = other.z;
