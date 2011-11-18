@@ -15,6 +15,7 @@ public class Material {
     public Vector4d specular = new Vector4d();
     public float shininess = 0.0f;
     public Face face = Face.FRONT;
+    public String texture = null;
 
     public Material() {
 
@@ -28,13 +29,20 @@ public class Material {
 	this.shininess = shininess;
     }
     
-    public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular, float shininess, Face face) {
+    public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular, float shininess, String texture) {
 	this(ambient, diffuse, specular, shininess);
+	
+	this.texture = texture;
+    }
+    
+    public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular, float shininess, String texture, Face face) {
+	this(ambient, diffuse, specular, shininess, texture);
 	
 	this.face = face;
     }
 
     public void enableMaterial(GLAutoDrawable drawable, GLU glu) {
+	//Still need to do texture mapping.
 	GL2 gl = drawable.getGL().getGL2();
 	
 	int faceInt = 0;
@@ -56,5 +64,9 @@ public class Material {
 	gl.glMaterialfv(faceInt, GL2.GL_SPECULAR, this.specular.toArray(),
 		0);
 	gl.glMaterialf(faceInt, GL2.GL_SHININESS, this.shininess);
+    }
+    
+    public static Material loadFromMtlFile(String mtlFile) {
+	return null;
     }
 }
