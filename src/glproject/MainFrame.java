@@ -111,7 +111,8 @@ public class MainFrame extends JFrame {
         //mainFrame.world.addSceneObject(new Teapot(teapot));
 	Mesh m = Mesh.loadMeshFromObjFile("teapot.obj");
 	Orbiter orbiter1 = new Orbiter(m);
-	Mesh m2 = Mesh.loadMeshFromObjFile("teapot.obj");
+	Mesh m2 = Mesh.loadMeshFromObjFile("mtdew.obj");
+	m2.scaling = new Vector3d(20, 20, 20);
 	Orbiter orbiter2 = new Orbiter(m2);
 	orbiter1.addAffectedBy(orbiter2);
 	//orbiter2.addAffectedBy(orbiter1);
