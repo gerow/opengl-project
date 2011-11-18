@@ -67,6 +67,6 @@ public class Vector3d {
     }
     
     public float magnitude() {
-	return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+	return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
     }
 }

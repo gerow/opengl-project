@@ -4,15 +4,15 @@ public class Light {
     private Vector3d location = new Vector3d(0, 0, 0);
     private Material material = new Material();
     
-    public void setAmbient(float ambient) {
+    public void setAmbient(Vector4d ambient) {
 	this.material.ambient = ambient;
     }
     
-    public void setDiffuse(float diffuse) {
+    public void setDiffuse(Vector4d diffuse) {
 	this.material.diffuse = diffuse;
     }
     
-    public void setSpecular(float specular) {
+    public void setSpecular(Vector4d specular) {
 	this.material.specular = specular;
     }
     
@@ -20,15 +20,15 @@ public class Light {
 	this.material = material;
     }
     
-    public float getAmbient() {
+    public Vector4d getAmbient() {
 	return this.material.ambient;
     }
     
-    public float getDiffuse() {
+    public Vector4d getDiffuse() {
 	return this.material.diffuse;
     }
     
-    public float getSpecular() {
+    public Vector4d getSpecular() {
 	return this.material.specular;
     }
     
