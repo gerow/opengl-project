@@ -133,6 +133,13 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	gl.glEnable(GL2.GL_DEPTH_TEST);
 	gl.glDepthFunc(GL2.GL_LEQUAL);
 	gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+	gl.glEnable(GL.GL_TEXTURE_2D);
+	
+	gl.glTexEnvf( GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE );
+	gl.glTexParameterf( GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR );
+	
+	gl.glTexParameterf( GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT );
+	gl.glTexParameterf( GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT );
 	//gl.glEnable(GL2.GL_LIGHTING);
 	//gl.glEnable(GL2.GL_LIGHT0);
     }
