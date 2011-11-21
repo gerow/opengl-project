@@ -1,6 +1,5 @@
-package glproject.scenes;
+package glproject;
 
-import glproject.Vector3d;
 
 public interface RealToVector3dFunction {
     public Vector3d eval(float t);

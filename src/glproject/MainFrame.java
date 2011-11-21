@@ -1,6 +1,7 @@
 package glproject;
 
 import glproject.World;
+import glproject.scenes.SolarSystem;
 
 import java.awt.AWTException;
 import java.awt.Cursor;
@@ -35,8 +36,8 @@ public class MainFrame extends JFrame {
     World world;
     //private Timer t = new Timer(1000 / MainFrame.TICKRATE, this);
     
-    public MainFrame() throws IOException, AWTException {
-	world = new World();
+    public MainFrame(World world) throws IOException, AWTException {
+	this.world = world;
 	this.setTitle("OpenGL Project version 1");
 	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	this.add(world);
@@ -98,35 +99,9 @@ public class MainFrame extends JFrame {
     */
     
     public static void main(String args[]) throws IOException, AWTException {
-	MainFrame mainFrame = new MainFrame();
+	MainFrame mainFrame = new MainFrame(new SolarSystem());
 	mainFrame.setVisible(true);
-	//mainFrame.animator.setRunAsFastAsPossible(true);
-	//mainFrame.animator.start();
-	//mainFrame.canvas.addKeyListener(mainFrame.world.getActiveCamera());
-	//mainFrame.canvas.addMouseMotionListener(mainFrame.world.getActiveCamera());
-	//mainFrame.canvas.addMouseListener(mainFrame.world.getActiveCamera());
-	//mainFrame.canvas.requestFocus();
-        //Mesh teapot = Mesh.loadMeshFromObjFile("teapot.obj");
-        //mainFrame.world.addMesh(teapot);
-        //mainFrame.world.addSceneObject(new Teapot(teapot));
-	Mesh m = Mesh.loadMeshFromObjFile("sphere.obj");
-	m.scaling = new Vector3d(20, 20, 20);
-	Orbiter orbiter1 = new Orbiter(m);
-	Mesh m2 = Mesh.loadMeshFromObjFile("sphere.obj");
-	m2.scaling = new Vector3d(20, 20, 20);
-	Orbiter orbiter2 = new Orbiter(m2);
-	orbiter1.addAffectedBy(orbiter2);
-	//orbiter2.addAffectedBy(orbiter1);
-	orbiter1.setLocation(new Vector3d(100, 100, 100));
-	orbiter1.setVelocity(new Vector3d(0, 9, 1));
-	//mainFrame.world.addMesh(m);
-	mainFrame.world.addSceneObject(orbiter1);
-	mainFrame.world.addSceneObject(orbiter2);
-	orbiter1.setRotationalVelocity(new Vector3d(3, 1, 0));
-	orbiter2.setRotationalVelocity(new Vector3d(0, 1, 0));
-	//mainFrame.world.addMesh(m2);
-	mainFrame.world.startRender();
-	mainFrame.world.startLogic();
+
     }
 
     /*

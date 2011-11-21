@@ -11,6 +11,8 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLException;
 import javax.media.opengl.glu.GLU;
 
+import com.jogamp.opengl.util.texture.Texture;
+
 public class Material {
     public enum Face {
 	FRONT, BACK, BOTH
@@ -21,7 +23,7 @@ public class Material {
     public Vector4d specular = new Vector4d();
     public float shininess = 0.0f;
     public Face face = Face.FRONT;
-    public int textureInt = 0;
+    public Texture texture;
 
     // public String texture = null;
 
@@ -43,7 +45,7 @@ public class Material {
 
 	// this.texture = texture;
 	if (texture != null)
-	    this.textureInt = TextureLoader.loadTexture(texture);
+	    this.texture = TextureLoader.loadTexture(texture);
     }
 
     public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular,
@@ -76,7 +78,8 @@ public class Material {
 	gl.glMaterialfv(faceInt, GL2.GL_DIFFUSE, this.diffuse.toArray(), 0);
 	gl.glMaterialfv(faceInt, GL2.GL_SPECULAR, this.specular.toArray(), 0);
 	gl.glMaterialf(faceInt, GL2.GL_SHININESS, this.shininess);
-	gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureInt);
+	//gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureInt);
+	this.texture.bind(gl);
     }
 
     public static Material loadFromMtlFile(String mtlFile, String mtlName)
@@ -87,7 +90,7 @@ public class Material {
 	float ns = 1.0f;
 	String textureName = null;
 
-	String map_kd;
+	//String map_kd;
 	BufferedReader reader = null;
 	reader = new BufferedReader(
 		new FileReader("assets/materials" + mtlFile));

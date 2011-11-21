@@ -19,7 +19,7 @@ public class TextureLoader {
 	public BufferedImage image;
 	public int integer;
     }
-    public static HashMap<String, Integer> images = new HashMap<String, Integer>();
+    public static HashMap<String, Texture> images = new HashMap<String, Texture>();
     public static GLAutoDrawable drawable;
     public static GLU glu;
     public static GL2 gl;
@@ -32,7 +32,7 @@ public class TextureLoader {
 	TextureLoader.gl = drawable.getGL().getGL2();
     }
     
-    public static int loadTexture(String name) throws GLException, IOException {
+    public static Texture loadTexture(String name) throws GLException, IOException {
 	if (TextureLoader.images.containsKey(name))
 	    return images.get(name);
 	//InputStream stream = new InputStream(new File("assets/textures/" + name)));
@@ -40,7 +40,7 @@ public class TextureLoader {
 	Texture texture = TextureIO.newTexture(new File("assets/texture/" + name), true);
 	texture.bind(gl);
 	//texture.getTextureObject(gl);
-	TextureLoader.images.put(name, texture.getTextureObject(gl));
-	return texture.getTarget();
+	TextureLoader.images.put(name, texture);
+	return texture;
     }
 }

@@ -1,9 +1,9 @@
 package sceneobjects;
 
 import glproject.Mesh;
+import glproject.RealToVector3dFunction;
 import glproject.SceneObject;
 import glproject.World;
-import glproject.scenes.RealToVector3dFunction;
 
 public class FunctionMover implements SceneObject {
     private Mesh mesh;
@@ -16,7 +16,7 @@ public class FunctionMover implements SceneObject {
     }
 
     public void step() {
-	this.mesh.translation = this.function.eval(System.currentTimeMillis());
+	this.mesh.translation = this.function.eval(System.currentTimeMillis() / 1000.0f);
     }
 
     public void initialize(World world) {
