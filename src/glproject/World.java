@@ -93,8 +93,9 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	GL2 gl = drawable.getGL().getGL2();
 
 	// TEST CODE
-	//float[] lightPosition = { -75, 0, 0, 1 };
-	//gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0);
+	float[] lightPosition = { -75, 0, 0, 1 };
+	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0);
+	gl.glEnable(GL2.GL_LIGHT0);
 	GLUquadric glq = glu.gluNewQuadric();
 	glu.gluQuadricDrawStyle(glq, GLU.GLU_FILL); /* smooth shaded */
 	glu.gluQuadricNormals(glq, GLU.GLU_SMOOTH);
@@ -127,6 +128,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     @Override
     public void init(GLAutoDrawable drawable) {
 	GL2 gl = drawable.getGL().getGL2();
+	TextureLoader.gl = gl;
+	TextureLoader.glu = glu;
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	gl.glClearDepth(1.0f);

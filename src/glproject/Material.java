@@ -93,7 +93,7 @@ public class Material {
 	//String map_kd;
 	BufferedReader reader = null;
 	reader = new BufferedReader(
-		new FileReader("assets/materials" + mtlFile));
+		new FileReader("assets/materials/" + mtlFile));
 	String line;
 	String[] splitLines;
 	boolean foundName = false;

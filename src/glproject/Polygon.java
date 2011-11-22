@@ -14,6 +14,7 @@ public class Polygon {
     Type type;
     public ArrayList<Vertex> verticies;
     public Vector3d surfaceNormal;
+    public Material material;
 
     public Polygon(ArrayList<Vertex> verticies) {
 	this.verticies = verticies;
@@ -42,6 +43,8 @@ public class Polygon {
 
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
+	if (this.material != null)
+	    this.material.enableMaterial(drawable, glu);
 	for (Vertex v : this.verticies) {
 	    if (v.textureCoordinate != null)
 		gl.glTexCoord2f(v.textureCoordinate.x, v.textureCoordinate.y);

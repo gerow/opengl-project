@@ -3,6 +3,8 @@ package glproject.scenes;
 import java.awt.AWTException;
 import java.io.IOException;
 
+import javax.media.opengl.GLAutoDrawable;
+
 import sceneobjects.Orbiter;
 
 import glproject.Mesh;
@@ -13,18 +15,27 @@ public class SolarSystem extends World {
 
     public SolarSystem() throws AWTException {
 	super();
+	
+	this.startRender();
+	this.startLogic();
+	//mainFrame.world.addMesh(m2);
+    }
+    
+    public void init(GLAutoDrawable drawable) {
+	super.init(drawable);
+	
 	Mesh m = null;
 	try {
-	    m = Mesh.loadMeshFromObjFile("sphere.obj");
+	    m = Mesh.loadMeshFromObjFile("saturnUV.obj");
 	} catch (IOException e1) {
 	    // TODO Auto-generated catch block
 	    e1.printStackTrace();
 	}
-	m.scaling = new Vector3d(80, 80, 80);
+	m.scaling = new Vector3d(1, 1, 1);
 	Orbiter orbiter1 = new Orbiter(m);
 	Mesh m2 = null;
 	try {
-	    m2 = Mesh.loadMeshFromObjFile("sphere.obj");
+	    m2 = Mesh.loadMeshFromObjFile("mtdew.obj");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -39,9 +50,5 @@ public class SolarSystem extends World {
 	this.addSceneObject(orbiter2);
 	orbiter1.setRotationalVelocity(new Vector3d(3, 1, 0));
 	orbiter2.setRotationalVelocity(new Vector3d(0, 1, 0));
-	//mainFrame.world.addMesh(m2);
-	this.startRender();
-	this.startLogic();
     }
-
 }

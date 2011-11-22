@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLContext;
 import javax.media.opengl.GLException;
 import javax.media.opengl.glu.GLU;
 
@@ -33,11 +34,12 @@ public class TextureLoader {
     }
     
     public static Texture loadTexture(String name) throws GLException, IOException {
-	if (TextureLoader.images.containsKey(name))
-	    return images.get(name);
+	//if (TextureLoader.images.containsKey(name))
+	//    return images.get(name);
 	//InputStream stream = new InputStream(new File("assets/textures/" + name)));
 	//BufferedImage im = ImageIO.read(new File("assets/texture/" + name));
-	Texture texture = TextureIO.newTexture(new File("assets/texture/" + name), true);
+	GLContext.getCurrent().setGL(gl);
+	Texture texture = TextureIO.newTexture(new File("assets/textures/" + name), true);
 	texture.bind(gl);
 	//texture.getTextureObject(gl);
 	TextureLoader.images.put(name, texture);

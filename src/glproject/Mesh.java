@@ -114,6 +114,8 @@ public class Mesh {
 	String line;
 	String splitLines[];
 	Random r = new Random();
+	Material currentMaterial = null;
+	String mtlFile = null;
 	while ((line = reader.readLine()) != null) {
 	    splitLines = line.split("\\s+");
 	    if (splitLines[0].equals("v")) {
@@ -145,7 +147,12 @@ public class Mesh {
 		    polygonVerticies.add(tempVertex);
 		}
 		Polygon p = new Polygon(polygonVerticies);
+		p.material = currentMaterial;
 		polygons.add(p);
+	    } else if (splitLines[0].equals("mtllib")) {
+		mtlFile = splitLines[1];
+	    } else if (splitLines[0].equals("usemtl")) {
+		currentMaterial = Material.loadFromMtlFile(mtlFile, splitLines[1]);
 	    }
 	}
 
