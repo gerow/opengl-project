@@ -101,12 +101,13 @@ public class Mesh {
 	}
 	Vector3d normal = sum.divide(commonVerticies.size());
 	for (Vertex vert : commonVerticies)
-	    vert.normal = normal;
+	    vert.normal = normal.multiply(-1);
     }
 
     public static Mesh loadMeshFromObjFile(String filename) throws IOException {
 	ArrayList<Vertex> verticies = new ArrayList<Vertex>();
 	ArrayList<Vector2d> textureCoordinates = new ArrayList<Vector2d>();
+	ArrayList<Vector3d> vertexNormals = new ArrayList<Vector3d>();
 	ArrayList<Polygon> polygons = new ArrayList<Polygon>();
 	BufferedReader reader = null;
 	reader = new BufferedReader(
@@ -126,12 +127,18 @@ public class Mesh {
 		v.color = new Vector3d(r.nextFloat(), r.nextFloat(),
 			r.nextFloat());
 		verticies.add(v);
-		System.out.println("Adding new vertex " + line);
+		//System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
 		float u = Float.valueOf(splitLines[1]);
 		float v = Float.valueOf(splitLines[2]);
 		textureCoordinates.add(new Vector2d(u, v));
-	    } else if (splitLines[0].equals("f")) {
+	    } else if (splitLines[0].equals("vn")) {
+		float x = Float.valueOf(splitLines[1]);
+		float y = Float.valueOf(splitLines[2]);
+		float z = Float.valueOf(splitLines[3]);
+		vertexNormals.add(new Vector3d(x, y, z));
+	    }
+	    else if (splitLines[0].equals("f")) {
 		System.out.println("Adding new face " + line);
 		ArrayList<Vertex> polygonVerticies = new ArrayList<Vertex>();
 		for (int i = 1; i < splitLines.length; ++i) {
@@ -143,6 +150,9 @@ public class Mesh {
 			tempVertex.textureCoordinate = new Vector2d(
 				textureCoordinates.get(Integer
 					.valueOf(slashSplitLines[1]) - 1));
+		    }
+		    if (slashSplitLines.length >= 3) {
+			tempVertex.normal = new Vector3d(vertexNormals.get(Integer.valueOf(slashSplitLines[1]) - 1));
 		    }
 		    polygonVerticies.add(tempVertex);
 		}

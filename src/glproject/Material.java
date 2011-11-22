@@ -79,6 +79,7 @@ public class Material {
 	gl.glMaterialfv(faceInt, GL2.GL_SPECULAR, this.specular.toArray(), 0);
 	gl.glMaterialf(faceInt, GL2.GL_SHININESS, this.shininess);
 	//gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureInt);
+	this.texture.enable(gl);
 	this.texture.bind(gl);
     }
 
