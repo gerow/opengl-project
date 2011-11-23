@@ -2,24 +2,24 @@ package sceneobjects;
 
 import glproject.Mesh;
 import glproject.SceneObject;
-import glproject.Vector3d;
+import glproject.Vector3f;
 import glproject.World;
 
 public abstract class DynamicSceneObject implements SceneObject {
     protected World world;
     protected Mesh mesh;
     
-    private Vector3d location = new Vector3d(0, 0, 0);
-    private Vector3d velocity = new Vector3d(0, 0, 0);
-    private Vector3d acceleration = new Vector3d(0, 0, 0);
+    private Vector3f location = new Vector3f(0, 0, 0);
+    private Vector3f velocity = new Vector3f(0, 0, 0);
+    private Vector3f acceleration = new Vector3f(0, 0, 0);
     
-    private Vector3d rotation = new Vector3d(0, 0, 0);
-    private Vector3d rotationalVelocity = new Vector3d(0, 0, 0);
-    private Vector3d rotationalAcceleration = new Vector3d(0, 0, 0);
+    private Vector3f rotation = new Vector3f(0, 0, 0);
+    private Vector3f rotationalVelocity = new Vector3f(0, 0, 0);
+    private Vector3f rotationalAcceleration = new Vector3f(0, 0, 0);
     
-    private Vector3d scale = new Vector3d(1, 1, 1);
-    private Vector3d scalingVelocity = new Vector3d(0, 0, 0);
-    private Vector3d scalingAcceleration = new Vector3d(0, 0, 0);
+    private Vector3f scale = new Vector3f(1, 1, 1);
+    private Vector3f scalingVelocity = new Vector3f(0, 0, 0);
+    private Vector3f scalingAcceleration = new Vector3f(0, 0, 0);
     
     public DynamicSceneObject(Mesh mesh) {
 	this.mesh = mesh;
@@ -45,74 +45,74 @@ public abstract class DynamicSceneObject implements SceneObject {
 	this.velocityMove();
     }
     
-    public void setLocation(Vector3d location) {
+    public void setLocation(Vector3f location) {
 	this.location = location;
 	this.mesh.translation = this.location;
     }
     
-    public Vector3d getLocation() {
+    public Vector3f getLocation() {
 	return this.location;
     }
     
-    public void setVelocity(Vector3d velocity) {
+    public void setVelocity(Vector3f velocity) {
 	this.velocity = velocity;
     }
     
-    public Vector3d getVelocity() {
+    public Vector3f getVelocity() {
 	return this.velocity;
     }
     
-    public void setAcceleration(Vector3d acceleration) {
+    public void setAcceleration(Vector3f acceleration) {
 	this.acceleration = acceleration;
     }
     
-    public Vector3d getAcceleration() {
+    public Vector3f getAcceleration() {
 	return this.acceleration;
     }
     
-    public void setRotation(Vector3d rotation) {
+    public void setRotation(Vector3f rotation) {
 	this.rotation = rotation;
 	this.mesh.rotation = this.rotation;
     }
     
-    public Vector3d getRotation() {
+    public Vector3f getRotation() {
 	return this.rotation;
     }
     
-    public void setRotationalVelocity(Vector3d rotationalVelocity) {
+    public void setRotationalVelocity(Vector3f rotationalVelocity) {
 	this.rotationalVelocity = rotationalVelocity;
     }
     
-    public Vector3d getRotationalVelocity() {
+    public Vector3f getRotationalVelocity() {
 	return this.rotationalVelocity;
     }
     
-    public void setRotationalAcceleration(Vector3d rotationalAcceleration) {
+    public void setRotationalAcceleration(Vector3f rotationalAcceleration) {
 	this.rotationalAcceleration = rotationalAcceleration;
     }
     
-    public void setScale(Vector3d scale) {
+    public void setScale(Vector3f scale) {
 	this.scale = scale;
 	this.mesh.scaling = this.scale;
     }
     
-    public Vector3d getScale() {
+    public Vector3f getScale() {
 	return this.scale;
     }
     
-    public void setScalingVelocity(Vector3d scalingVelocity) {
+    public void setScalingVelocity(Vector3f scalingVelocity) {
 	this.scalingVelocity = scalingVelocity;
     }
     
-    public Vector3d getScalingVelocity() {
+    public Vector3f getScalingVelocity() {
 	return this.scalingVelocity;
     }
     
-    public void setScalingAcceleration(Vector3d scalingAcceleration) {
+    public void setScalingAcceleration(Vector3f scalingAcceleration) {
 	this.scalingAcceleration = scalingAcceleration;
     }
     
-    public Vector3d getScalingAcceleration() {
+    public Vector3f getScalingAcceleration() {
 	return this.scalingAcceleration;
     }
     

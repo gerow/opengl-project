@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
+import glproject.Vector3f;
 
 public class Polygon {
     public enum Type {
@@ -13,7 +14,7 @@ public class Polygon {
 
     Type type;
     public ArrayList<Vertex> verticies;
-    public Vector3d surfaceNormal;
+    public Vector3f surfaceNormal;
     public Material material;
 
     public Polygon(ArrayList<Vertex> verticies) {
@@ -34,10 +35,10 @@ public class Polygon {
 	// v.surfaceNormal = this.surfaceNormal;
     }
 
-    public static Vector3d computeSurfaceNormal(Vector3d vec1, Vector3d vec2,
-	    Vector3d vec3) {
-	Vector3d U = vec1.vectorTo(vec2);
-	Vector3d V = vec1.vectorTo(vec3);
+    public static Vector3f computeSurfaceNormal(Vector3f vec1, Vector3f vec2,
+	    Vector3f vec3) {
+	Vector3f U = vec1.vectorTo(vec2);
+	Vector3f V = vec1.vectorTo(vec3);
 	return U.cross(V);
     }
 

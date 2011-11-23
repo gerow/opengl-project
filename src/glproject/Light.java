@@ -1,38 +1,33 @@
 package glproject;
 
+import javax.media.opengl.GL2;
+import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.glu.GLU;
+
 public class Light {
-    private Vector3d location = new Vector3d(0, 0, 0);
-    private Material material = new Material();
+    public Vector3f location = new Vector3f(-50, 0, 0);
+    public Material material = new Material();
+    public boolean enabled = true;
+    public int lightNumber;
     
-    public void setAmbient(Vector4d ambient) {
-	this.material.ambient = ambient;
+    public Light() {
+	
     }
     
-    public void setDiffuse(Vector4d diffuse) {
-	this.material.diffuse = diffuse;
-    }
-    
-    public void setSpecular(Vector4d specular) {
-	this.material.specular = specular;
-    }
-    
-    public void setMaterial(Material material) {
+    public Light(Vector3f location, Material material) {
+	this.location = location;
 	this.material = material;
     }
     
-    public Vector4d getAmbient() {
-	return this.material.ambient;
-    }
-    
-    public Vector4d getDiffuse() {
-	return this.material.diffuse;
-    }
-    
-    public Vector4d getSpecular() {
-	return this.material.specular;
-    }
-    
-    public Material getMaterial() {
-	return this.material;
+    public void render(GLAutoDrawable drawable, GLU glu) {
+	GL2 gl = drawable.getGL().getGL2();
+	
+	if (this.enabled) {
+	    gl.glEnable(lightNumber);
+	    gl.glLightfv(lightNumber, GL2.GL_POSITION, this.location.toLightLocation(), 0);
+	}
+	else {
+	    gl.glDisable(lightNumber);
+	}
     }
 }

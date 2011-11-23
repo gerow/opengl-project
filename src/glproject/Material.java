@@ -18,9 +18,9 @@ public class Material {
 	FRONT, BACK, BOTH
     };
 
-    public Vector4d ambient = new Vector4d();
-    public Vector4d diffuse = new Vector4d();
-    public Vector4d specular = new Vector4d();
+    public Vector4f ambient = new Vector4f();
+    public Vector4f diffuse = new Vector4f();
+    public Vector4f specular = new Vector4f();
     public float shininess = 0.0f;
     public Face face = Face.FRONT;
     public Texture texture;
@@ -31,7 +31,7 @@ public class Material {
 
     }
 
-    public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular,
+    public Material(Vector4f ambient, Vector4f diffuse, Vector4f specular,
 	    float shininess) {
 	this.ambient = ambient;
 	this.diffuse = diffuse;
@@ -39,7 +39,7 @@ public class Material {
 	this.shininess = shininess;
     }
 
-    public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular,
+    public Material(Vector4f ambient, Vector4f diffuse, Vector4f specular,
 	    float shininess, String texture) throws GLException, IOException {
 	this(ambient, diffuse, specular, shininess);
 
@@ -48,7 +48,7 @@ public class Material {
 	    this.texture = TextureLoader.loadTexture(texture);
     }
 
-    public Material(Vector4d ambient, Vector4d diffuse, Vector4d specular,
+    public Material(Vector4f ambient, Vector4f diffuse, Vector4f specular,
 	    float shininess, String texture, Face face) throws GLException,
 	    IOException {
 	this(ambient, diffuse, specular, shininess, texture);
@@ -78,23 +78,35 @@ public class Material {
 	gl.glMaterialfv(faceInt, GL2.GL_DIFFUSE, this.diffuse.toArray(), 0);
 	gl.glMaterialfv(faceInt, GL2.GL_SPECULAR, this.specular.toArray(), 0);
 	gl.glMaterialf(faceInt, GL2.GL_SHININESS, this.shininess);
-	//gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureInt);
+	// gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureInt);
+	// gl.glScalef(1.0f, 1.0f, 1.0f);
+	// System.out.println("Using texture " + this.texture);
+	// System.out.println("Texture has width " + this.texture.getWidth()
+	// + " and height " + this.texture.getHeight() + " and id " +
+	// this.texture.getTextureObject(gl));
 	this.texture.enable(gl);
+	//System.out.println(gl);
+	//gl.glEnable(this.texture.getTarget());
 	this.texture.bind(gl);
+	//gl.glPixelZoom(1.0f, -1.0f);
+    }
+
+    public void disableTexture(GL2 gl) {
+
     }
 
     public static Material loadFromMtlFile(String mtlFile, String mtlName)
 	    throws GLException, IOException {
-	Vector4d ka = new Vector4d();
-	Vector4d kd = new Vector4d();
-	Vector4d ks = new Vector4d();
+	Vector4f ka = new Vector4f();
+	Vector4f kd = new Vector4f();
+	Vector4f ks = new Vector4f();
 	float ns = 1.0f;
 	String textureName = null;
 
-	//String map_kd;
+	// String map_kd;
 	BufferedReader reader = null;
-	reader = new BufferedReader(
-		new FileReader("assets/materials/" + mtlFile));
+	reader = new BufferedReader(new FileReader("assets/materials/"
+		+ mtlFile));
 	String line;
 	String[] splitLines;
 	boolean foundName = false;

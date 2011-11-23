@@ -3,7 +3,7 @@ package sceneobjects;
 import java.util.ArrayList;
 
 import glproject.Mesh;
-import glproject.Vector3d;
+import glproject.Vector3f;
 
 public class Orbiter extends DynamicSceneObject {
 
@@ -22,8 +22,8 @@ public class Orbiter extends DynamicSceneObject {
     }
 
     private void accountForAttraction(Orbiter other) {
-	this.setAcceleration(new Vector3d(0, 0, 0));
-	Vector3d accelerationVector = this.getLocation()
+	this.setAcceleration(new Vector3f(0, 0, 0));
+	Vector3f accelerationVector = this.getLocation()
 		.vectorTo(other.getLocation()).normalize()
 		.multiply(other.getAttraction());
 	this.setAcceleration(this.getAcceleration().add(accelerationVector));

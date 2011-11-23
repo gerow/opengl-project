@@ -19,16 +19,16 @@ public class Mesh {
     public ArrayList<Polygon> polygons = new ArrayList<Polygon>();
 
     public ArrayList<Polygon> allPolys = new ArrayList<Polygon>();
-    public Vector3d translation;
+    public Vector3f translation;
     // This is in DEGREES
-    public Vector3d rotation;
-    public Vector3d scaling;
+    public Vector3f rotation;
+    public Vector3f scaling;
+    public static final boolean USE_DISPLAY_LISTS = false;
 
-    public Integer textureIndex = null;
     private Integer displayListId = null;
 
-    public Mesh(ArrayList<Polygon> polys, Vector3d translation,
-	    Vector3d rotation, Vector3d scaling, Integer textureIndex) {
+    public Mesh(ArrayList<Polygon> polys, Vector3f translation,
+	    Vector3f rotation, Vector3f scaling) {
 	this.translation = translation;
 	this.rotation = rotation;
 	this.scaling = scaling;
@@ -41,23 +41,20 @@ public class Mesh {
 	    else
 		this.polygons.add(p);
 	}
-	this.textureIndex = textureIndex;
     }
 
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
 	gl.glPushMatrix();
-	if (this.textureIndex != null)
-	    gl.glBindTexture(GL2.GL_TEXTURE_2D, this.textureIndex);
 	gl.glTranslatef(translation.x, translation.y, translation.z);
 	gl.glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
 	gl.glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
 	gl.glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
 	gl.glScalef(scaling.x, scaling.y, scaling.z);
 	// Start verticies
-	if (this.displayListId == null) {
-	    this.displayListId = gl.glGenLists(1);
-	    gl.glNewList(this.displayListId, GL2.GL_COMPILE);
+	//if (this.displayListId == null) {
+	//    this.displayListId = gl.glGenLists(1);
+	//    gl.glNewList(this.displayListId, GL2.GL_COMPILE);
 	    gl.glBegin(GL2.GL_TRIANGLES);
 	    for (Polygon p : this.triangles)
 		p.render(drawable, glu);
@@ -71,9 +68,9 @@ public class Mesh {
 		p.render(drawable, glu);
 		gl.glEnd();
 	    }
-	    gl.glEndList();
-	}
-	gl.glCallList(this.displayListId);
+	    //gl.glEndList();
+	//}
+	//gl.glCallList(this.displayListId);
 	gl.glPopMatrix();
     }
 
@@ -87,8 +84,9 @@ public class Mesh {
     }
 
     private void calculateNormalsForVertex(Vertex v) {
+	System.out.println("Calculating normals");
 	ArrayList<Vertex> commonVerticies = new ArrayList<Vertex>();
-	Vector3d sum = new Vector3d();
+	Vector3f sum = new Vector3f();
 	commonVerticies.add(v);
 	sum = sum.add(v.surfaceNormal);
 	for (Polygon p : this.allPolys) {
@@ -99,15 +97,15 @@ public class Mesh {
 		}
 	    }
 	}
-	Vector3d normal = sum.divide(commonVerticies.size());
+	Vector3f normal = sum.divide(commonVerticies.size());
 	for (Vertex vert : commonVerticies)
 	    vert.normal = normal.multiply(-1);
     }
 
     public static Mesh loadMeshFromObjFile(String filename) throws IOException {
 	ArrayList<Vertex> verticies = new ArrayList<Vertex>();
-	ArrayList<Vector2d> textureCoordinates = new ArrayList<Vector2d>();
-	ArrayList<Vector3d> vertexNormals = new ArrayList<Vector3d>();
+	ArrayList<Vector2f> textureCoordinates = new ArrayList<Vector2f>();
+	ArrayList<Vector3f> vertexNormals = new ArrayList<Vector3f>();
 	ArrayList<Polygon> polygons = new ArrayList<Polygon>();
 	BufferedReader reader = null;
 	reader = new BufferedReader(
@@ -124,22 +122,22 @@ public class Mesh {
 		v.location.x = Float.valueOf(splitLines[1]);
 		v.location.y = Float.valueOf(splitLines[2]);
 		v.location.z = Float.valueOf(splitLines[3]);
-		v.color = new Vector3d(r.nextFloat(), r.nextFloat(),
+		v.color = new Vector3f(r.nextFloat(), r.nextFloat(),
 			r.nextFloat());
 		verticies.add(v);
 		//System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
 		float u = Float.valueOf(splitLines[1]);
 		float v = Float.valueOf(splitLines[2]);
-		textureCoordinates.add(new Vector2d(u, v));
+		textureCoordinates.add(new Vector2f(u, v));
 	    } else if (splitLines[0].equals("vn")) {
 		float x = Float.valueOf(splitLines[1]);
 		float y = Float.valueOf(splitLines[2]);
 		float z = Float.valueOf(splitLines[3]);
-		vertexNormals.add(new Vector3d(x, y, z));
+		vertexNormals.add(new Vector3f(x, y, z));
 	    }
 	    else if (splitLines[0].equals("f")) {
-		System.out.println("Adding new face " + line);
+		//System.out.println("Adding new face " + line);
 		ArrayList<Vertex> polygonVerticies = new ArrayList<Vertex>();
 		for (int i = 1; i < splitLines.length; ++i) {
 		    String[] slashSplitLines = splitLines[i].split("/");
@@ -147,12 +145,12 @@ public class Mesh {
 		    tempVertex = new Vertex(verticies.get(Integer
 			    .valueOf(slashSplitLines[0]) - 1));
 		    if (slashSplitLines.length >= 2) {
-			tempVertex.textureCoordinate = new Vector2d(
+			tempVertex.textureCoordinate = new Vector2f(
 				textureCoordinates.get(Integer
 					.valueOf(slashSplitLines[1]) - 1));
 		    }
 		    if (slashSplitLines.length >= 3) {
-			tempVertex.normal = new Vector3d(vertexNormals.get(Integer.valueOf(slashSplitLines[1]) - 1));
+			tempVertex.normal = new Vector3f(vertexNormals.get(Integer.valueOf(slashSplitLines[1]) - 1));
 		    }
 		    polygonVerticies.add(tempVertex);
 		}
@@ -166,9 +164,9 @@ public class Mesh {
 	    }
 	}
 
-	Mesh out = new Mesh(polygons, new Vector3d(0, 0, 0), new Vector3d(0, 0,
-		0), new Vector3d(1, 1, 1), null);
-	out.calculateVertexNormals();
+	Mesh out = new Mesh(polygons, new Vector3f(0, 0, 0), new Vector3f(0, 0,
+		0), new Vector3f(1, 1, 1));
+	//out.calculateVertexNormals();
 	return out;
     }
 }

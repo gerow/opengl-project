@@ -3,7 +3,7 @@ package sceneobjects;
 import java.util.ArrayList;
 
 import glproject.Mesh;
-import glproject.Vector3d;
+import glproject.Vector3f;
 
 /**
  * 
@@ -24,8 +24,8 @@ public class GravityMover extends DynamicSceneObject {
 	this.gravityMove();
     }
 
-    public void applyForce(Vector3d force) {
-	Vector3d changeInAcceleration = force.divide(this.mass);
+    public void applyForce(Vector3f force) {
+	Vector3f changeInAcceleration = force.divide(this.mass);
 	this.setAcceleration(this.getAcceleration().add(changeInAcceleration));
     }
 
@@ -40,7 +40,7 @@ public class GravityMover extends DynamicSceneObject {
 	    float forceMagnitude = (float) (GravityMover.G * (m1 * m2) / Math
 		    .pow(r, 2));
 
-	    Vector3d force = this.getAcceleration()
+	    Vector3f force = this.getAcceleration()
 		    .vectorTo(g.getAcceleration()).normalize()
 		    .multiply(forceMagnitude);
 	    this.applyForce(force);

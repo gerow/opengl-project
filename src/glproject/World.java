@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
@@ -29,11 +30,15 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private Camera activeCamera;
     private ArrayList<Camera> cameras = new ArrayList<Camera>();
     private ArrayList<Mesh> meshes = new ArrayList<Mesh>();
+    private ArrayList<Light> lights = new ArrayList<Light>();
     private ArrayList<SceneObject> sceneObjects = new ArrayList<SceneObject>();
     private boolean displayFps = true;
     private GLU glu = new GLU();
     private Timer t = new Timer(1000 / World.TICKRATE, this);
     private Animator animator = new Animator(this);
+
+    private boolean[] activeLights = { false, false, false, false, false,
+	    false, false, false };
 
     public World() throws AWTException {
 	this.addGLEventListener(this);
@@ -70,6 +75,79 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	this.meshes.add(mesh);
     }
 
+    private void returnUnusedLight(int light) {
+	switch (light) {
+	case GL2.GL_LIGHT0:
+	    this.activeLights[0] = false;
+	    break;
+	case GL2.GL_LIGHT1:
+	    this.activeLights[1] = false;
+	    break;
+	case GL2.GL_LIGHT2:
+	    this.activeLights[2] = false;
+	    break;
+	case GL2.GL_LIGHT3:
+	    this.activeLights[3] = false;
+	    break;
+	case GL2.GL_LIGHT4:
+	    this.activeLights[4] = false;
+	    break;
+	case GL2.GL_LIGHT5:
+	    this.activeLights[5] = false;
+	    break;
+	case GL2.GL_LIGHT6:
+	    this.activeLights[6] = false;
+	    break;
+	case GL2.GL_LIGHT7:
+	    this.activeLights[7] = false;
+	    break;
+	}
+    }
+
+    private int findAndTakeNextAvailableLight() {
+	int i;
+	boolean found = false;
+	for (i = 0; i < 8; ++i) {
+	    if (!this.activeLights[i]) {
+		found = true;
+		break;
+	    }
+	}
+
+	if (!found)
+	    throw new RuntimeException("Tried to create too many lights");
+
+	this.activeLights[i] = true;
+	switch (i) {
+	case 0:
+	    return GL2.GL_LIGHT0;
+	case 1:
+	    return GL2.GL_LIGHT1;
+	case 2:
+	    return GL2.GL_LIGHT2;
+	case 3:
+	    return GL2.GL_LIGHT3;
+	case 4:
+	    return GL2.GL_LIGHT4;
+	case 5:
+	    return GL2.GL_LIGHT5;
+	case 6:
+	    return GL2.GL_LIGHT6;
+	default:
+	    return GL2.GL_LIGHT7;
+	}
+    }
+
+    public void addLight(Light light) {
+	light.lightNumber = this.findAndTakeNextAvailableLight();
+	this.lights.add(light);
+    }
+
+    public boolean removeLight(Light light) {
+	this.returnUnusedLight(light.lightNumber);
+	return this.lights.remove(light);
+    }
+
     public boolean removeMesh(Mesh mesh) {
 	return this.meshes.remove(mesh);
     }
@@ -93,30 +171,39 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	GL2 gl = drawable.getGL().getGL2();
 
 	// TEST CODE
-	float[] lightPosition = { -75, 0, 0, 1 };
-	gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0);
-	gl.glEnable(GL2.GL_LIGHT0);
-	GLUquadric glq = glu.gluNewQuadric();
-	glu.gluQuadricDrawStyle(glq, GLU.GLU_FILL); /* smooth shaded */
-	glu.gluQuadricNormals(glq, GLU.GLU_SMOOTH);
-	glu.gluSphere(glq, 12, 20, 20);
+	// Random r = new Random();
+	// float[] lightPosition = { this.activeCamera.location.x,
+	// this.activeCamera.location.y, this.activeCamera.location.z, 1 };
+	// gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, lightPosition, 0);
+	// gl.glEnable(GL2.GL_LIGHT0);
+	// GLUquadric glq = glu.gluNewQuadric();
+	// glu.gluQuadricDrawStyle(glq, GLU.GLU_FILL); /* smooth shaded */
+	// glu.gluQuadricNormals(glq, GLU.GLU_SMOOTH);
+	// glu.gluSphere(glq, 12, 20, 20);
 	// TEST CODE
+
+	// gl.glEnable(GL2.GL_LIGHTING);
 
 	gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 	gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
+	gl.glEnable(GL2.GL_NORMALIZE);
 	gl.glLoadIdentity();
 
 	// camera.applyMatrix(drawable, glu);
 	// this.activeCamera.step();
 
-	Vector3d reference = this.activeCamera.getReferencePoint();
+	for (Light l : this.lights) {
+	    l.render(drawable, glu);
+	}
+
+	Vector3f reference = this.activeCamera.getReferencePoint();
 	glu.gluLookAt(this.activeCamera.location.x,
 		this.activeCamera.location.y, this.activeCamera.location.z,
 		reference.x, reference.y, reference.z, 0.0f, 1.0f, 0.0f);
 	for (Mesh m : meshes) {
 	    m.render(drawable, glu);
 	}
-	gl.glPopMatrix();
+	// gl.glPopMatrix();
     }
 
     @Override
@@ -137,13 +224,18 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	gl.glDepthFunc(GL2.GL_LEQUAL);
 	gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
 	gl.glEnable(GL.GL_TEXTURE_2D);
-	
-	gl.glTexEnvf( GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE, GL2.GL_MODULATE );
-	gl.glTexParameterf( GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR );
-	
-	gl.glTexParameterf( GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S, GL2.GL_REPEAT );
-	gl.glTexParameterf( GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T, GL2.GL_REPEAT );
-	//gl.glEnable(GL2.GL_LIGHTING);
+
+	gl.glTexEnvf(GL2.GL_TEXTURE_ENV, GL2.GL_TEXTURE_ENV_MODE,
+		GL2.GL_MODULATE);
+	gl.glTexParameterf(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_MAG_FILTER,
+		GL2.GL_LINEAR);
+
+	gl.glTexParameterf(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_S,
+		GL2.GL_REPEAT);
+	gl.glTexParameterf(GL2.GL_TEXTURE_2D, GL2.GL_TEXTURE_WRAP_T,
+		GL2.GL_REPEAT);
+	gl.glEnable(GL2.GL_BLEND);
+	gl.glEnable(GL2.GL_LIGHTING);
 	//gl.glEnable(GL2.GL_LIGHT0);
     }
 

@@ -1,13 +1,13 @@
 package glproject;
 
-public class Vector4d {
+public class Vector4f {
     public float x, y, z, w;
     
-    public Vector4d() {
+    public Vector4f() {
 	this.x = this.y = this.z = this.w = 0.0f;
     }
     
-    public Vector4d(Vector4d other) {
+    public Vector4f(Vector4f other) {
 	if (other == null) {
 	    return;
 	}
@@ -17,31 +17,31 @@ public class Vector4d {
 	this.w = other.w;
     }
 
-    public Vector4d(float x, float y, float z, float w) {
+    public Vector4f(float x, float y, float z, float w) {
 	this.x = x;
 	this.y = y;
 	this.z = z;
 	this.w = w;
     }
 
-    public Vector4d add(Vector4d other) {
-	return new Vector4d(x + other.x, y + other.y, z + other.z, w + other.w);
+    public Vector4f add(Vector4f other) {
+	return new Vector4f(x + other.x, y + other.y, z + other.z, w + other.w);
     }
 
-    public Vector4d multiply(float scalar) {
-	return new Vector4d(x * scalar, y * scalar, z * scalar, w * scalar);
+    public Vector4f multiply(float scalar) {
+	return new Vector4f(x * scalar, y * scalar, z * scalar, w * scalar);
     }
 
-    public Vector4d subtract(Vector4d other) {
+    public Vector4f subtract(Vector4f other) {
 	return this.add(other.multiply(-1));
     }
     
-    public Vector4d divide(float scalar) {
+    public Vector4f divide(float scalar) {
 	return this.multiply(1.0f/scalar);
     }
 
-    public Vector4d dot(Vector4d other) {
-	return new Vector4d(x * other.x, y * other.y, z * other.z, w * other.w);
+    public Vector4f dot(Vector4f other) {
+	return new Vector4f(x * other.x, y * other.y, z * other.z, w * other.w);
     }
 
     /*
@@ -51,22 +51,22 @@ public class Vector4d {
     }
     */
 
-    public Vector4d normalize() {
+    public Vector4f normalize() {
 	float dist = (float) Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)
 		+ Math.pow(z, 2) + Math.pow(w,  2));
-	return new Vector4d(x / dist, y / dist, z / dist, w / dist);
+	return new Vector4f(x / dist, y / dist, z / dist, w / dist);
     }
 
-    public Vector4d vectorTo(Vector4d other) {
+    public Vector4f vectorTo(Vector4f other) {
 	return other.subtract(this);
     }
 
-    public float distanceTo(Vector4d other) {
+    public float distanceTo(Vector4f other) {
 	return (float) Math.sqrt(Math.pow(other.x - x, 2)
 		+ Math.pow(other.y - y, 2) + Math.pow(other.z - z, 2) + Math.pow(other.w - w, 2));
     }
     
-    public boolean equals(Vector4d other) {
+    public boolean equals(Vector4f other) {
 	return (this.x == other.x && this.y == other.y && this.z == other.z && this.w == other.w);
     }
     

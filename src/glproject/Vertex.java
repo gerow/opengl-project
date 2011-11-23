@@ -1,30 +1,30 @@
 package glproject;
 
 public class Vertex {
-    public Vector3d location;
-    public Vector3d normal = null;
-    public Vector3d surfaceNormal = null;
-    public Vector2d textureCoordinate = null;
-    public Vector3d color = null;
+    public Vector3f location;
+    public Vector3f normal = null;
+    public Vector3f surfaceNormal = null;
+    public Vector2f textureCoordinate = null;
+    public Vector3f color = null;
     
-    public Vertex(Vector3d location, Vector3d surfaceNormal, Vector2d textureCoordinate) {
+    public Vertex(Vector3f location, Vector3f surfaceNormal, Vector2f textureCoordinate) {
 	this.location = location;
 	this.textureCoordinate = textureCoordinate;
     }
     
     public Vertex(Vertex copy) {
-	this.location = new Vector3d(copy.location);
+	this.location = new Vector3f(copy.location);
 	if (copy.normal != null)
-	    this.normal = new Vector3d(copy.normal);
+	    this.normal = new Vector3f(copy.normal);
 	if (copy.surfaceNormal != null)
-	    this.surfaceNormal = new Vector3d(copy.surfaceNormal);
+	    this.surfaceNormal = new Vector3f(copy.surfaceNormal);
 	if (copy.textureCoordinate != null)
-	    this.textureCoordinate = new Vector2d(copy.textureCoordinate);
+	    this.textureCoordinate = new Vector2f(copy.textureCoordinate);
 	if (copy.color != null)
-	    this.color = new Vector3d(copy.color);
+	    this.color = new Vector3f(copy.color);
     }
     
     public Vertex() {
-	this.location = new Vector3d(0.0f, 0.0f, 0.0f);
+	this.location = new Vector3f(0.0f, 0.0f, 0.0f);
     }
 }

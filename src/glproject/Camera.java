@@ -13,7 +13,7 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
     public static final int MOUSE_LOCATION_X = 320;
     public static final int MOUSE_LOCATION_Y = 240;
 
-    Vector3d location = new Vector3d(0, 0, 0);
+    Vector3f location = new Vector3f(0, 0, 0);
     Azimuth azimuth = new Azimuth();
 
     boolean forward = false;
@@ -29,7 +29,7 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	robot = new Robot();
     }
 
-    public Vector3d getReferencePoint() {
+    public Vector3f getReferencePoint() {
 	return this.location.add(this.azimuth.direction);
     }
 
@@ -46,8 +46,8 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	    this.location = this.location.add(this.getUnitLeft().multiply(-SPEED));
     }
     
-    public Vector3d getUnitLeft() {
-	Vector3d out = new Vector3d(azimuth.direction);
+    public Vector3f getUnitLeft() {
+	Vector3f out = new Vector3f(azimuth.direction);
 	out.y = 0;
 	out.x = -out.x;
 	return out.normalize();

@@ -7,8 +7,8 @@ public class Matrix3by3 {
 	a11 = a12 = a13 = a21 = a22 = a23 = a31 = a32 = a33 = 0;
     }
     
-    public Vector3d multiply(Vector3d right) {
-	Vector3d out = new Vector3d();
+    public Vector3f multiply(Vector3f right) {
+	Vector3f out = new Vector3f();
 	
 	out.x = (a11 * right.x + a12 * right.y + a13 * right.z);
 	out.y = (a21 * right.x + a22 * right.y + a23 * right.z);
