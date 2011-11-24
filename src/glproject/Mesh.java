@@ -1,9 +1,6 @@
 package glproject;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,26 +48,39 @@ public class Mesh {
 	gl.glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
 	gl.glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
 	gl.glScalef(scaling.x, scaling.y, scaling.z);
+	GLErrorChecker.check("After rotation, scale, translate and pushMatrix");
 	// Start verticies
-	//if (this.displayListId == null) {
-	//    this.displayListId = gl.glGenLists(1);
-	//    gl.glNewList(this.displayListId, GL2.GL_COMPILE);
-	    gl.glBegin(GL2.GL_TRIANGLES);
-	    for (Polygon p : this.triangles)
-		p.render(drawable, glu);
+	// if (this.displayListId == null) {
+	// this.displayListId = gl.glGenLists(1);
+	// gl.glNewList(this.displayListId, GL2.GL_COMPILE);
+	/*
+	gl.glBegin(GL2.GL_TRIANGLES);
+	GLErrorChecker.check("After glBegin() for triangles");
+	for (Polygon p : this.triangles)
+	    p.render(drawable, glu);
+	GLErrorChecker.check("Before glEnd() for triangles");
+	gl.glEnd();
+	GLErrorChecker.check("After glEnd() for triangles");
+	gl.glBegin(GL2.GL_QUADS);
+	for (Polygon p : this.quads)
+	    p.render(drawable, glu);
+	gl.glEnd();
+	GLErrorChecker.check("Ater QUADS");
+	for (Polygon p : this.polygons) {
+	    gl.glBegin(GL2.GL_POLYGON);
+	    p.render(drawable, glu);
 	    gl.glEnd();
-	    gl.glBegin(GL2.GL_QUADS);
-	    for (Polygon p : this.quads)
-		p.render(drawable, glu);
-	    gl.glEnd();
-	    for (Polygon p : this.polygons) {
-		gl.glBegin(GL2.GL_POLYGON);
-		p.render(drawable, glu);
-		gl.glEnd();
-	    }
-	    //gl.glEndList();
-	//}
-	//gl.glCallList(this.displayListId);
+	}
+	GLErrorChecker.check("After POLYGONS");
+	*/
+	
+	for (Polygon p : this.allPolys) {
+	    p.render(drawable, glu);
+	}
+	
+	// gl.glEndList();
+	// }
+	// gl.glCallList(this.displayListId);
 	gl.glPopMatrix();
     }
 
@@ -125,7 +135,7 @@ public class Mesh {
 		v.color = new Vector3f(r.nextFloat(), r.nextFloat(),
 			r.nextFloat());
 		verticies.add(v);
-		//System.out.println("Adding new vertex " + line);
+		System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
 		float u = Float.valueOf(splitLines[1]);
 		float v = Float.valueOf(splitLines[2]);
@@ -135,9 +145,8 @@ public class Mesh {
 		float y = Float.valueOf(splitLines[2]);
 		float z = Float.valueOf(splitLines[3]);
 		vertexNormals.add(new Vector3f(x, y, z));
-	    }
-	    else if (splitLines[0].equals("f")) {
-		//System.out.println("Adding new face " + line);
+	    } else if (splitLines[0].equals("f")) {
+		System.out.println("Adding new face " + line);
 		ArrayList<Vertex> polygonVerticies = new ArrayList<Vertex>();
 		for (int i = 1; i < splitLines.length; ++i) {
 		    String[] slashSplitLines = splitLines[i].split("/");
@@ -150,7 +159,9 @@ public class Mesh {
 					.valueOf(slashSplitLines[1]) - 1));
 		    }
 		    if (slashSplitLines.length >= 3) {
-			tempVertex.normal = new Vector3f(vertexNormals.get(Integer.valueOf(slashSplitLines[1]) - 1));
+			tempVertex.normal = new Vector3f(
+				vertexNormals.get(Integer
+					.valueOf(slashSplitLines[1]) - 1));
 		    }
 		    polygonVerticies.add(tempVertex);
 		}
@@ -160,13 +171,14 @@ public class Mesh {
 	    } else if (splitLines[0].equals("mtllib")) {
 		mtlFile = splitLines[1];
 	    } else if (splitLines[0].equals("usemtl")) {
-		currentMaterial = Material.loadFromMtlFile(mtlFile, splitLines[1]);
+		currentMaterial = Material.loadFromMtlFile(mtlFile,
+			splitLines[1]);
 	    }
 	}
 
 	Mesh out = new Mesh(polygons, new Vector3f(0, 0, 0), new Vector3f(0, 0,
 		0), new Vector3f(1, 1, 1));
-	//out.calculateVertexNormals();
+	// out.calculateVertexNormals();
 	return out;
     }
 }

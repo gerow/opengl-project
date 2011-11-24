@@ -70,7 +70,7 @@ public class Vector3f {
 	return (float) Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
     }
     
-    public float[] toLightLocation() {
+    public float[] toLightComponent() {
 	float[] out = new float[4];
 	out[0] = this.x;
 	out[1] = this.y;

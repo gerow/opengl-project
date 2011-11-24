@@ -189,20 +189,28 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	gl.glEnable(GL2.GL_NORMALIZE);
 	gl.glLoadIdentity();
 
+	GLErrorChecker.check("After loading identity");
+
 	// camera.applyMatrix(drawable, glu);
 	// this.activeCamera.step();
-
-	for (Light l : this.lights) {
-	    l.render(drawable, glu);
-	}
 
 	Vector3f reference = this.activeCamera.getReferencePoint();
 	glu.gluLookAt(this.activeCamera.location.x,
 		this.activeCamera.location.y, this.activeCamera.location.z,
 		reference.x, reference.y, reference.z, 0.0f, 1.0f, 0.0f);
+
+	GLErrorChecker.check("After applying camera matrix");
+	
+
+	for (Light l : this.lights) {
+	    l.render(drawable, glu);
+	}
+	GLErrorChecker.check("After doing lights");
+	
 	for (Mesh m : meshes) {
 	    m.render(drawable, glu);
 	}
+	GLErrorChecker.check("At end of render");
 	// gl.glPopMatrix();
     }
 
@@ -215,10 +223,12 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     @Override
     public void init(GLAutoDrawable drawable) {
 	GL2 gl = drawable.getGL().getGL2();
+	GLErrorChecker.gl = gl;
+	GLErrorChecker.glu = glu;
 	TextureLoader.gl = gl;
 	TextureLoader.glu = glu;
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
-	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);
 	gl.glEnable(GL2.GL_DEPTH_TEST);
 	gl.glDepthFunc(GL2.GL_LEQUAL);

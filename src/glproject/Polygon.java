@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
-import glproject.Vector3f;
 
 public class Polygon {
     public enum Type {
@@ -42,18 +41,40 @@ public class Polygon {
 	return U.cross(V);
     }
 
+    // Heh... you can't make a call to glError within a glBegin()/glEnd() block.
+    // It creates another error...
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
-	if (this.material != null)
+	if (this.material != null) {
 	    this.material.enableMaterial(drawable, glu);
-	for (Vertex v : this.verticies) {
-	    if (v.textureCoordinate != null)
-		gl.glTexCoord2f(v.textureCoordinate.x, v.textureCoordinate.y);
-	    else
-		gl.glColor3f(v.color.x, v.color.y, v.color.z);
-	    if (v.normal != null)
-		gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
-	    gl.glVertex3f(v.location.x, v.location.y, v.location.z);
+	    GLErrorChecker.check("Ater enabling material");
 	}
+	if (this.verticies.size() == 3)
+	    gl.glBegin(GL2.GL_TRIANGLES);
+	else if (this.verticies.size() == 4)
+	    gl.glBegin(GL2.GL_QUADS);
+	else
+	    gl.glBegin(GL2.GL_POLYGON);
+	for (Vertex v : this.verticies) {
+	    if (v.textureCoordinate != null) {
+		gl.glTexCoord2f(v.textureCoordinate.x, v.textureCoordinate.y);
+		// GLErrorChecker.check("Ater enabling textureCoordinate. "
+		// + v.textureCoordinate.x + ", " + v.textureCoordinate.y);
+	    } else {
+		gl.glColor3f(v.color.x, v.color.y, v.color.z);
+		// GLErrorChecker.check("Ater enabling color. (" + v.color.x
+		// + ", " + v.color.y + ", " + v.color.z + ")");
+	    }
+	    if (v.normal != null) {
+		gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		// GLErrorChecker.check("After drawing vertex (" + v.normal.x
+		// + ", " + v.normal.y + ", " + v.normal.z + ")");
+	    }
+	    gl.glVertex3f(v.location.x, v.location.y, v.location.z);
+	    // GLErrorChecker.check("Ater creating vertex at (" + v.location.x +
+	    // ", " + v.location.y + ", " + v.location.z + ")");
+	}
+	gl.glEnd();
+	GLErrorChecker.check("Ater drawing polygon");
     }
 }

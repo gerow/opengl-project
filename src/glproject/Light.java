@@ -22,9 +22,18 @@ public class Light {
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
 	
+	System.out.println("Rendering light at " + this.location.x + " " + this.location.y + " " + this.location.z);
+	
 	if (this.enabled) {
+	    //gl.glPushMatrix();
+	    //gl.glTranslatef(location.x, location.y, location.z);
 	    gl.glEnable(lightNumber);
-	    gl.glLightfv(lightNumber, GL2.GL_POSITION, this.location.toLightLocation(), 0);
+	    //float[] loc = {0.0f, 0.0f, 0.0f, 0.0f};
+	    gl.glLightfv(lightNumber, GL2.GL_POSITION, this.location.toLightComponent(), 0);
+	    gl.glLightfv(lightNumber, GL2.GL_AMBIENT, material.ambient.toArray(), 0);
+	    gl.glLightfv(lightNumber, GL2.GL_DIFFUSE, material.diffuse.toArray(), 0);
+	    gl.glLightfv(lightNumber, GL2.GL_SPECULAR, material.specular.toArray(), 0);
+	    //gl.glPopMatrix();
 	}
 	else {
 	    gl.glDisable(lightNumber);

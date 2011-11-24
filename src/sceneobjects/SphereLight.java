@@ -1,9 +1,11 @@
 package sceneobjects;
 
 import glproject.Light;
+import glproject.Material;
 import glproject.Mesh;
 import glproject.SceneObject;
 import glproject.Vector3f;
+import glproject.Vector4f;
 import glproject.World;
 
 import java.io.IOException;
@@ -22,8 +24,11 @@ public class SphereLight implements SceneObject {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	this.light = new Light();
-	this.light.location = this.location;
+	Material mat = new Material();
+	mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+	mat.diffuse = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+	this.light = new Light(this.location, mat);
     }
     public void initialize(World world) {
 	this.world = world;
