@@ -60,12 +60,14 @@ public class SolarSystem extends World {
 	// Light l = new Light();
 
 	// this.addLight(l);
-	
+	ShaderProgram redShader = null;
 	try {
-	    ShaderProgram p = ShaderProgram.loadFromFile("example.vert", "example.frag");
+	    redShader = ShaderProgram.loadFromFile("example.vert", "example.frag");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+	
+	//m.setShaderProgram(redShader);
     }
 }

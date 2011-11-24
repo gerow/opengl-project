@@ -85,4 +85,8 @@ public class ShaderProgram {
 	out.toArray(outString);
 	return outString;
     }
+    
+    public static void useDefaultShader() {
+	gl.glUseProgram(0);
+    }
 }

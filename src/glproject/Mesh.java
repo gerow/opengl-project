@@ -177,4 +177,10 @@ public class Mesh {
 	// out.calculateVertexNormals();
 	return out;
     }
+    
+    public void setShaderProgram(ShaderProgram shaderProgram) {
+	for (Polygon p : this.allPolys) {
+	    p.shaderProgram = shaderProgram;
+	}
+    }
 }

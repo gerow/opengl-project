@@ -15,6 +15,7 @@ public class Polygon {
     public ArrayList<Vertex> verticies;
     public Vector3f surfaceNormal;
     public Material material;
+    public ShaderProgram shaderProgram = null;
 
     public Polygon(ArrayList<Vertex> verticies) {
 	this.verticies = verticies;
@@ -45,6 +46,10 @@ public class Polygon {
     // It creates another error...
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
+	if (this.shaderProgram != null)
+	    this.shaderProgram.enable();
+	else
+	    ShaderProgram.useDefaultShader();
 	if (this.material != null) {
 	    this.material.enableMaterial(drawable, glu);
 	    GLErrorChecker.check("Ater enabling material");
