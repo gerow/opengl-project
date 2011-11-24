@@ -270,7 +270,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	float h = (float) width / (float) height;
 	gl.glMatrixMode(GLMatrixFunc.GL_PROJECTION);
 	gl.glLoadIdentity();
-	glu.gluPerspective(50.0f, h, 1.0, 100000.0);
+	glu.gluPerspective(50.0f, h, 1.0, 10000.0);
 	gl.glMatrixMode(GLMatrixFunc.GL_MODELVIEW);
 	gl.glLoadIdentity();
     }

@@ -30,11 +30,12 @@ public class SolarSystem extends World {
 
 	Mesh m = null;
 	try {
-	    m = Mesh.loadMeshFromObjFile("saturnUV.obj");
+	    m = Mesh.loadMeshFromObjFile("mtdew.obj");
 	} catch (IOException e1) {
 	    // TODO Auto-generated catch block
 	    e1.printStackTrace();
 	}
+	m.scaling = new Vector3f(20.0f, 20.0f, 20.0f);
 	//m.scaling = new Vector3f(40.0f, 40.0f, 40.0f);
 	Orbiter orbiter1 = new Orbiter(m);
 	// Mesh m2 = null;

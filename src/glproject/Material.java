@@ -88,7 +88,6 @@ public class Material {
 	//System.out.println(gl);
 	//gl.glEnable(this.texture.getTarget());
 	this.texture.bind(gl);
-	//gl.glPixelZoom(1.0f, -1.0f);
     }
 
     public void disableTexture(GL2 gl) {

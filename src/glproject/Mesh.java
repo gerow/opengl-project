@@ -54,33 +54,29 @@ public class Mesh {
 	// this.displayListId = gl.glGenLists(1);
 	// gl.glNewList(this.displayListId, GL2.GL_COMPILE);
 	/*
-	gl.glBegin(GL2.GL_TRIANGLES);
-	GLErrorChecker.check("After glBegin() for triangles");
-	for (Polygon p : this.triangles)
-	    p.render(drawable, glu);
-	GLErrorChecker.check("Before glEnd() for triangles");
-	gl.glEnd();
-	GLErrorChecker.check("After glEnd() for triangles");
-	gl.glBegin(GL2.GL_QUADS);
-	for (Polygon p : this.quads)
-	    p.render(drawable, glu);
-	gl.glEnd();
-	GLErrorChecker.check("Ater QUADS");
-	for (Polygon p : this.polygons) {
-	    gl.glBegin(GL2.GL_POLYGON);
-	    p.render(drawable, glu);
-	    gl.glEnd();
+	 * gl.glBegin(GL2.GL_TRIANGLES);
+	 * GLErrorChecker.check("After glBegin() for triangles"); for (Polygon p
+	 * : this.triangles) p.render(drawable, glu);
+	 * GLErrorChecker.check("Before glEnd() for triangles"); gl.glEnd();
+	 * GLErrorChecker.check("After glEnd() for triangles");
+	 * gl.glBegin(GL2.GL_QUADS); for (Polygon p : this.quads)
+	 * p.render(drawable, glu); gl.glEnd();
+	 * GLErrorChecker.check("Ater QUADS"); for (Polygon p : this.polygons) {
+	 * gl.glBegin(GL2.GL_POLYGON); p.render(drawable, glu); gl.glEnd(); }
+	 * GLErrorChecker.check("After POLYGONS");
+	 */
+	if (this.displayListId == null) {
+	    this.displayListId = gl.glGenLists(1);
+	    gl.glNewList(this.displayListId, GL2.GL_COMPILE);
+	    for (Polygon p : this.allPolys) {
+		p.render(drawable, glu);
+	    }
+	    gl.glEndList();
+	    // gl.glEndList();
+	    // }
+	    // gl.glCallList(this.displayListId);
 	}
-	GLErrorChecker.check("After POLYGONS");
-	*/
-	
-	for (Polygon p : this.allPolys) {
-	    p.render(drawable, glu);
-	}
-	
-	// gl.glEndList();
-	// }
-	// gl.glCallList(this.displayListId);
+	gl.glCallList(this.displayListId);
 	gl.glPopMatrix();
     }
 
