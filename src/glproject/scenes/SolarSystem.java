@@ -3,6 +3,7 @@ package glproject.scenes;
 import glproject.Light;
 import glproject.Material;
 import glproject.Mesh;
+import glproject.ShaderProgram;
 import glproject.Vector3f;
 import glproject.Vector4f;
 import glproject.World;
@@ -59,5 +60,12 @@ public class SolarSystem extends World {
 	// Light l = new Light();
 
 	// this.addLight(l);
+	
+	try {
+	    ShaderProgram p = ShaderProgram.loadFromFile("example.vert", "example.frag");
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
     }
 }

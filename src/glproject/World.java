@@ -4,8 +4,8 @@ import java.awt.AWTException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Random;
 
+import javax.media.opengl.DebugGL2;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES1;
@@ -15,7 +15,6 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.fixedfunc.GLLightingFunc;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
-import javax.media.opengl.glu.GLUquadric;
 import javax.swing.Timer;
 
 import com.jogamp.opengl.util.Animator;
@@ -222,11 +221,15 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 
     @Override
     public void init(GLAutoDrawable drawable) {
-	GL2 gl = drawable.getGL().getGL2();
+	DebugGL2 gl = new DebugGL2(drawable.getGL().getGL2());
+	//GL2 gl = drawable.getGL().getGL2();
 	GLErrorChecker.gl = gl;
 	GLErrorChecker.glu = glu;
 	TextureLoader.gl = gl;
 	TextureLoader.glu = glu;
+	ShaderProgram.gl = gl;
+	ShaderProgram.glu = glu;
+	
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);
