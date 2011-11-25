@@ -24,6 +24,8 @@ public class SphereLight implements SceneObject {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 0.5f));
+	this.mesh.translation = this.location;
 	Material mat = new Material();
 	mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.diffuse = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);

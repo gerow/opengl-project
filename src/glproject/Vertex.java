@@ -5,7 +5,7 @@ public class Vertex {
     public Vector3f normal = null;
     public Vector3f surfaceNormal = null;
     public Vector2f textureCoordinate = null;
-    public Vector3f color = null;
+    public Vector4f color = null;
     
     public Vertex(Vector3f location, Vector3f surfaceNormal, Vector2f textureCoordinate) {
 	this.location = location;
@@ -21,7 +21,7 @@ public class Vertex {
 	if (copy.textureCoordinate != null)
 	    this.textureCoordinate = new Vector2f(copy.textureCoordinate);
 	if (copy.color != null)
-	    this.color = new Vector3f(copy.color);
+	    this.color = new Vector4f(copy.color);
     }
     
     public Vertex() {

@@ -118,7 +118,6 @@ public class Mesh {
 		new FileReader("assets/objects/" + filename));
 	String line;
 	String splitLines[];
-	Random r = new Random();
 	Material currentMaterial = null;
 	String mtlFile = null;
 	while ((line = reader.readLine()) != null) {
@@ -128,10 +127,8 @@ public class Mesh {
 		v.location.x = Float.valueOf(splitLines[1]);
 		v.location.y = Float.valueOf(splitLines[2]);
 		v.location.z = Float.valueOf(splitLines[3]);
-		v.color = new Vector3f(r.nextFloat(), r.nextFloat(),
-			r.nextFloat());
 		verticies.add(v);
-		System.out.println("Adding new vertex " + line);
+		//System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
 		float u = Float.valueOf(splitLines[1]);
 		float v = Float.valueOf(splitLines[2]);
@@ -142,7 +139,7 @@ public class Mesh {
 		float z = Float.valueOf(splitLines[3]);
 		vertexNormals.add(new Vector3f(x, y, z));
 	    } else if (splitLines[0].equals("f")) {
-		System.out.println("Adding new face " + line);
+		//System.out.println("Adding new face " + line);
 		ArrayList<Vertex> polygonVerticies = new ArrayList<Vertex>();
 		for (int i = 1; i < splitLines.length; ++i) {
 		    String[] slashSplitLines = splitLines[i].split("/");
@@ -182,5 +179,18 @@ public class Mesh {
 	for (Polygon p : this.allPolys) {
 	    p.shaderProgram = shaderProgram;
 	}
+    }
+    
+    public void setColor(Vector3f color) {
+	Vector4f fcolor = new Vector4f(color.x, color.y, color.z, 1.0f);
+	for (Polygon p : this.allPolys)
+	    for (Vertex v : p.verticies)
+		v.color = fcolor;
+    }
+    
+    public void setColor(Vector4f color) {
+	for (Polygon p : this.allPolys)
+	    for (Vertex v : p.verticies)
+		v.color = color;
     }
 }

@@ -28,7 +28,8 @@ public class Material {
     // public String texture = null;
 
     public Material() {
-
+	Vector4f vec = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+	this.ambient = this.diffuse = this.specular = vec;
     }
 
     public Material(Vector4f ambient, Vector4f diffuse, Vector4f specular,
@@ -59,7 +60,7 @@ public class Material {
     public void enableMaterial(GLAutoDrawable drawable, GLU glu) {
 	// Still need to do texture mapping.
 	GL2 gl = drawable.getGL().getGL2();
-
+	gl.glEnable(GL2.GL_LIGHTING);
 	int faceInt = 0;
 
 	switch (face) {
@@ -84,10 +85,16 @@ public class Material {
 	// System.out.println("Texture has width " + this.texture.getWidth()
 	// + " and height " + this.texture.getHeight() + " and id " +
 	// this.texture.getTextureObject(gl));
-	this.texture.enable(gl);
-	//System.out.println(gl);
-	//gl.glEnable(this.texture.getTarget());
-	this.texture.bind(gl);
+	// System.out.println(gl);
+	// gl.glEnable(this.texture.getTarget());
+	if (this.texture != null) {
+	    this.texture.enable(gl);
+	    this.texture.bind(gl);
+	}
+	else {
+	    gl.glDisable(GL2.GL_TEXTURE_2D);
+	    gl.glColorMaterial(faceInt, GL2.GL_AMBIENT_AND_DIFFUSE);
+	}
     }
 
     public void disableTexture(GL2 gl) {

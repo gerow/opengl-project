@@ -31,12 +31,12 @@ public class SolarSystem extends World {
 
 	Mesh m = null;
 	try {
-	    m = Mesh.loadMeshFromObjFile("mtdew.obj");
+	    m = Mesh.loadMeshFromObjFile("saturnUV.obj");
 	} catch (IOException e1) {
 	    // TODO Auto-generated catch block
 	    e1.printStackTrace();
 	}
-	m.scaling = new Vector3f(20.0f, 20.0f, 20.0f);
+	//m.scaling = new Vector3f(20.0f, 20.0f, 20.0f);
 	//m.scaling = new Vector3f(40.0f, 40.0f, 40.0f);
 	Orbiter orbiter1 = new Orbiter(m);
 	// Mesh m2 = null;
@@ -55,7 +55,7 @@ public class SolarSystem extends World {
 	this.addSceneObject(orbiter1);
 	// this.addSceneObject(orbiter2);
 	orbiter1.setRotationalVelocity(new Vector3f(0, 1, 0));
-	this.addSceneObject(new SphereLight(new Vector3f(0.0f, 0.0f, -500.0f)));
+	this.addSceneObject(new SphereLight(new Vector3f(0.0f, 100.0f, -500.0f)));
 	// orbiter2.setRotationalVelocity(new Vector3d(0, 1, 0));
 	// Light l = new Light();
 

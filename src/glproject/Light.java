@@ -22,7 +22,7 @@ public class Light {
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
 	
-	System.out.println("Rendering light at " + this.location.x + " " + this.location.y + " " + this.location.z);
+	//System.out.println("Rendering light at " + this.location.x + " " + this.location.y + " " + this.location.z);
 	
 	if (this.enabled) {
 	    //gl.glPushMatrix();

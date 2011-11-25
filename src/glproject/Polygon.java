@@ -6,7 +6,20 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
+/**
+ * An object to represent one polygon on the screen.
+ * 
+ * @author gerow
+ * 
+ */
 public class Polygon {
+    /**
+     * The type of a polygon. OpenGL requires us to render Triangles, Quads, and
+     * Polys differently.
+     * 
+     * @author gerow
+     * 
+     */
     public enum Type {
 	TRIANGLE, QUAD, POLY
     };
@@ -17,6 +30,13 @@ public class Polygon {
     public Material material;
     public ShaderProgram shaderProgram = null;
 
+    /**
+     * Normal constructor for a Polygon. It requires a number of verticies (at
+     * least three).
+     * 
+     * @param verticies
+     *            The verticies that are to be a part of the polygon.
+     */
     public Polygon(ArrayList<Vertex> verticies) {
 	this.verticies = verticies;
 	if (this.verticies.size() < 3)
@@ -35,6 +55,15 @@ public class Polygon {
 	// v.surfaceNormal = this.surfaceNormal;
     }
 
+    /**
+     * A static method to make it easier to compute the surface normal of the
+     * polygon formed by three points.
+     * 
+     * @param vec1
+     * @param vec2
+     * @param vec3
+     * @return
+     */
     public static Vector3f computeSurfaceNormal(Vector3f vec1, Vector3f vec2,
 	    Vector3f vec3) {
 	Vector3f U = vec1.vectorTo(vec2);
@@ -53,6 +82,11 @@ public class Polygon {
 	if (this.material != null) {
 	    this.material.enableMaterial(drawable, glu);
 	    GLErrorChecker.check("Ater enabling material");
+	}
+	else {
+	    gl.glDisable(GL2.GL_TEXTURE_2D);
+	    gl.glDisable(GL2.GL_LIGHTING);
+	    //gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
 	}
 	if (this.verticies.size() == 3)
 	    gl.glBegin(GL2.GL_TRIANGLES);
