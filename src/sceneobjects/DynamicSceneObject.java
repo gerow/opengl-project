@@ -21,6 +21,10 @@ public abstract class DynamicSceneObject implements SceneObject {
     private Vector3f scalingVelocity = new Vector3f(0, 0, 0);
     private Vector3f scalingAcceleration = new Vector3f(0, 0, 0);
     
+    public DynamicSceneObject() {
+	
+    }
+    
     public DynamicSceneObject(Mesh mesh) {
 	this.mesh = mesh;
     }
@@ -31,6 +35,7 @@ public abstract class DynamicSceneObject implements SceneObject {
     }
     
     public void initialize(World world) {
+	System.out.println("Initalizing world");
 	this.world = world;
 	this.world.addMesh(this.mesh);
     }
@@ -47,6 +52,7 @@ public abstract class DynamicSceneObject implements SceneObject {
     
     public void setLocation(Vector3f location) {
 	this.location = location;
+	System.out.println("Translating mesh " + this.mesh + " to location " + this.location);
 	this.mesh.translation = this.location;
     }
     

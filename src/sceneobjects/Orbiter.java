@@ -9,6 +9,10 @@ public class Orbiter extends DynamicSceneObject {
 
     private float attraction = 0.1f;
     private ArrayList<Orbiter> affectedByList = new ArrayList<Orbiter>();
+    
+    public Orbiter() {
+	
+    }
 
     public Orbiter(Mesh mesh) {
 	super(mesh);

@@ -88,6 +88,7 @@ public class Material {
 	// System.out.println(gl);
 	// gl.glEnable(this.texture.getTarget());
 	if (this.texture != null) {
+	    
 	    this.texture.enable(gl);
 	    this.texture.bind(gl);
 	}

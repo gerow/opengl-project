@@ -1,46 +1,42 @@
 package sceneobjects;
 
+import java.io.IOException;
+
 import glproject.Light;
 import glproject.Material;
 import glproject.Mesh;
-import glproject.SceneObject;
 import glproject.Vector3f;
 import glproject.Vector4f;
 import glproject.World;
 
-import java.io.IOException;
-
-public class SphereLight implements SceneObject {
-    private Vector3f location = new Vector3f();
-    private Mesh mesh;
-    private World world;
+public class SphereLightOrbiter extends Orbiter {
     private Light light;
-    
-    public SphereLight(Vector3f location) {
-	this.location = location;
+
+    public SphereLightOrbiter(Vector3f location) {
+	SphereLight light = new SphereLight(location);
 	try {
 	    this.mesh = Mesh.loadMeshFromObjFile("sphere.obj");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 0.1f));
-	this.mesh.translation = this.location;
+	this.setLocation(location);
+	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 0.2f));
 	Material mat = new Material();
 	mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.diffuse = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
-	this.light = new Light(this.location, mat);
+	this.light = new Light(this.getLocation(), mat);
     }
+
     public void initialize(World world) {
-	this.world = world;
-	world.addMesh(this.mesh);
-	world.addLight(this.light);
+	super.initialize(world);
+	world.addLight(light);
     }
-
-    @Override
+    
     public void step() {
-	
+	super.step();
+	System.out.println("Sphere light orbiting at " + this.getLocation().x + " " + this.getLocation().y + " " + this.getLocation().z);
+	this.light.location = this.getLocation();
     }
-
 }
