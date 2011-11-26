@@ -1,11 +1,9 @@
 package glproject.scenes;
 
-import glproject.Light;
-import glproject.Material;
 import glproject.Mesh;
 import glproject.ShaderProgram;
+import glproject.SkySphere;
 import glproject.Vector3f;
-import glproject.Vector4f;
 import glproject.World;
 
 import java.awt.AWTException;
@@ -82,7 +80,8 @@ public class SolarSystem extends World {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-
+	SkySphere ssphere = new SkySphere(1000.0f, "space2.jpg");
+	this.addRenderable(ssphere);
 	// m.setShaderProgram(redShader);
     }
 }

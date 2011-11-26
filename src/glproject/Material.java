@@ -152,4 +152,11 @@ public class Material {
 	else
 	    return new Material(ka, kd, ks, ns, textureName);
     }
+    
+    public static Material pureAmbient() {
+	Material out = new Material();
+	out.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+	
+	return out;
+    }
 }

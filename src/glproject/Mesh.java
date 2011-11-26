@@ -4,13 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
-public class Mesh {
+public class Mesh implements Renderable {
     public ArrayList<Polygon> triangles = new ArrayList<Polygon>();
     public ArrayList<Polygon> quads = new ArrayList<Polygon>();
     public ArrayList<Polygon> polygons = new ArrayList<Polygon>();
@@ -192,5 +191,16 @@ public class Mesh {
 	for (Polygon p : this.allPolys)
 	    for (Vertex v : p.verticies)
 		v.color = color;
+    }
+    
+    public void setMaterial(Material mat) {
+	for (Polygon p : this.allPolys)
+	    p.material = mat;
+    }
+
+    @Override
+    public void init(World world) {
+	// TODO Auto-generated method stub
+	
     }
 }

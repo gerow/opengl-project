@@ -29,6 +29,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private Camera activeCamera;
     private ArrayList<Camera> cameras = new ArrayList<Camera>();
     private ArrayList<Mesh> meshes = new ArrayList<Mesh>();
+    private ArrayList<Renderable> renderables = new ArrayList<Renderable>();
     private ArrayList<Light> lights = new ArrayList<Light>();
     private ArrayList<SceneObject> sceneObjects = new ArrayList<SceneObject>();
     private boolean displayFps = true;
@@ -213,6 +214,10 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	for (Mesh m : meshes) {
 	    m.render(drawable, glu);
 	}
+	
+	for (Renderable r : renderables) {
+	    r.render(drawable, glu);
+	}
 	GLErrorChecker.check("At end of render");
 	// gl.glPopMatrix();
     }
@@ -296,5 +301,14 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 
     public void stopRender() {
 	this.animator.stop();
+    }
+    
+    public void addRenderable(Renderable r) {
+	r.init(this);
+	this.renderables.add(r);
+    }
+    
+    public boolean removeRenderable(Renderable r) {
+	return this.renderables.remove(r);
     }
 }
