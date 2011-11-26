@@ -10,6 +10,10 @@ public class FunctionMover implements SceneObject {
     private RealToVector3dFunction function;
     private World world;
     
+    public FunctionMover() {
+	
+    }
+    
     public FunctionMover(RealToVector3dFunction function, Mesh mesh) {
 	this.mesh = mesh;
 	this.function = function;
