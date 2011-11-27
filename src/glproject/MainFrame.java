@@ -4,31 +4,16 @@ import glproject.World;
 import glproject.scenes.SolarSystem;
 
 import java.awt.AWTException;
-import java.awt.Cursor;
 import java.awt.Frame;
-import java.awt.Robot;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GL2ES1;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLEventListener;
-import javax.media.opengl.awt.GLCanvas;
-import javax.media.opengl.fixedfunc.GLLightingFunc;
-import javax.media.opengl.fixedfunc.GLMatrixFunc;
-import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
-import javax.swing.Timer;
-
-import sceneobjects.Orbiter;
-import sceneobjects.Teapot;
-
-import com.jogamp.opengl.util.Animator;
 
 public class MainFrame extends JFrame {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -4337985330972808940L;
     //public static final int TICKRATE = 33;
     //GLU glu = new GLU();
     //GLCanvas canvas = new GLCanvas();

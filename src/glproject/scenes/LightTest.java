@@ -2,7 +2,6 @@ package glproject.scenes;
 
 import glproject.MainFrame;
 import glproject.Mesh;
-import glproject.ShaderProgram;
 import glproject.SkySphere;
 import glproject.Vector3f;
 import glproject.World;
@@ -17,6 +16,11 @@ import sceneobjects.SphereLight;
 import sceneobjects.SphereLightOrbiter;
 
 public class LightTest extends World {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -242252949348852215L;
 
     public LightTest() throws AWTException {
 	super();

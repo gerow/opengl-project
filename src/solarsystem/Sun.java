@@ -1,9 +1,6 @@
 package solarsystem;
 
-import glproject.Attractor;
-import glproject.Collider;
 import glproject.Vector3f;
-import sceneobjects.FunctionMover;
 
 public class Sun extends Planet {
 
