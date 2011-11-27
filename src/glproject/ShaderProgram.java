@@ -13,6 +13,7 @@ import javax.media.opengl.glu.GLU;
 public class ShaderProgram {
     public static GL2 gl;
     public static GLU glu;
+    public static ShaderProgram defaultShader = null;
 
     private int id = 0;
     private int v = 0;
@@ -87,6 +88,9 @@ public class ShaderProgram {
     }
     
     public static void useDefaultShader() {
-	gl.glUseProgram(0);
+	if (ShaderProgram.defaultShader != null)
+	    defaultShader.enable();
+	else
+	    gl.glUseProgram(0);
     }
 }
