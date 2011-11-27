@@ -1,20 +1,20 @@
 package sceneobjects;
 
 import glproject.Mesh;
-import glproject.RealToVector3dFunction;
+import glproject.RealToVector3fFunction;
 import glproject.SceneObject;
 import glproject.World;
 
 public class FunctionMover implements SceneObject {
     private Mesh mesh;
-    private RealToVector3dFunction function;
+    private RealToVector3fFunction function;
     private World world;
     
     public FunctionMover() {
 	
     }
     
-    public FunctionMover(RealToVector3dFunction function, Mesh mesh) {
+    public FunctionMover(RealToVector3fFunction function, Mesh mesh) {
 	this.mesh = mesh;
 	this.function = function;
     }
