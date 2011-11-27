@@ -11,12 +11,6 @@ public class Sun extends Planet {
     }
 
     @Override
-    public Vector3f getLocation() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
     public float getAttractionValue() {
 	// TODO Auto-generated method stub
 	return 0;
