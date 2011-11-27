@@ -17,6 +17,8 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 import javax.swing.Timer;
 
+import sceneobjects.ParticleEmitter;
+
 import com.jogamp.opengl.util.Animator;
 
 public class World extends GLCanvas implements GLEventListener, ActionListener {
@@ -32,6 +34,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private ArrayList<Renderable> renderables = new ArrayList<Renderable>();
     private ArrayList<Light> lights = new ArrayList<Light>();
     private ArrayList<SceneObject> sceneObjects = new ArrayList<SceneObject>();
+    private ArrayList<ParticleEmitter> particleEmitters= new ArrayList<ParticleEmitter>();
     private boolean displayFps = true;
     private GLU glu = new GLU();
     private Timer t = new Timer(1000 / World.TICKRATE, this);
@@ -160,6 +163,14 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     public boolean removeSceneObject(SceneObject sceneObject) {
 	return this.sceneObjects.remove(sceneObject);
     }
+    
+    public void addParticleEmitter(ParticleEmitter particleEmitter) {
+    	this.particleEmitters.add(particleEmitter);
+        }
+
+    public boolean removeParticleEmitter(ParticleEmitter particleEmitter) {
+    	return this.particleEmitters.remove(particleEmitter);
+    }
 
     public void step() {
 	for (SceneObject o : this.sceneObjects)
@@ -213,6 +224,11 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	
 	for (Mesh m : meshes) {
 	    m.render(drawable, glu);
+	}
+	
+	for (ParticleEmitter pe : this.particleEmitters)
+	{
+		pe.render(drawable, glu);
 	}
 	
 	for (Renderable r : renderables) {
