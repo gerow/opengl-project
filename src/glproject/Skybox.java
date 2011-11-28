@@ -7,6 +7,11 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLException;
 import javax.media.opengl.glu.GLU;
 
+/**
+ * 
+ * @author gerow
+ * @deprecated
+ */
 public class Skybox implements Renderable {
     private Polygon north, south, east, west, top, bottom;
     public Skybox(float size, String allSides) throws GLException, IOException {

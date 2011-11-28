@@ -18,6 +18,11 @@ import sceneobjects.SphereLightOrbiter;
 
 public class ShaderTest extends World {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8501533942596676773L;
+
     public ShaderTest() throws AWTException {
 	super();
 

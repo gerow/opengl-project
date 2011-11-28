@@ -1,10 +1,6 @@
 package glproject.scenes;
 
 import glproject.MainFrame;
-import glproject.Mesh;
-import glproject.ShaderProgram;
-import glproject.SkySphere;
-import glproject.Vector3f;
 import glproject.World;
 
 import java.awt.AWTException;
@@ -12,11 +8,12 @@ import java.io.IOException;
 
 import javax.media.opengl.GLAutoDrawable;
 
-import sceneobjects.Orbiter;
-import sceneobjects.SphereLight;
-import sceneobjects.SphereLightOrbiter;
-
 public class SolarSystem extends World {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3171853764150449223L;
 
     public SolarSystem() throws AWTException {
 	super();

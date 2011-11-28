@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import javax.media.opengl.GLDrawable;
 import javax.media.opengl.glu.GLU;
 
+/**
+ * 
+ * @author gerow
+ * @deprecated
+ */
 public class Sprite {
     private Vector3f location = new Vector3f(0, 0, 0);
     private int imageNumber = 0;
