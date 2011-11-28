@@ -76,11 +76,9 @@ public class Particle {
     	gl.glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
     	gl.glScalef(scaling.x, scaling.y, scaling.z);
     	
-    	gl.glBegin(GL2.GL_TRIANGLES);
-		polygon.render(((GLAutoDrawable) drawable), glu);
-	    gl.glEnd();
+	polygon.render(((GLAutoDrawable) drawable), glu);
     	
-		gl.glPopMatrix();
+	gl.glPopMatrix();
 	    
     	lifetime--;
     }
