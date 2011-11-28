@@ -30,6 +30,13 @@ public class Azimuth {
 
     public void setAltitude(float altitude) {
 	this.altitude = altitude;
+	final float CLAMP_VALUE = 5150;
+	if (this.altitude > CLAMP_VALUE)
+		this.altitude = CLAMP_VALUE;
+	else if (this.altitude < -CLAMP_VALUE)
+		this.altitude = -CLAMP_VALUE;
+	
+	System.out.println(altitude);
 	this.recalculateDirection();
     }
 }

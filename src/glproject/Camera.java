@@ -41,15 +41,16 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	    this.location = this.location.add(this.azimuth.direction
 		    .multiply(-SPEED));
 	if (left)
-	    this.location = this.location.add(this.getUnitLeft().multiply(SPEED));
+	    this.location = this.location.add(this.getUnitRight().multiply(-SPEED));
 	if (right)
-	    this.location = this.location.add(this.getUnitLeft().multiply(-SPEED));
+	    this.location = this.location.add(this.getUnitRight().multiply(SPEED));
     }
     
-    public Vector3f getUnitLeft() {
+    public Vector3f getUnitRight() {
 	Vector3f out = new Vector3f(azimuth.direction);
 	out.y = 0;
-	out.x = -out.x;
+	out = out.normalize();
+	out = out.cross(new Vector3f(0.0f, 1.0f, 0.0f));
 	return out.normalize();
     }
 

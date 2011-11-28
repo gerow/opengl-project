@@ -36,7 +36,7 @@ public class SphereLightOrbiter extends Orbiter {
     
     public void step() {
 	super.step();
-	System.out.println("Sphere light orbiting at " + this.getLocation().x + " " + this.getLocation().y + " " + this.getLocation().z);
+	//System.out.println("Sphere light orbiting at " + this.getLocation().x + " " + this.getLocation().y + " " + this.getLocation().z);
 	this.light.location = this.getLocation();
     }
 }
