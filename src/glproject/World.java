@@ -1,8 +1,11 @@
 package glproject;
 
 import java.awt.AWTException;
+import java.awt.Cursor;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.media.opengl.DebugGL2;
@@ -34,7 +37,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private ArrayList<Renderable> renderables = new ArrayList<Renderable>();
     private ArrayList<Light> lights = new ArrayList<Light>();
     private ArrayList<SceneObject> sceneObjects = new ArrayList<SceneObject>();
-    private ArrayList<ParticleEmitter> particleEmitters= new ArrayList<ParticleEmitter>();
+    private ArrayList<ParticleEmitter> particleEmitters = new ArrayList<ParticleEmitter>();
     private boolean displayFps = true;
     private GLU glu = new GLU();
     private Timer t = new Timer(1000 / World.TICKRATE, this);
@@ -163,13 +166,13 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     public boolean removeSceneObject(SceneObject sceneObject) {
 	return this.sceneObjects.remove(sceneObject);
     }
-    
+
     public void addParticleEmitter(ParticleEmitter particleEmitter) {
-    	this.particleEmitters.add(particleEmitter);
-        }
+	this.particleEmitters.add(particleEmitter);
+    }
 
     public boolean removeParticleEmitter(ParticleEmitter particleEmitter) {
-    	return this.particleEmitters.remove(particleEmitter);
+	return this.particleEmitters.remove(particleEmitter);
     }
 
     public void step() {
@@ -199,9 +202,9 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
 	gl.glEnable(GL2.GL_NORMALIZE);
 	gl.glEnable(GL2.GL_BLEND);
-	//gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
-	//gl.glBlendFunc(GL2.GL_ONE_MINUS_DST_ALPHA,GL2.GL_DST_ALPHA);
-	//gl.glBlendFunc(GL2.GL_ONE, GL2.GL_ONE);
+	// gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
+	// gl.glBlendFunc(GL2.GL_ONE_MINUS_DST_ALPHA,GL2.GL_DST_ALPHA);
+	// gl.glBlendFunc(GL2.GL_ONE, GL2.GL_ONE);
 	gl.glLoadIdentity();
 
 	GLErrorChecker.check("After loading identity");
@@ -215,22 +218,20 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 		reference.x, reference.y, reference.z, 0.0f, 1.0f, 0.0f);
 
 	GLErrorChecker.check("After applying camera matrix");
-	
 
 	for (Light l : this.lights) {
 	    l.render(drawable, glu);
 	}
 	GLErrorChecker.check("After doing lights");
-	
+
 	for (Mesh m : meshes) {
 	    m.render(drawable, glu);
 	}
-	
-	for (ParticleEmitter pe : this.particleEmitters)
-	{
-		pe.render(drawable, glu);
+
+	for (ParticleEmitter pe : this.particleEmitters) {
+	    pe.render(drawable, glu);
 	}
-	
+
 	for (Renderable r : renderables) {
 	    r.render(drawable, glu);
 	}
@@ -247,14 +248,14 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     @Override
     public void init(GLAutoDrawable drawable) {
 	DebugGL2 gl = new DebugGL2(drawable.getGL().getGL2());
-	//GL2 gl = drawable.getGL().getGL2();
+	// GL2 gl = drawable.getGL().getGL2();
 	GLErrorChecker.gl = gl;
 	GLErrorChecker.glu = glu;
 	TextureLoader.gl = gl;
 	TextureLoader.glu = glu;
 	ShaderProgram.gl = gl;
 	ShaderProgram.glu = glu;
-	
+
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);
@@ -274,7 +275,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 		GL2.GL_REPEAT);
 	gl.glEnable(GL2.GL_BLEND);
 	gl.glEnable(GL2.GL_LIGHTING);
-	//gl.glEnable(GL2.GL_LIGHT0);
+	// gl.glEnable(GL2.GL_LIGHT0);
     }
 
     @Override
@@ -318,13 +319,23 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     public void stopRender() {
 	this.animator.stop();
     }
-    
+
     public void addRenderable(Renderable r) {
 	r.init(this);
 	this.renderables.add(r);
     }
-    
+
     public boolean removeRenderable(Renderable r) {
 	return this.renderables.remove(r);
+    }
+
+    public void setMouseVisible(boolean visible) {
+	if (visible)
+	    this.setCursor(Cursor.getDefaultCursor());
+	else {
+	    this.setCursor(this.getToolkit().createCustomCursor(
+		    new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB),
+		    new Point(0, 0), "null"));
+	}
     }
 }

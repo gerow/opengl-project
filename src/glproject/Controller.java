@@ -32,6 +32,7 @@ public class Controller implements KeyListener, MouseMotionListener,
 
     public void mouseClicked(MouseEvent arg0) {
 	if (!this.mouseGrabbed) {
+	    this.world.setMouseVisible(false);
 	    this.mouseGrabbed = true;
 	    this.robot.mouseMove(Controller.MOUSE_LOCATION_X,
 		    Controller.MOUSE_LOCATION_Y);
@@ -92,6 +93,7 @@ public class Controller implements KeyListener, MouseMotionListener,
 	    break;
 	case KeyEvent.VK_ESCAPE:
 	    this.mouseGrabbed = false;
+	    this.world.setMouseVisible(true);
 	    break;
 	}
     }
