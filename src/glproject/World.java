@@ -169,10 +169,11 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 
     public void addParticleEmitter(ParticleEmitter particleEmitter) {
 	this.particleEmitters.add(particleEmitter);
+	this.sceneObjects.add(particleEmitter);
     }
 
     public boolean removeParticleEmitter(ParticleEmitter particleEmitter) {
-	return this.particleEmitters.remove(particleEmitter);
+	return (this.sceneObjects.remove(particleEmitter) && this.particleEmitters.remove(particleEmitter));
     }
 
     public void step() {
