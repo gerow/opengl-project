@@ -19,25 +19,25 @@ public class Particle {
     public Vector3f scaling;
     
     public Particle(World world,Vector3f inputTranslation, Vector3f inputRotation, Vector3f inputScaling) {
-	this.world = world;
-	this.translation=inputTranslation;
-	this.rotation=inputRotation;
-	this.scaling=inputScaling;
-	ArrayList<Vertex> verticies = new ArrayList<Vertex>();
-	Vertex v = new Vertex();
-	v.location = new Vector3f(-1.0f, 0.0f, 0.0f);
-	v.textureCoordinate = new Vector2f(0.0f, 1.0f);
-	verticies.add(v);
-	v = new Vertex();
-	v.location = new Vector3f(0.5f, 0.866f, 0.0f);
-	v.textureCoordinate = new Vector2f(0.0f, 0.0f);
-	verticies.add(v);
-	v = new Vertex();
-	v.location = new Vector3f(0.5f, -0.866f, 0.0f);
-	v.textureCoordinate = new Vector2f(1.0f, 0.0f);
-	verticies.add(v);
-	this.polygon = new Polygon(verticies);
-	this.lifetime=75;
+		this.world = world;
+		this.translation=inputTranslation;
+		this.rotation=inputRotation;
+		this.scaling=inputScaling;
+		ArrayList<Vertex> verticies = new ArrayList<Vertex>();
+		Vertex v = new Vertex();
+		v.location = new Vector3f(-1.0f, 0.0f, 0.0f);
+		//v.textureCoordinate = new Vector2f(0.0f, 1.0f);
+		verticies.add(v);
+		v = new Vertex();
+		v.location = new Vector3f(0.5f, 0.866f, 0.0f);
+		//v.textureCoordinate = new Vector2f(0.0f, 0.0f);
+		verticies.add(v);
+		v = new Vertex();
+		v.location = new Vector3f(0.5f, -0.866f, 0.0f);
+		//v.textureCoordinate = new Vector2f(1.0f, 0.0f);
+		verticies.add(v);
+		this.polygon = new Polygon(verticies);
+		this.lifetime=75;
     }
     
     public Particle(World world,Vector3f inputTranslation, Vector3f inputRotation, Vector3f inputScaling, Vector4f color) {
@@ -48,17 +48,17 @@ public class Particle {
     	ArrayList<Vertex> verticies = new ArrayList<Vertex>();
     	Vertex v = new Vertex();
     	v.location = new Vector3f(-1.0f, 0.0f, 0.0f);
-    	v.textureCoordinate = new Vector2f(0.0f, 1.0f);
+    	//v.textureCoordinate = new Vector2f(0.0f, 1.0f);
     	v.color=color;
     	verticies.add(v);
     	v = new Vertex();
     	v.location = new Vector3f(0.5f, 0.866f, 0.0f);
-    	v.textureCoordinate = new Vector2f(0.0f, 0.0f);
+    	//v.textureCoordinate = new Vector2f(0.0f, 0.0f);
     	v.color=color;
     	verticies.add(v);
     	v = new Vertex();
     	v.location = new Vector3f(0.5f, -0.866f, 0.0f);
-    	v.textureCoordinate = new Vector2f(1.0f, 0.0f);
+    	//v.textureCoordinate = new Vector2f(1.0f, 0.0f);
     	v.color=color;
     	verticies.add(v);
     	this.polygon = new Polygon(verticies);
@@ -76,6 +76,10 @@ public class Particle {
     	gl.glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
     	gl.glScalef(scaling.x, scaling.y, scaling.z);
     	
+    	for(Vertex v: polygon.verticies)
+    	{
+    		//System.out.println(v.color.x+" "+v.color.y+" "+v.color.z);
+    	}
 	polygon.render(((GLAutoDrawable) drawable), glu);
     	
 	gl.glPopMatrix();

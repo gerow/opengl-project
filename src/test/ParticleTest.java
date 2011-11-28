@@ -34,7 +34,8 @@ public class ParticleTest extends World {
 		    e1.printStackTrace();
 		}
 		m.scaling = new Vector3f(1, 1, 1);
-		m.setColor(new Vector3f(.5f,.3f,.7f));
+		m.setColor(new Vector3f(.8f,.8f,.7f));
+		m.setColor(new Vector3f(.1f,.9f,.1f));
 		Orbiter orbiter1 = new Orbiter(m);
 		Mesh m2 = null;
 		try {

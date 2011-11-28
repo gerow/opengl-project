@@ -22,10 +22,10 @@ public class ParticleEmitter extends DynamicSceneObject {
     private World world;
     private float scale;
     private CopyOnWriteArrayList<Particle> particles;
-    private float colorRange=(float) .5;
-    private float colorR=0;
-    private float colorG=0;
-    private float colorB=1;
+    private float colorRange=0.4f;
+    private float colorR=.7f;
+    private float colorG=.1f;
+    private float colorB=.1f;
     private final int PARTICLEFREQUENCY=10000;
     private DynamicSceneObject object;
     private final int DISTANCERANGE=20;
@@ -61,7 +61,7 @@ public class ParticleEmitter extends DynamicSceneObject {
     			{
     				//System.out.println("Adding Particles");
     				Vector3f location=new Vector3f(object.getLocation().x+v.location.x+(int)(Math.random()*DISTANCERANGE),object.getLocation().y+v.location.y+(int)(Math.random()*DISTANCERANGE),object.getLocation().z+v.location.z+(int)(Math.random()*DISTANCERANGE));
-    				Vector4f color=new Vector4f(colorR+(float)(Math.random()*colorRange),colorG+(float)(Math.random()*colorRange),colorB+(float)(Math.random()*colorRange),0.0f);
+    				Vector4f color=new Vector4f(colorR+(float)(Math.random()*colorRange),colorG+(float)(Math.random()*colorRange),colorB+(float)(Math.random()*colorRange),1.0f);
     				particles.add(new Particle(world,location,this.getRotation(),this.getScale(),color));
     			}
     		}
