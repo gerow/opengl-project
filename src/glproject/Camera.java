@@ -55,8 +55,6 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
     }
 
     public void keyPressed(KeyEvent arg0) {
-	System.out.println("Key pressed");
-	System.out.println(this.azimuth.direction.x + " " + this.azimuth.direction.y + " " + this.azimuth.direction.z);
 	switch (arg0.getKeyCode()) {
 	case KeyEvent.VK_W:
 	    this.forward = true;

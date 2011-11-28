@@ -35,8 +35,6 @@ public class Azimuth {
 		this.altitude = CLAMP_VALUE;
 	else if (this.altitude < -CLAMP_VALUE)
 		this.altitude = -CLAMP_VALUE;
-	
-	System.out.println(altitude);
 	this.recalculateDirection();
     }
 }
