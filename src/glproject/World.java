@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.media.opengl.DebugGL2;
@@ -42,6 +43,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private GLU glu = new GLU();
     private Timer t = new Timer(1000 / World.TICKRATE, this);
     private Animator animator = new Animator(this);
+    private Uniform numLightsUniform;
+    private int numLights = 0;
 
     private boolean[] activeLights = { false, false, false, false, false,
 	    false, false, false };
@@ -146,11 +149,15 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 
     public void addLight(Light light) {
 	light.lightNumber = this.findAndTakeNextAvailableLight();
+	++this.numLights;
+	this.numLightsUniform.set(this.numLights);
 	this.lights.add(light);
     }
 
     public boolean removeLight(Light light) {
 	this.returnUnusedLight(light.lightNumber);
+	--this.numLights;
+	this.numLightsUniform.set(this.numLights);
 	return this.lights.remove(light);
     }
 
@@ -232,6 +239,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	for (ParticleEmitter pe : this.particleEmitters) {
 	    pe.render(drawable, glu);
 	}
+	
 
 	for (Renderable r : renderables) {
 	    r.render(drawable, glu);
@@ -256,7 +264,14 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	TextureLoader.glu = glu;
 	ShaderProgram.gl = gl;
 	ShaderProgram.glu = glu;
-
+	try {
+	    ShaderProgram.buildShaderLibrary();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	this.numLightsUniform = ShaderProgram.getFromShaderLibrary("phong").getUniform("num_lights");
+	this.numLightsUniform.set(0);
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);

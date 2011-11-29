@@ -1,14 +1,13 @@
 package glproject;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.media.opengl.GL2;
-import javax.media.opengl.GL3;
 import javax.media.opengl.glu.GLU;
 
 public class ShaderProgram {
@@ -19,6 +18,10 @@ public class ShaderProgram {
     private int id = 0;
     private int v = 0;
     private int f = 0;
+    
+    private HashMap<String, Uniform> uniforms = new HashMap<String, Uniform>();
+    
+    private static HashMap<String, ShaderProgram> shaderLibrary = new HashMap<String, ShaderProgram>();
 
     public void enable() {
 	gl.glUseProgram(this.id);
@@ -105,5 +108,30 @@ public class ShaderProgram {
     
     public int getShaderLocation() {
 	return this.id;
+    }
+    
+    public void addUniform(Uniform uniform) {
+	System.out.println("Adding uniform " + uniform);
+	this.uniforms.put(uniform.name, uniform);
+    }
+    
+    public Uniform getUniform(String name) {
+	return this.uniforms.get(name);
+    }
+    
+    public static void addToShaderLibrary(String name, ShaderProgram shaderProgram) {
+	ShaderProgram.shaderLibrary.put(name, shaderProgram);
+    }
+    
+    public static ShaderProgram getFromShaderLibrary(String name) {
+	return ShaderProgram.shaderLibrary.get(name);
+    }
+    
+    public static void buildShaderLibrary() throws IOException {
+	ShaderProgram phong = ShaderProgram.loadFromFile("phong.vert", "phong.frag");
+	Uniform numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, phong, "num_lights");
+	phong.addUniform(numLights);
+	phong.getUniform("num_lights").set(4);
+	ShaderProgram.shaderLibrary.put("phong", phong);
     }
 }
