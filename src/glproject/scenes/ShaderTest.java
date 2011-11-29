@@ -81,15 +81,11 @@ public class ShaderTest extends World {
 	SkySphere ssphere = new SkySphere(1000.0f, "space2.jpg");
 	this.addRenderable(ssphere);
 	// m.setShaderProgram(redShader);
-	try {
-	    ShaderProgram.defaultShader = ShaderProgram.loadFromFile("phong.vert", "phong.frag");
-	} catch (IOException e) {
-	    // TODO Auto-generated catch block
-	    e.printStackTrace();
-	}
+	ShaderProgram.defaultShader = ShaderProgram
+		.getFromShaderLibrary("phong");
     }
-    
-    public static void main(String args[])  {
+
+    public static void main(String args[]) {
 	MainFrame mainFrame = null;
 	try {
 	    mainFrame = new MainFrame(new ShaderTest());
