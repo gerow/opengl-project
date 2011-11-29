@@ -13,10 +13,13 @@ public class Particle {
     private World world;
     private float scale;
     private Polygon polygon;
-    private int lifetime;
+    public int lifetime;
     public Vector3f translation;
     public Vector3f rotation;
     public Vector3f scaling;
+    public Vector3f direction;
+    
+    private int counter=0;
     
     public Particle(World world,Vector3f inputTranslation, Vector3f inputRotation, Vector3f inputScaling) {
 		this.world = world;
@@ -38,6 +41,7 @@ public class Particle {
 		verticies.add(v);
 		this.polygon = new Polygon(verticies);
 		this.lifetime=75;
+		direction=null;
     }
     
     public Particle(World world,Vector3f inputTranslation, Vector3f inputRotation, Vector3f inputScaling, Vector4f color) {
@@ -63,6 +67,7 @@ public class Particle {
     	verticies.add(v);
     	this.polygon = new Polygon(verticies);
     	this.lifetime=75;
+    	direction=null;
         }
     
     public void render(GLDrawable drawable, GLU glu) {
@@ -97,5 +102,17 @@ public class Particle {
     	{
     		return true;
     	}
+    }
+    
+    public void step()
+    {
+    	
+    	if(counter>20000 && direction!=null)
+    	{
+    		translation.x+=direction.x/100;
+    		translation.y+=direction.y/100;
+    		translation.z+=direction.z/100;
+    	}
+    	counter++;
     }
 }
