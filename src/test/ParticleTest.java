@@ -28,7 +28,7 @@ public class ParticleTest extends World {
 		
 		Mesh m = null;
 		try {
-		    m = Mesh.loadMeshFromObjFile("teapot.obj");
+		    m = Mesh.loadMeshFromObjFile("solarplanet.obj");
 		} catch (IOException e1) {
 		    // TODO Auto-generated catch block
 		    e1.printStackTrace();
@@ -51,7 +51,7 @@ public class ParticleTest extends World {
 		orbiter1.setLocation(new Vector3f(100, 100, 100));
 		orbiter1.setVelocity(new Vector3f(0, 9, 1));
 		
-		ParticleEmitter pe=new ParticleEmitter(this,orbiter1);
+		ParticleEmitter pe=new ParticleEmitter(this,orbiter1, true);
 		
 		/**
 		 * THIS IS WHERE YOU ADD THE PARTICLE EMITTER
