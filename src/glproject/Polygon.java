@@ -29,6 +29,7 @@ public class Polygon {
     public Vector3f surfaceNormal;
     public Material material;
     public ShaderProgram shaderProgram = null;
+    public boolean forceFixedShader = false;
 
     /**
      * Normal constructor for a Polygon. It requires a number of verticies (at
@@ -75,7 +76,9 @@ public class Polygon {
     // It creates another error...
     public void render(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
-	if (this.shaderProgram != null)
+	if (this.forceFixedShader)
+	    gl.glUseProgram(0);
+	else if (this.shaderProgram != null)
 	    this.shaderProgram.enable();
 	else
 	    ShaderProgram.useDefaultShader();

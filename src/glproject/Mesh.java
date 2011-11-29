@@ -180,6 +180,12 @@ public class Mesh implements Renderable {
 	}
     }
     
+    public void useFixedShader() {
+	for (Polygon p : this.allPolys) {
+	    p.forceFixedShader = true;
+	}
+    }
+    
     public void setColor(Vector3f color) {
 	Vector4f fcolor = new Vector4f(color.x, color.y, color.z, 1.0f);
 	for (Polygon p : this.allPolys)

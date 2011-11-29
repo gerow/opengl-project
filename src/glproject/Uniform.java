@@ -17,6 +17,7 @@ public class Uniform {
 	this.shaderProgram = shaderProgram;
 	shaderProgram.enable();
 	this.location = gl.glGetUniformLocation(shaderProgram.getShaderLocation(), name);
+	System.out.println("Uniform location is " + this.location);
     }
     
     public void set(float value) {
@@ -27,5 +28,6 @@ public class Uniform {
     public void set(int value) {
 	this.shaderProgram.enable();
 	this.gl.glUniform1i(this.location, value);
+	System.out.println("Uniform value is " + value);
     }
 }

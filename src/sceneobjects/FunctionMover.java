@@ -6,9 +6,10 @@ import glproject.SceneObject;
 import glproject.World;
 
 public class FunctionMover implements SceneObject {
-    private Mesh mesh;
-    private RealToVector3fFunction function;
-    private World world;
+    protected Mesh mesh;
+    protected RealToVector3fFunction function;
+    protected World world;
+    protected float rotationalVelocity = 0.0f;
     
     public FunctionMover() {
 	
@@ -21,6 +22,7 @@ public class FunctionMover implements SceneObject {
 
     public void step() {
 	this.mesh.translation = this.function.eval(System.currentTimeMillis() / 1000.0f);
+	this.mesh.rotation.y += rotationalVelocity;
     }
 
     public void initialize(World world) {

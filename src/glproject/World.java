@@ -271,7 +271,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	    e.printStackTrace();
 	}
 	this.numLightsUniform = ShaderProgram.getFromShaderLibrary("phong").getUniform("num_lights");
-	this.numLightsUniform.set(0);
+	this.numLightsUniform.set(3);
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);
