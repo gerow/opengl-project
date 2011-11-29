@@ -102,4 +102,8 @@ public class ShaderProgram {
 	else
 	    gl.glUseProgram(0);
     }
+    
+    public int getShaderLocation() {
+	return this.id;
+    }
 }
