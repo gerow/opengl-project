@@ -25,11 +25,12 @@ public class Polygon {
     };
 
     Type type;
-    public ArrayList<Vertex> verticies;
+    public ArrayList<Vertex> verticies = new ArrayList<Vertex>();
     public Vector3f surfaceNormal;
     public Material material;
     public ShaderProgram shaderProgram = null;
     public boolean forceFixedShader = false;
+    public boolean faceCullingEnabled = true;
 
     /**
      * Normal constructor for a Polygon. It requires a number of verticies (at
@@ -56,6 +57,14 @@ public class Polygon {
 	// v.surfaceNormal = this.surfaceNormal;
     }
 
+    public void reverseVertexWinding() {
+	ArrayList<Vertex> oldVerts = this.verticies;
+	this.verticies = new ArrayList<Vertex>();
+	for (int i = oldVerts.size() - 1; i >= 0; --i) {
+	    this.verticies.add(oldVerts.get(i));
+	}
+    }
+
     /**
      * A static method to make it easier to compute the surface normal of the
      * polygon formed by three points.
@@ -72,9 +81,7 @@ public class Polygon {
 	return U.cross(V);
     }
 
-    // Heh... you can't make a call to glError within a glBegin()/glEnd() block.
-    // It creates another error...
-    public void render(GLAutoDrawable drawable, GLU glu) {
+    public void setUniforms(GLAutoDrawable drawable, GLU glu) {
 	GL2 gl = drawable.getGL().getGL2();
 	if (this.forceFixedShader)
 	    gl.glUseProgram(0);
@@ -84,13 +91,22 @@ public class Polygon {
 	    ShaderProgram.useDefaultShader();
 	if (this.material != null) {
 	    this.material.enableMaterial(drawable, glu);
-	    GLErrorChecker.check("Ater enabling material");
-	}
-	else {
+	    GLErrorChecker.check("After enabling material");
+	} else {
 	    gl.glDisable(GL2.GL_TEXTURE_2D);
 	    gl.glDisable(GL2.GL_LIGHTING);
-	    //gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
 	}
+	if (this.faceCullingEnabled)
+	    gl.glEnable(GL2.GL_CULL_FACE);
+	else
+	    gl.glDisable(GL2.GL_CULL_FACE);
+    }
+
+    // Heh... you can't make a call to glError within a glBegin()/glEnd() block.
+    // It creates another error...
+    public void render(GLAutoDrawable drawable, GLU glu) {
+	GL2 gl = drawable.getGL().getGL2();
+	this.setUniforms(drawable, glu);
 	if (this.verticies.size() == 3)
 	    gl.glBegin(GL2.GL_TRIANGLES);
 	else if (this.verticies.size() == 4)

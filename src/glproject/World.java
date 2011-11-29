@@ -291,6 +291,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 		GL2.GL_REPEAT);
 	gl.glEnable(GL2.GL_BLEND);
 	gl.glEnable(GL2.GL_LIGHTING);
+	gl.glEnable(GL2.GL_CULL_FACE);
+	gl.glCullFace(GL2.GL_BACK);
 	// gl.glEnable(GL2.GL_LIGHT0);
     }
 

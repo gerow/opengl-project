@@ -16,12 +16,13 @@ public class Sun extends Planet {
     public final static float ROTATIONAL_VELOCITY = 0.2f;
     public Sun() {
 	try {
-	    this.mesh = Mesh.loadMeshFromObjFile("saturnUV.obj");
+	    this.mesh = Mesh.loadMeshFromObjFile("solarplanet.obj");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	
+	this.mesh.reverseVertexWinding();
+	this.mesh.enableOptimization();
 	
 	System.out.println(mesh);
 	Material mat = new Material();
@@ -37,6 +38,7 @@ public class Sun extends Planet {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+	//this.mesh.negateNormals();
 	this.mesh.setMaterial(mat);
 	this.mesh.useFixedShader();
 	this.function = new RealToVector3fFunction() {

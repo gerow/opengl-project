@@ -16,6 +16,8 @@ public class Saturn extends Planet {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+	this.mesh.reverseVertexWinding();
+	this.mesh.disableBackCulling();
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {

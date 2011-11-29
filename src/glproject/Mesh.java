@@ -23,6 +23,8 @@ public class Mesh implements Renderable {
 
     private Integer displayListId = null;
 
+    public boolean optimizable = false;
+
     public Mesh(ArrayList<Polygon> polys, Vector3f translation,
 	    Vector3f rotation, Vector3f scaling) {
 	this.translation = translation;
@@ -79,6 +81,59 @@ public class Mesh implements Renderable {
 	gl.glPopMatrix();
     }
 
+    public void renderOptimized(GLAutoDrawable drawable, GLU glu) {
+	GL2 gl = drawable.getGL().getGL2();
+	gl.glPushMatrix();
+	gl.glTranslatef(translation.x, translation.y, translation.z);
+	gl.glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+	gl.glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
+	gl.glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
+	gl.glScalef(scaling.x, scaling.y, scaling.z);
+	GLErrorChecker.check("After rotation, scale, translate and pushMatrix");
+
+	if (this.displayListId == null) {
+	    this.displayListId = gl.glGenLists(1);
+	    gl.glNewList(this.displayListId, GL2.GL_COMPILE);
+
+	    gl.glBegin(GL2.GL_TRIANGLES);
+	    GLErrorChecker.check("After glBegin() for triangles");
+	    this.triangles.get(0).setUniforms(drawable, glu);
+	    gl.glBegin(GL2.GL_TRIANGLES);
+	    for (Polygon p : this.triangles)
+		for (Vertex v : p.verticies) {
+		    if (v.color != null)
+			gl.glColor4f(v.color.x, v.color.y, v.color.z, v.color.w);
+		    if (v.normal != null)
+			gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		    if (v.textureCoordinate != null)
+			gl.glTexCoord2f(v.textureCoordinate.x,
+				v.textureCoordinate.y);
+		    gl.glVertex3f(v.location.x, v.location.y, v.location.z);
+		}
+	    gl.glEnd();
+	    gl.glBegin(GL2.GL_QUADS);
+	    for (Polygon p : this.quads)
+		for (Vertex v : p.verticies) {
+		    if (v.color != null)
+			gl.glColor4f(v.color.x, v.color.y, v.color.z, v.color.w);
+		    if (v.normal != null)
+			gl.glNormal3f(v.normal.x, v.normal.y, v.normal.z);
+		    if (v.textureCoordinate != null)
+			gl.glTexCoord2f(v.textureCoordinate.x,
+				v.textureCoordinate.y);
+		    gl.glVertex3f(v.location.x, v.location.y, v.location.z);
+		}
+	    gl.glEnd();
+	    for (Polygon p : this.polygons) {
+		p.render(drawable, glu);
+	    }
+	}
+
+	gl.glCallList(this.displayListId);
+	gl.glPopMatrix();
+
+    }
+
     public void calculateVertexNormals() {
 	for (Polygon p : this.allPolys) {
 	    for (Vertex v : p.verticies) {
@@ -127,7 +182,7 @@ public class Mesh implements Renderable {
 		v.location.y = Float.valueOf(splitLines[2]);
 		v.location.z = Float.valueOf(splitLines[3]);
 		verticies.add(v);
-		//System.out.println("Adding new vertex " + line);
+		// System.out.println("Adding new vertex " + line);
 	    } else if (splitLines[0].equals("vt")) {
 		float u = Float.valueOf(splitLines[1]);
 		float v = Float.valueOf(splitLines[2]);
@@ -138,7 +193,7 @@ public class Mesh implements Renderable {
 		float z = Float.valueOf(splitLines[3]);
 		vertexNormals.add(new Vector3f(x, y, z));
 	    } else if (splitLines[0].equals("f")) {
-		//System.out.println("Adding new face " + line);
+		// System.out.println("Adding new face " + line);
 		ArrayList<Vertex> polygonVerticies = new ArrayList<Vertex>();
 		for (int i = 1; i < splitLines.length; ++i) {
 		    String[] slashSplitLines = splitLines[i].split("/");
@@ -173,40 +228,64 @@ public class Mesh implements Renderable {
 	// out.calculateVertexNormals();
 	return out;
     }
-    
+
     public void setShaderProgram(ShaderProgram shaderProgram) {
 	for (Polygon p : this.allPolys) {
 	    p.shaderProgram = shaderProgram;
 	}
     }
-    
+
     public void useFixedShader() {
 	for (Polygon p : this.allPolys) {
 	    p.forceFixedShader = true;
 	}
     }
-    
+
     public void setColor(Vector3f color) {
 	Vector4f fcolor = new Vector4f(color.x, color.y, color.z, 1.0f);
 	for (Polygon p : this.allPolys)
 	    for (Vertex v : p.verticies)
 		v.color = fcolor;
     }
-    
+
     public void setColor(Vector4f color) {
 	for (Polygon p : this.allPolys)
 	    for (Vertex v : p.verticies)
 		v.color = color;
     }
-    
+
     public void setMaterial(Material mat) {
 	for (Polygon p : this.allPolys)
 	    p.material = mat;
     }
 
+    public void negateNormals() {
+	for (Polygon p : this.allPolys)
+	    for (Vertex v : p.verticies)
+		v.normal = v.normal.multiply(-1);
+	this.displayListId = null;
+    }
+
+    public void reverseVertexWinding() {
+	for (Polygon p : this.allPolys)
+	    p.reverseVertexWinding();
+    }
+    
+    public void disableBackCulling() {
+	for (Polygon p : this.allPolys) {
+	    p.faceCullingEnabled = false;
+	}
+	this.displayListId = null;
+    }
+    
+    public void enableOptimization() {
+	this.optimizable = true;
+	this.displayListId = null;
+    }
+
     @Override
     public void init(World world) {
 	// TODO Auto-generated method stub
-	
+
     }
 }
