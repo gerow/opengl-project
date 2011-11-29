@@ -61,7 +61,7 @@ public class ShaderTest extends World {
 	// this.addSceneObject(orbiter2);
 	orbiter1.setRotationalVelocity(new Vector3f(0, 1, 0));
 	SphereLightOrbiter sphereLight = new SphereLightOrbiter(new Vector3f(
-		0.0f, 100.0f, -500.0f));
+		0.0f, 100.0f, -100000.0f));
 	sphereLight.addAffectedBy(orbiter1);
 	sphereLight.setVelocity(new Vector3f(5.0f, 5.0f, 0.0f));
 
@@ -82,7 +82,7 @@ public class ShaderTest extends World {
 	this.addRenderable(ssphere);
 	// m.setShaderProgram(redShader);
 	try {
-	    ShaderProgram.defaultShader = ShaderProgram.loadFromFile("example.vert", "example.frag");
+	    ShaderProgram.defaultShader = ShaderProgram.loadFromFile("phong.vert", "phong.frag");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
