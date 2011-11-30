@@ -23,14 +23,15 @@ public class Mercury extends Planet {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+	this.mesh.reverseVertexWinding();
 	
 	Material mat = new Material();
 	mat.ambient = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
 	mat.diffuse = new Vector4f(0.75f, 0.75f, 0.75f, 1.0f);
 	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
-	mat.shininess = 20;
+	mat.shininess = 40.0f;
 	try {
-	    mat.texture = TextureLoader.loadTexture("mars.jpg");
+	    mat.texture = TextureLoader.loadTexture("mercury.jpg");
 	} catch (GLException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -41,9 +42,11 @@ public class Mercury extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		return new Vector3f(400.0f, 0.0f, 0.0f);
+		return new Vector3f(500.0f, 0.0f, 0.0f);
 	    }
 	};
+	
+	this.mesh.scaling = new Vector3f(Mercury.SCALING_FACTOR);
 	
 	this.rotationalVelocity = ROTATIONAL_VELOCITY;
 	

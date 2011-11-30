@@ -44,6 +44,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private Timer t = new Timer(1000 / World.TICKRATE, this);
     private Animator animator = new Animator(this);
     private Uniform numLightsUniform;
+    private Uniform cameraPositionUniform;
     private int numLights = 0;
 
     private boolean[] activeLights = { false, false, false, false, false,
@@ -221,6 +222,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	// this.activeCamera.step();
 
 	Vector3f reference = this.activeCamera.getReferencePoint();
+	this.cameraPositionUniform.set(this.activeCamera.location);
 	glu.gluLookAt(this.activeCamera.location.x,
 		this.activeCamera.location.y, this.activeCamera.location.z,
 		reference.x, reference.y, reference.z, 0.0f, 1.0f, 0.0f);
@@ -271,7 +273,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	    e.printStackTrace();
 	}
 	this.numLightsUniform = ShaderProgram.getFromShaderLibrary("phong").getUniform("num_lights");
-	this.numLightsUniform.set(3);
+	this.numLightsUniform.set(1);
+	this.cameraPositionUniform = ShaderProgram.getFromShaderLibrary("phong").getUniform("camera_position");
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);

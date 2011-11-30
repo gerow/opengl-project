@@ -44,7 +44,7 @@ public class SolarSystem extends World {
 	
 	this.addSceneObject(new Sun());
 	this.addSceneObject(new Mercury());
-	this.addSceneObject(new Saturn());
+	//this.addSceneObject(new Saturn());
 	
 	//ShaderProgram.defaultShader = ShaderProgram.getFromShaderLibrary("phong");
     }

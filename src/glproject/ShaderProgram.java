@@ -130,8 +130,11 @@ public class ShaderProgram {
     public static void buildShaderLibrary() throws IOException {
 	ShaderProgram phong = ShaderProgram.loadFromFile("phong.vert", "phong.frag");
 	Uniform numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, phong, "num_lights");
+	Uniform cameraPosition = new Uniform(ShaderProgram.gl, Uniform.Type.t3f, phong, "camera_position");
 	phong.addUniform(numLights);
+	phong.addUniform(cameraPosition);
 	phong.getUniform("num_lights").set(4);
+	phong.getUniform("camera_position").set(new Vector3f(0.0f, 0.0f, 0.0f));
 	ShaderProgram.shaderLibrary.put("phong", phong);
     }
 }

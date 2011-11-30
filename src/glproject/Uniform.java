@@ -30,4 +30,9 @@ public class Uniform {
 	this.gl.glUniform1i(this.location, value);
 	System.out.println("Uniform value is " + value);
     }
+    
+    public void set(Vector3f value) {
+	this.shaderProgram.enable();
+	this.gl.glUniform3f(this.location, value.x, value.y, value.z);
+    }
 }
