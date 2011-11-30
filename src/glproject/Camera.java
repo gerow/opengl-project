@@ -143,4 +143,12 @@ public class Camera implements KeyListener, MouseMotionListener, MouseListener {
 	// TODO Auto-generated method stub
 
     }
+    
+    public Vector3f getLocation() {
+	return this.location;
+    }
+    
+    public Azimuth getAzimuth() {
+	return this.azimuth;
+    }
 }

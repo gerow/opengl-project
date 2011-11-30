@@ -23,6 +23,10 @@ public class Vector4f {
 	this.z = z;
 	this.w = w;
     }
+    
+    public Vector4f(float all) {
+	this.x = this.y = this.z = this.w = all;
+    }
 
     public Vector4f add(Vector4f other) {
 	return new Vector4f(x + other.x, y + other.y, z + other.z, w + other.w);
