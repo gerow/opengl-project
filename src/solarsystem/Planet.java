@@ -12,6 +12,7 @@ public abstract class Planet extends FunctionMover implements Attractor,
 	Collider {
     public Mesh smaller;
     public Mesh bigger;
+    public static float cutoff = 700;
 
     private boolean usingSmaller;
     public final static float PLANET_SCALE = 11.37f;
@@ -41,12 +42,12 @@ public abstract class Planet extends FunctionMover implements Attractor,
     public void step() {
 	float distToCamera = this.getLocation().distanceTo(
 		this.world.getActiveCamera().getLocation());
-	if ((distToCamera > 1000) && !this.usingSmaller) {
+	if ((distToCamera > cutoff) && !this.usingSmaller) {
 	    this.world.removeMesh(this.mesh);
 	    this.mesh = this.smaller;
 	    this.world.addMesh(this.mesh);
 	    this.usingSmaller = true;
-	} if ((distToCamera <= 1000) && this.usingSmaller) {
+	} if ((distToCamera <= cutoff) && this.usingSmaller) {
 	    this.world.removeMesh(this.mesh);
 	    this.mesh = this.bigger;
 	    this.world.addMesh(this.mesh);
