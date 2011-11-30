@@ -18,12 +18,14 @@ public class Sun extends Planet {
     public final static float SUN_RADIUS = 136.68f;
 
     public Sun() {
+	/*
 	try {
 	    this.mesh = Mesh.loadMeshFromObjFile("solarplanet.obj");
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
 	this.mesh.reverseVertexWinding();
+	*/
 	this.mesh.enableOptimization();
 
 	System.out.println(mesh);

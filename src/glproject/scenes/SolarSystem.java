@@ -73,7 +73,7 @@ public class SolarSystem extends World {
 	
 	this.addSceneObject(new Sun());
 	
-	SkySphere ssphere = new SkySphere(10.0f, "space2.jpg");
+	SkySphere ssphere = new SkySphere(14.0f, "space2.jpg");
 	
 	this.addRenderable(ssphere);
 	//this.addSceneObject(new Saturn());

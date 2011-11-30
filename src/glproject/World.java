@@ -226,7 +226,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 	gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
 	gl.glEnable(GL2.GL_NORMALIZE);
-	gl.glEnable(GL2.GL_BLEND);
+	//gl.glEnable(GL2.GL_BLEND);
 	// gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
 	// gl.glBlendFunc(GL2.GL_ONE_MINUS_DST_ALPHA,GL2.GL_DST_ALPHA);
 	// gl.glBlendFunc(GL2.GL_ONE, GL2.GL_ONE);

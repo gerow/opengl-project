@@ -16,7 +16,7 @@ public class Pluto extends Planet {
     public static final float SCALING_FACTOR = Sun.SCALE_FACTOR * 0.05f;
     public static final float ROTATIONAL_VELOCITY = 0.7f;
     public Pluto() {
-    	
+    	/*
 	try {
 	    this.mesh = Mesh.loadMeshFromObjFile("solarplanet.obj");
 	} catch (IOException e) {
@@ -24,6 +24,7 @@ public class Pluto extends Planet {
 	    e.printStackTrace();
 	}
 	this.mesh.reverseVertexWinding();
+	*/
 	
 	Material mat = new Material();
 	mat.ambient = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
@@ -61,6 +62,7 @@ public class Pluto extends Planet {
 	this.rotationalVelocity = ROTATIONAL_VELOCITY;
 	
 	this.mesh.setMaterial(mat);
+	this.smaller.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
 	//this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_textured"));
 	this.mesh.useFixedShader();

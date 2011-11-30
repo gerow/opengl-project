@@ -36,6 +36,7 @@ public class Comet extends DynamicSceneObject {
 	    e.printStackTrace();
 	}
 	this.mesh.reverseVertexWinding();
+	this.mesh.enableOptimization();
 
 	this.setLocation(location);
 	this.setVelocity(velocity);
