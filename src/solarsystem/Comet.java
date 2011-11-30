@@ -76,7 +76,7 @@ public class Comet extends DynamicSceneObject {
 	    this.accountForAttraction(p);
 	}
 
-	System.out.println("Comet acceleration: " + this.getAcceleration());
+	//System.out.println("Comet acceleration: " + this.getAcceleration());
 	this.accelerationMove();
 	if (this.light != null)
 	    this.light.location = this.getLocation();
