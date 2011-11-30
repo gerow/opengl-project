@@ -84,4 +84,8 @@ public class Comet extends DynamicSceneObject {
 	
 	this.setAcceleration(this.getAcceleration().add(accelerationDelta));
     }
+    
+    public void explode() {
+	
+    }
 }
