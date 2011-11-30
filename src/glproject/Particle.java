@@ -42,7 +42,7 @@ public class Particle {
 		//v.textureCoordinate = new Vector2f(1.0f, 0.0f);
 		verticies.add(v);
 		this.polygon = new Polygon(verticies);
-		this.lifetime=75;
+		this.lifetime=25;
 		direction=null;
     }
     
@@ -68,7 +68,7 @@ public class Particle {
     	v.color=color;
     	verticies.add(v);
     	this.polygon = new Polygon(verticies);
-    	this.lifetime=75;
+    	this.lifetime=40;
     	direction=null;
         }
     
