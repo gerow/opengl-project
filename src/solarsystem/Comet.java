@@ -17,7 +17,7 @@ import sceneobjects.DynamicSceneObject;
 import sceneobjects.ParticleEmitter;
 
 public class Comet extends DynamicSceneObject {
-    public static final float ATTRACTION_CONSTANT = 1.0f;
+    public static final float ATTRACTION_CONSTANT = 1000.0f;
     public static final float INITIAL_VELOCITY = 5.0f;
     public static final float SCALE_FACTOR = Sun.SCALE_FACTOR * 0.01f;
     public static boolean firstLight = true;
