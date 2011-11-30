@@ -43,7 +43,6 @@ public class Neptune extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 1250;
 		float b = 1250;
@@ -52,7 +51,6 @@ public class Neptune extends Planet {
 		
 		float x = (float) (a * Math.cos(1.6*t));
 		float y = (float) (b * Math.sin(1.6*t));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};
@@ -64,6 +62,7 @@ public class Neptune extends Planet {
 	this.mesh.setMaterial(mat);
 	this.smaller.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
+	this.smaller.scaling = new Vector3f(SCALING_FACTOR * Planet.PLANET_SCALE);
 	this.mesh.useFixedShader();
 	//this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_textured"));
 	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
@@ -71,7 +70,8 @@ public class Neptune extends Planet {
 
     @Override
     public float getAttractionValue() {
-    	return SCALING_FACTOR;
+	// TODO Auto-generated method stub
+	return 0;
     }
 
     @Override

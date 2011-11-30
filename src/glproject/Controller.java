@@ -104,6 +104,17 @@ public class Controller implements KeyListener, MouseMotionListener,
 	    this.mouseGrabbed = false;
 	    this.world.setMouseVisible(true);
 	    break;
+	case KeyEvent.VK_C:
+	    SolarSystem s = (SolarSystem)this.world;
+	    s.setShadersForPlanets(ShaderProgram.getFromShaderLibrary("cel_textured"));
+	    break;
+	case KeyEvent.VK_V:
+	    SolarSystem ss = (SolarSystem)this.world;
+	    ss.setShadersForPlanets(ShaderProgram.getFromShaderLibrary("phong_untextured"));
+	    break;
+	case KeyEvent.VK_X:
+	    SolarSystem sss = (SolarSystem)this.world;
+	    sss.setShadersForPlanets(ShaderProgram.getFromShaderLibrary("phong_textured"));
 	}
     }
 
