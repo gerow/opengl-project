@@ -14,6 +14,7 @@ import java.io.IOException;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
+import sceneobjects.ParticleEmitter;
 import sceneobjects.SphereLight;
 import solarsystem.Comet;
 import solarsystem.Mercury;

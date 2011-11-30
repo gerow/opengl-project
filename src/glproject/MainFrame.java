@@ -1,6 +1,5 @@
 package glproject;
 
-import glproject.World;
 import glproject.scenes.SolarSystem;
 
 import java.awt.AWTException;

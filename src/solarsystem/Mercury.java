@@ -1,9 +1,5 @@
 package solarsystem;
 
-import java.io.IOException;
-
-import javax.media.opengl.GLException;
-
 import glproject.Material;
 import glproject.Mesh;
 import glproject.RealToVector3fFunction;
@@ -11,6 +7,10 @@ import glproject.ShaderProgram;
 import glproject.TextureLoader;
 import glproject.Vector3f;
 import glproject.Vector4f;
+
+import java.io.IOException;
+
+import javax.media.opengl.GLException;
 
 public class Mercury extends Planet {
     public static final float SCALING_FACTOR = Sun.SCALE_FACTOR * 0.2f;

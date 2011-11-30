@@ -1,5 +1,7 @@
 package glproject;
 
+import glproject.scenes.SolarSystem;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -7,7 +9,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import glproject.scenes.SolarSystem;
 
 public class Controller implements KeyListener, MouseMotionListener,
 	MouseListener {

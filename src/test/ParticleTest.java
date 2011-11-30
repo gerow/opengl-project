@@ -1,19 +1,18 @@
 package test;
 
 
-import glproject.*;
-import sceneobjects.*;
+import glproject.MainFrame;
+import glproject.Mesh;
+import glproject.Vector3f;
+import glproject.World;
 
 import java.awt.AWTException;
-import java.awt.Frame;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.media.opengl.GLAutoDrawable;
 
-import glproject.World;
-import glproject.scenes.SolarSystem;
+import sceneobjects.Orbiter;
+import sceneobjects.ParticleEmitter;
 
 public class ParticleTest extends World {
 

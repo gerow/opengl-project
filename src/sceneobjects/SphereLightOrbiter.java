@@ -1,13 +1,13 @@
 package sceneobjects;
 
-import java.io.IOException;
-
 import glproject.Light;
 import glproject.Material;
 import glproject.Mesh;
 import glproject.Vector3f;
 import glproject.Vector4f;
 import glproject.World;
+
+import java.io.IOException;
 
 public class SphereLightOrbiter extends Orbiter {
     private Light light;

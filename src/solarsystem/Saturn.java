@@ -1,11 +1,10 @@
 package solarsystem;
 
-import java.io.IOException;
-
 import glproject.Mesh;
 import glproject.RealToVector3fFunction;
-import glproject.ShaderProgram;
 import glproject.Vector3f;
+
+import java.io.IOException;
 
 public class Saturn extends Planet {
     
