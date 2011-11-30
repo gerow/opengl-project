@@ -70,8 +70,7 @@ public class Uranus extends Planet {
 
     @Override
     public float getAttractionValue() {
-	// TODO Auto-generated method stub
-	return 0;
+    	return SCALING_FACTOR;
     }
 
     @Override
