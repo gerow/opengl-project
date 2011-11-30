@@ -128,13 +128,19 @@ public class ShaderProgram {
     }
     
     public static void buildShaderLibrary() throws IOException {
-	ShaderProgram phong = ShaderProgram.loadFromFile("phong.vert", "phong.frag");
+	ShaderProgram phong = ShaderProgram.loadFromFile("phong_textured.vert", "phong_textured.frag");
 	Uniform numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, phong, "num_lights");
 	Uniform cameraPosition = new Uniform(ShaderProgram.gl, Uniform.Type.t3f, phong, "camera_position");
 	phong.addUniform(numLights);
 	phong.addUniform(cameraPosition);
-	phong.getUniform("num_lights").set(4);
+	phong.getUniform("num_lights").set(1);
 	phong.getUniform("camera_position").set(new Vector3f(0.0f, 0.0f, 0.0f));
-	ShaderProgram.shaderLibrary.put("phong", phong);
+	ShaderProgram.shaderLibrary.put("phong_textured", phong);
+	
+	ShaderProgram cel = ShaderProgram.loadFromFile("cel_textured.vert", "cel_textured.frag");
+	numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, cel, "num_lights");
+	cel.addUniform(numLights);
+	cel.getUniform("num_lights").set(3);
+	ShaderProgram.shaderLibrary.put("cel_textured", cel);
     }
 }

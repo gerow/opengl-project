@@ -52,7 +52,7 @@ public class Mercury extends Planet {
 	
 	this.mesh.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
-	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong"));
+	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("cel_textured"));
     }
 
     @Override

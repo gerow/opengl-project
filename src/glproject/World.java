@@ -272,9 +272,9 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	this.numLightsUniform = ShaderProgram.getFromShaderLibrary("phong").getUniform("num_lights");
+	this.numLightsUniform = ShaderProgram.getFromShaderLibrary("phong_textured").getUniform("num_lights");
 	this.numLightsUniform.set(1);
-	this.cameraPositionUniform = ShaderProgram.getFromShaderLibrary("phong").getUniform("camera_position");
+	this.cameraPositionUniform = ShaderProgram.getFromShaderLibrary("phong_textured").getUniform("camera_position");
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
 	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
 	gl.glClearDepth(1.0f);
