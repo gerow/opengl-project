@@ -15,6 +15,8 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLDrawable;
 import javax.media.opengl.glu.GLU;
 
+import solarsystem.Comet;
+
 
 public class ParticleEmitter extends DynamicSceneObject {
 	private Vector3f location = new Vector3f(0, 0, 0);
@@ -28,7 +30,7 @@ public class ParticleEmitter extends DynamicSceneObject {
     private float colorB=.1f;
     private final int PARTICLEFREQUENCY=100000;
     private DynamicSceneObject object;
-    private final int DISTANCERANGE=20;
+    private final float DISTANCERANGE=.0f;
     private boolean exploding;
     private boolean done=false;
     
@@ -60,10 +62,11 @@ public class ParticleEmitter extends DynamicSceneObject {
     	{
     		for(Vertex v : p.verticies)
     		{
-    			if(Math.random()*PARTICLEFREQUENCY>97500 && !exploding && !done)
+    			if(Math.random()*PARTICLEFREQUENCY>99900 && !exploding && !done)
     			{
     				//System.out.println("Adding Particles");
-    				Vector3f location=new Vector3f(object.getLocation().x+v.location.x+(int)(Math.random()*DISTANCERANGE),object.getLocation().y+v.location.y+(int)(Math.random()*DISTANCERANGE),object.getLocation().z+v.location.z+(int)(Math.random()*DISTANCERANGE));
+    				//Vector3f location=new Vector3f(object.getLocation().x,object.getLocation().y,object.getLocation().z);
+    				Vector3f location=new Vector3f(object.getLocation().x+v.location.x*Comet.SCALE_FACTOR+(float)(Math.random()*DISTANCERANGE),object.getLocation().y+v.location.y*Comet.SCALE_FACTOR+(float)(Math.random()*DISTANCERANGE),object.getLocation().z+v.location.z*Comet.SCALE_FACTOR+(float)(Math.random()*DISTANCERANGE));
     				Vector4f color=new Vector4f(colorR+(float)(Math.random()*colorRange),colorG+(float)(Math.random()*colorRange),colorB+(float)(Math.random()*colorRange),1.0f);
     				particles.add(new Particle(world,location,this.getRotation(),this.getScale(),color));
     			}
