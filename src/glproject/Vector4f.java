@@ -25,7 +25,13 @@ public class Vector4f {
     }
     
     public Vector4f(float all) {
-	this.x = this.y = this.z = this.w = all;
+	this.x = this.y = this.z = all;
+	this.w = 1.0f;
+    }
+    
+    public Vector4f(float all, float alpha) {
+	this.x = this.y = this.z = all;
+	this.w = alpha;
     }
 
     public Vector4f add(Vector4f other) {
