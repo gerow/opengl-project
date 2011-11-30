@@ -43,7 +43,6 @@ public class Mercury extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 300;
 		float b = 300;
@@ -52,7 +51,6 @@ public class Mercury extends Planet {
 		
 		float x = (float) (a * Math.cos((3.5*t-.4)));
 		float y = (float) (b * Math.sin((3.5*t-.4)));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};

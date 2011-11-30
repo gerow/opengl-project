@@ -232,7 +232,9 @@ public class Mesh implements Renderable {
     }
 
     public void setShaderProgram(ShaderProgram shaderProgram) {
+	this.displayListId = null;
 	for (Polygon p : this.allPolys) {
+	    //System.out.println("Polygon " + p + " changed to shader " + shaderProgram);
 	    p.shaderProgram = shaderProgram;
 	}
     }

@@ -43,7 +43,6 @@ public class Saturn extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 1050;
 		float b = 1050;
@@ -52,7 +51,6 @@ public class Saturn extends Planet {
 		
 		float x = (float) (a * Math.cos(1.9*t));
 		float y = (float) (b * Math.sin(1.9*t));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};

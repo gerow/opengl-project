@@ -43,7 +43,6 @@ public class Venus extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 500;
 		float b = 500;
@@ -52,7 +51,6 @@ public class Venus extends Planet {
 		
 		float x = (float) (a * Math.cos(3.1*t));
 		float y = (float) (b * Math.sin(3.1*t));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};

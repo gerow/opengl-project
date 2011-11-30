@@ -43,7 +43,6 @@ public class Jupiter extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 950;
 		float b = 950;
@@ -52,7 +51,6 @@ public class Jupiter extends Planet {
 		
 		float x = (float) (a * Math.cos(2.2*t));
 		float y = (float) (b * Math.sin(2.2*t));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};

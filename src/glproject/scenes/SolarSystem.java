@@ -3,6 +3,7 @@ package glproject.scenes;
 import glproject.Light;
 import glproject.MainFrame;
 import glproject.Material;
+import glproject.ShaderProgram;
 import glproject.SkySphere;
 import glproject.Vector3f;
 import glproject.Vector4f;
@@ -114,5 +115,13 @@ public class SolarSystem extends World {
 	    e.printStackTrace();
 	}
 	mainFrame.setVisible(true);
+    }
+    
+    public void setShadersForPlanets(ShaderProgram shader) {
+	for (Planet p : this.planets) {
+	    System.out.println("Changing shader for planet " + p + " to " + shader);
+	    p.smaller.setShaderProgram(shader);
+	    p.bigger.setShaderProgram(shader);
+	}
     }
 }

@@ -93,7 +93,7 @@ public class Polygon {
 	GL2 gl = drawable.getGL().getGL2();
 	if (this.forceFixedShader)
 	    gl.glUseProgram(0);
-	else if (this.shaderProgram != null)
+	if (this.shaderProgram != null)
 	    this.shaderProgram.enable();
 	else
 	    ShaderProgram.useDefaultShader();

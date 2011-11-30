@@ -43,7 +43,6 @@ public class Mars extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 800;
 		float b = 800;
@@ -52,7 +51,6 @@ public class Mars extends Planet {
 		
 		float x = (float) (a * Math.cos(2.5*t));
 		float y = (float) (b * Math.sin(2.5*t));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};

@@ -43,7 +43,6 @@ public class Earth extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		System.out.println("Using time " + t);
 		
 		float a = 650;
 		float b = 650;
@@ -52,7 +51,6 @@ public class Earth extends Planet {
 		
 		float x = (float) (a * Math.cos((2.8*t-2)));
 		float y = (float) (b * Math.sin((2.8*t-2)));
-		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
 	};
@@ -65,7 +63,7 @@ public class Earth extends Planet {
 	this.smaller.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
 	this.smaller.scaling = new Vector3f(SCALING_FACTOR * Planet.PLANET_SCALE);
-	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_textured"));
+	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_untextured"));
 	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
     }
 
