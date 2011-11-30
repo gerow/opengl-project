@@ -46,11 +46,12 @@ public class Mercury extends Planet {
 		
 		float a = 300;
 		float b = 300;
+		float fi = 0.01f;
 		
 		t = t / 5.0f;
 		
-		float x = (float) (a * Math.cos(t));
-		float y = (float) (b * Math.sin(t));
+		float x = (float) (a * Math.cos(t)*Math.cos(fi) - b * Math.sin(t)*Math.sin(fi));
+		float y = (float) (a * Math.cos(t) * Math.sin(fi) + b * Math.sin(t)*Math.cos(fi));
 		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }
