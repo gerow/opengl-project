@@ -12,10 +12,21 @@ import java.awt.AWTException;
 import java.io.IOException;
 
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.glu.GLU;
 
 import sceneobjects.ParticleEmitter;
 import sceneobjects.SphereLight;
-import solarsystem.*;
+import solarsystem.Comet;
+import solarsystem.Earth;
+import solarsystem.Jupiter;
+import solarsystem.Mars;
+import solarsystem.Mercury;
+import solarsystem.Neptune;
+import solarsystem.Pluto;
+import solarsystem.Saturn;
+import solarsystem.Sun;
+import solarsystem.Uranus;
+import solarsystem.Venus;
 
 public class SolarSystem extends World {
 
@@ -23,6 +34,7 @@ public class SolarSystem extends World {
      * 
      */
     private static final long serialVersionUID = 3171853764150449223L;
+    public boolean throwComet = false;
 
     public SolarSystem() throws AWTException {
 	super();
@@ -61,13 +73,19 @@ public class SolarSystem extends World {
 	//this.addSceneObject(new Saturn());
 	
 	//ShaderProgram.defaultShader = ShaderProgram.getFromShaderLibrary("phong");
-	
-	this.throwComet();
+    }
+    
+    public void render(GLAutoDrawable drawable, GLU glu) {
+	super.render(drawable, glu);
+	if (this.throwComet) {
+	    this.throwComet = false;
+	    this.throwComet();
+	}
     }
     
     public void throwComet() {
 	Vector3f cometLocation = this.getActiveCamera().getLocation();
-	Vector3f cometVelocity = this.getActiveCamera().getReferencePoint().normalize().multiply(-Comet.INITIAL_VELOCITY);
+	Vector3f cometVelocity = this.getActiveCamera().getAzimuth().direction.multiply(Comet.INITIAL_VELOCITY);
 	
 	Comet c = new Comet(cometLocation, cometVelocity, this);
 	this.addSceneObject(c);
