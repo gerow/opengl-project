@@ -14,9 +14,7 @@ import java.io.IOException;
 import javax.media.opengl.GLAutoDrawable;
 
 import sceneobjects.SphereLight;
-import solarsystem.Comet;
-import solarsystem.Mercury;
-import solarsystem.Sun;
+import solarsystem.*;
 
 public class SolarSystem extends World {
 
@@ -48,23 +46,24 @@ public class SolarSystem extends World {
 	
 	this.addSceneObject(new Sun());
 	this.addSceneObject(new Mercury());
-	
-	SkySphere ssphere = new SkySphere(10.0f, "space2.jpg");
+	this.addSceneObject(new Venus());
+	this.addSceneObject(new Earth());
+	this.addSceneObject(new Mars());
+	this.addSceneObject(new Jupiter());
+	this.addSceneObject(new Saturn());
+	this.addSceneObject(new Neptune());
+	this.addSceneObject(new Uranus());
+	this.addSceneObject(new Pluto());
+	SkySphere ssphere = new SkySphere(14.0f, "space2.jpg");
 	
 	this.addRenderable(ssphere);
 	//this.addSceneObject(new Saturn());
 	
 	//ShaderProgram.defaultShader = ShaderProgram.getFromShaderLibrary("phong");
-	
-	this.throwComet();
     }
     
     public void throwComet() {
-	Vector3f cometLocation = this.getActiveCamera().getLocation();
-	Vector3f cometVelocity = this.getActiveCamera().getReferencePoint().normalize().multiply(-Comet.INITIAL_VELOCITY);
-	
-	Comet c = new Comet(cometLocation, cometVelocity, this);
-	this.addSceneObject(c);
+	//Todo.  THIS!
     }
     
     public static void main(String args[])  {
