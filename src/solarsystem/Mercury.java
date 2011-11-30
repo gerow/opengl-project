@@ -13,7 +13,7 @@ import glproject.Vector3f;
 import glproject.Vector4f;
 
 public class Mercury extends Planet {
-    public static final float SCALING_FACTOR = Sun.SCALE_FACTOR * 0.2f;
+    public static final float SCALING_FACTOR = Sun.SCALE_FACTOR * 0.1f;
     public static final float ROTATIONAL_VELOCITY = 0.7f;
     public Mercury() {
 	
@@ -49,8 +49,8 @@ public class Mercury extends Planet {
 		
 		t = t / 5.0f;
 		
-		float x = (float) (a * Math.cos(t));
-		float y = (float) (b * Math.cos(t));
+		float x = (float) (a * Math.cos((3.5*t-.4)));
+		float y = (float) (b * Math.sin((3.5*t-.4)));
 		System.out.println("Evaluated to " + x + " " + y);
 		return new Vector3f(x, 0.0f, y);
 	    }

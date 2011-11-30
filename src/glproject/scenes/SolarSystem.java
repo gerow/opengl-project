@@ -15,9 +15,7 @@ import javax.media.opengl.GLAutoDrawable;
 
 import sceneobjects.ParticleEmitter;
 import sceneobjects.SphereLight;
-import solarsystem.Comet;
-import solarsystem.Mercury;
-import solarsystem.Sun;
+import solarsystem.*;
 
 public class SolarSystem extends World {
 
@@ -43,12 +41,19 @@ public class SolarSystem extends World {
 	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	Light sunLight = new Light(new Vector3f(0.0f, 0.0f, 0.0f), mat);
 	this.addLight(sunLight);
-	
+	this.addSceneObject(new Mercury());
+	this.addSceneObject(new Venus());
+	this.addSceneObject(new Earth());
+	this.addSceneObject(new Mars());
+	this.addSceneObject(new Jupiter());
+	this.addSceneObject(new Saturn());
+	this.addSceneObject(new Neptune());
+	this.addSceneObject(new Uranus());
+	this.addSceneObject(new Pluto());
 	SphereLight sLight = new SphereLight(new Vector3f(1000.0f, 300.0f, 0.0f));
-	this.addSceneObject(sLight);
+	//this.addSceneObject(sLight);
 	
 	this.addSceneObject(new Sun());
-	this.addSceneObject(new Mercury());
 	
 	SkySphere ssphere = new SkySphere(10.0f, "space2.jpg");
 	
