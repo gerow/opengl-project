@@ -22,7 +22,7 @@ public class Comet extends DynamicSceneObject {
     public static final float SCALE_FACTOR = Sun.SCALE_FACTOR * 0.01f;
     public static boolean firstLight = true;
 
-    private ArrayList<Planet> affectingPlanets = new ArrayList<Planet>();
+    public ArrayList<Planet> affectingPlanets = new ArrayList<Planet>();
     private World world;
     private Light light = null;
     private ParticleEmitter pe;

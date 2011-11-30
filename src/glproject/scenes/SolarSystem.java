@@ -10,6 +10,7 @@ import glproject.World;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
@@ -22,6 +23,7 @@ import solarsystem.Jupiter;
 import solarsystem.Mars;
 import solarsystem.Mercury;
 import solarsystem.Neptune;
+import solarsystem.Planet;
 import solarsystem.Pluto;
 import solarsystem.Saturn;
 import solarsystem.Sun;
@@ -35,6 +37,7 @@ public class SolarSystem extends World {
      */
     private static final long serialVersionUID = 3171853764150449223L;
     public boolean throwComet = false;
+    private ArrayList<Planet> planets = new ArrayList<Planet>();
 
     public SolarSystem() throws AWTException {
 	super();
@@ -53,16 +56,19 @@ public class SolarSystem extends World {
 	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	Light sunLight = new Light(new Vector3f(0.0f, 0.0f, 0.0f), mat);
 	this.addLight(sunLight);
-	this.addSceneObject(new Mercury());
-	this.addSceneObject(new Venus());
-	this.addSceneObject(new Earth());
-	this.addSceneObject(new Mars());
-	this.addSceneObject(new Jupiter());
-	this.addSceneObject(new Saturn());
-	this.addSceneObject(new Neptune());
-	this.addSceneObject(new Uranus());
-	this.addSceneObject(new Pluto());
-	SphereLight sLight = new SphereLight(new Vector3f(1000.0f, 300.0f, 0.0f));
+	this.planets.add(new Mercury());
+	this.planets.add(new Venus());
+	this.planets.add(new Earth());
+	this.planets.add(new Mars());
+	this.planets.add(new Jupiter());
+	this.planets.add(new Saturn());
+	this.planets.add(new Neptune());
+	this.planets.add(new Uranus());
+	this.planets.add(new Pluto());
+	
+	for (Planet p : this.planets)
+	    this.addSceneObject(p);
+	//SphereLight sLight = new SphereLight(new Vector3f(1000.0f, 300.0f, 0.0f));
 	//this.addSceneObject(sLight);
 	
 	this.addSceneObject(new Sun());
@@ -92,6 +98,8 @@ public class SolarSystem extends World {
 	ParticleEmitter pe=new ParticleEmitter(this,c,false);
 	c.setParticleEmitter(pe);
 	this.addParticleEmitter(pe);
+	for (Planet p : this.planets)
+	    c.affectingPlanets.add(p);
     }
     
     public static void main(String args[])  {
