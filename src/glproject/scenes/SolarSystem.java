@@ -56,6 +56,10 @@ public class SolarSystem extends World {
 	//ShaderProgram.defaultShader = ShaderProgram.getFromShaderLibrary("phong");
     }
     
+    public void throwComet() {
+	//Todo.  THIS!
+    }
+    
     public static void main(String args[])  {
 	MainFrame mainFrame = null;
 	try {

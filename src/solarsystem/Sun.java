@@ -14,6 +14,8 @@ import javax.media.opengl.GLException;
 public class Sun extends Planet {
     public final static float SCALE_FACTOR = 1.0f;
     public final static float ROTATIONAL_VELOCITY = 0.2f;
+    public final static float SUN_ATTRACTION_VALUE = 1.0f;
+    public final static float SUN_RADIUS = 136.68f;
 
     public Sun() {
 	try {
@@ -54,12 +56,12 @@ public class Sun extends Planet {
 
     public float getRadius() {
 	// TODO Auto-generated method stub
-	return 0;
+	return Sun.SUN_RADIUS;
     }
 
     @Override
     public float getAttractionValue() {
 	// TODO Auto-generated method stub
-	return 0;
+	return Sun.SUN_ATTRACTION_VALUE;
     }
 }
