@@ -65,6 +65,14 @@ public class Polygon {
 	}
     }
 
+    public void computeSurfaceNormals() {
+	Vector3f normal = Polygon.computeSurfaceNormal(
+		this.verticies.get(0).location, this.verticies.get(1).location,
+		this.verticies.get(2).location);
+	for (Vertex v : this.verticies)
+	    v.surfaceNormal = normal;
+    }
+
     /**
      * A static method to make it easier to compute the surface normal of the
      * polygon formed by three points.
@@ -78,7 +86,7 @@ public class Polygon {
 	    Vector3f vec3) {
 	Vector3f U = vec1.vectorTo(vec2);
 	Vector3f V = vec1.vectorTo(vec3);
-	return U.cross(V);
+	return U.cross(V).normalize();
     }
 
     public void setUniforms(GLAutoDrawable drawable, GLU glu) {

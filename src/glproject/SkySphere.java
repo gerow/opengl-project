@@ -44,7 +44,6 @@ public class SkySphere implements Renderable {
     @Override
     public void render(GLAutoDrawable drawable, GLU glu) {
 	this.mesh.render(drawable, glu);
-	System.out.println("Rendered sky sphere");
     }
 
 }

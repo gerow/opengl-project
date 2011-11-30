@@ -135,6 +135,8 @@ public class Mesh implements Renderable {
     }
 
     public void calculateVertexNormals() {
+	for (Polygon p : this.allPolys)
+	    p.computeSurfaceNormals();
 	for (Polygon p : this.allPolys) {
 	    for (Vertex v : p.verticies) {
 		if (v.normal == null)
@@ -159,7 +161,7 @@ public class Mesh implements Renderable {
 	}
 	Vector3f normal = sum.divide(commonVerticies.size());
 	for (Vertex vert : commonVerticies)
-	    vert.normal = normal.multiply(-1);
+	    vert.normal = normal;
     }
 
     public static Mesh loadMeshFromObjFile(String filename) throws IOException {

@@ -19,13 +19,10 @@ public class Sun extends Planet {
 
     public Sun() {
 	/*
-	try {
-	    this.mesh = Mesh.loadMeshFromObjFile("solarplanet.obj");
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-	this.mesh.reverseVertexWinding();
-	*/
+	 * try { this.mesh = Mesh.loadMeshFromObjFile("solarplanet.obj"); }
+	 * catch (IOException e) { e.printStackTrace(); }
+	 * this.mesh.reverseVertexWinding();
+	 */
 	this.mesh.enableOptimization();
 
 	System.out.println(mesh);
@@ -51,9 +48,11 @@ public class Sun extends Planet {
 	    }
 	};
 
-	// this.rotationalVelocity = ROTATIONAL_VELOCITY;
-	// this.mesh.scaling = new Vector3f(SCALE_FACTOR, SCALE_FACTOR,
-	// SCALE_FACTOR);
+	this.rotationalVelocity = ROTATIONAL_VELOCITY;
+	this.mesh.scaling = new Vector3f(SCALE_FACTOR, SCALE_FACTOR,
+		SCALE_FACTOR);
+	this.smaller.scaling = new Vector3f(SCALE_FACTOR * Planet.PLANET_SCALE);
+	this.smaller = this.bigger;
     }
 
     public float getRadius() {

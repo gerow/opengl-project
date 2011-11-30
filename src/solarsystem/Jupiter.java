@@ -64,6 +64,7 @@ public class Jupiter extends Planet {
 	this.mesh.setMaterial(mat);
 	this.smaller.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
+	this.smaller.scaling = new Vector3f(SCALING_FACTOR * Planet.PLANET_SCALE);
 	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_textured"));
 	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
     }
