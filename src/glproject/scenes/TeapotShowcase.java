@@ -39,7 +39,7 @@ public class TeapotShowcase extends World {
 	
 	GL2 gl = drawable.getGL().getGL2();
 	
-	gl.glDisable(GL2.GL_CULL_FACE);
+	//gl.glDisable(GL2.GL_CULL_FACE);
 
 	//Material mat = new Material();
 	//mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -49,24 +49,34 @@ public class TeapotShowcase extends World {
 	//this.addLight(sunLight);
 	
 	SphereLight light = new SphereLight(new Vector3f(0.0f, 0.0f, 0.0f));
+	SphereLight light2 = new SphereLight(new Vector3f(0.0f, 0.0f, 0.0f));
+	light2.a = 900;
+	light2.b = 900;
+	light2.c = 0;
+	light2.dt = 0.01f;
 	
-	this.addSceneObject(light);
+	this.addSceneObject(light2);
+	
+	//this.addSceneObject(light);
 	
 	Mesh m = null;
 	try {
-	    m = Mesh.loadMeshFromObjFile("teapot_2.obj");
+	    m = Mesh.loadMeshFromObjFile("solarplanet.obj");
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	m.calculateVertexNormals();
+	//m.reverseVertexWinding();
+	//m.calculateVertexNormals();
+	//m.negateNormals();
 	
 	Material material = new Material();
-	material.ambient = new Vector4f(0.1f);
-	material.diffuse = new Vector4f(0.3f, 1.0f, 0.8f, 1.0f);
+	material.ambient = new Vector4f(0.0f);
+	material.diffuse = new Vector4f(0.3f, 0.5f, 0.7f, 1.0f);
 	material.specular = new Vector4f(1.0f);
 	material.shininess = 20.0f;
 	m.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_untextured"));
+	m.negateNormals();
 	
 	m.setMaterial(material);
 	this.addMesh(m);

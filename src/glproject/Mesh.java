@@ -203,6 +203,8 @@ public class Mesh implements Renderable {
 		    tempVertex = new Vertex(verticies.get(Integer
 			    .valueOf(slashSplitLines[0]) - 1));
 		    if (slashSplitLines.length >= 2) {
+			if (slashSplitLines[1].equals(""))
+			    continue;
 			tempVertex.textureCoordinate = new Vector2f(
 				textureCoordinates.get(Integer
 					.valueOf(slashSplitLines[1]) - 1));

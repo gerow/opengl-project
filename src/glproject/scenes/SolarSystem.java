@@ -13,6 +13,7 @@ import java.awt.AWTException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
@@ -50,6 +51,12 @@ public class SolarSystem extends World {
 
     public void init(GLAutoDrawable drawable) {
 	super.init(drawable);
+	GL2 gl = drawable.getGL().getGL2();
+	
+	Planet.cutoff = 999999999;
+	
+	gl.glEnable(GL2.GL_CULL_FACE);
+	gl.glCullFace(GL2.GL_BACK);
 	
 	Material mat = new Material();
 	mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);

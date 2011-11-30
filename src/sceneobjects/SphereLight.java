@@ -16,7 +16,10 @@ public class SphereLight implements SceneObject {
     private World world;
     private Light light;
     
-    public float width = 40;
+    public float a = 40;
+    public float b = 40;
+    public float c = 40;
+    public float dt = 0.2f;
     
     private float t = 0;
     
@@ -49,11 +52,11 @@ public class SphereLight implements SceneObject {
     }
     
     public void sineMove() {
-	float x = (float)Math.sin(t) * width;
-	float y = (float)Math.cos(t) * width;
-	float z = (float)Math.sin(t) * width;
+	float x = (float)Math.sin(t) * a;
+	float y = (float)Math.cos(t) * b;
+	float z = (float)Math.sin(t) * c;
 	
-	t += 0.1;
+	t += dt;
 	
 	this.setLocaiton(new Vector3f(x, z, y));
     }

@@ -13,6 +13,7 @@ import java.awt.AWTException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.glu.GLU;
 
@@ -50,6 +51,17 @@ public class CopyOfSolarSystem extends World {
 
     public void init(GLAutoDrawable drawable) {
 	super.init(drawable);
+	
+	GL2 gl = drawable.getGL().getGL2();
+	
+	gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	
+	Planet.cutoff = 999999999;
+	
+	//GL2 gl = drawable.getGL().getGL2();
+	
+	gl.glEnable(GL2.GL_CULL_FACE);
+	gl.glCullFace(GL2.GL_BACK);
 	
 	Material mat = new Material();
 	mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);

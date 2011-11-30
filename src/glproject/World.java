@@ -298,7 +298,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	this.numLightsUniformPhongUntextured = ShaderProgram.getFromShaderLibrary("phong_untextured").getUniform("num_lights");
 	
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
-	gl.glClearColor(0.8f, 0.2f, 0.2f, 1.0f);
+	gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	gl.glClearDepth(1.0f);
 	gl.glEnable(GL2.GL_DEPTH_TEST);
 	gl.glDepthFunc(GL2.GL_LEQUAL);
@@ -316,8 +316,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 		GL2.GL_REPEAT);
 	gl.glEnable(GL2.GL_BLEND);
 	gl.glEnable(GL2.GL_LIGHTING);
-	gl.glEnable(GL2.GL_CULL_FACE);
-	gl.glCullFace(GL2.GL_BACK);
+	//gl.glEnable(GL2.GL_CULL_FACE);
+	//gl.glCullFace(GL2.GL_BACK);
 	// gl.glEnable(GL2.GL_LIGHT0);
     }
 
