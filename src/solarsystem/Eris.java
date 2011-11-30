@@ -1,6 +1,5 @@
 package solarsystem;
 
-import glproject.Vector3f;
 
 public class Eris extends Planet {
 

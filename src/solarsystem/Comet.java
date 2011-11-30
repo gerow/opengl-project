@@ -20,10 +20,11 @@ public class Comet extends DynamicSceneObject {
     public static final float ATTRACTION_CONSTANT = 1.0f;
     public static final float INITIAL_VELOCITY = 5.0f;
     public static final float SCALE_FACTOR = Sun.SCALE_FACTOR * 0.01f;
-    
+    public static boolean firstLight = true;
+
     private ArrayList<Planet> affectingPlanets = new ArrayList<Planet>();
     private World world;
-    private Light light;
+    private Light light = null;
     private ParticleEmitter pe;
     
     public Comet(Vector3f location, Vector3f velocity, World world) {
@@ -35,10 +36,10 @@ public class Comet extends DynamicSceneObject {
 	    e.printStackTrace();
 	}
 	this.mesh.reverseVertexWinding();
-	
+
 	this.setLocation(location);
 	this.setVelocity(velocity);
-	
+
 	Material mat = new Material();
 	mat.ambient = new Vector4f(0.0f);
 	mat.diffuse = new Vector4f(0.75f, 0.75f, 0.0f, 1.0f);
@@ -52,42 +53,49 @@ public class Comet extends DynamicSceneObject {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
-	
+
 	this.mesh.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(Comet.SCALE_FACTOR);
-	
+
 	mat = new Material();
 	mat.ambient = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.diffuse = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	this.light = new Light(this.getLocation(), mat);
-	
-	this.world.addLight(this.light);
+
+	if (Comet.firstLight) {
+	    this.world.addLight(this.light);
+	    Comet.firstLight = false;
+	}
 	this.world.addMesh(this.mesh);
     }
-    
+
     public void step() {
 	for (Planet p : affectingPlanets) {
 	    this.accountForAttraction(p);
 	}
-	
+
 	System.out.println("Comet acceleration: " + this.getAcceleration());
 	this.accelerationMove();
-	this.light.location = this.getLocation();
+	if (this.light != null)
+	    this.light.location = this.getLocation();
     }
-    
+
     public void accountForAttraction(Planet planet) {
 	float attractionValue = planet.getAttractionValue();
 	float distanceTo = planet.getLocation().distanceTo(this.getLocation());
-	
-	float acc = ATTRACTION_CONSTANT * (attractionValue / (float)Math.pow(distanceTo, 2));
-	
-	Vector3f accelerationDelta = this.getLocation().vectorTo(planet.getLocation()).normalize().multiply(acc);
-	
+
+	float acc = ATTRACTION_CONSTANT
+		* (attractionValue / (float) Math.pow(distanceTo, 2));
+
+	Vector3f accelerationDelta = this.getLocation()
+		.vectorTo(planet.getLocation()).normalize().multiply(acc);
+
 	this.setAcceleration(this.getAcceleration().add(accelerationDelta));
     }
-    
+
     public void explode() {
+
     	world.removeParticleEmitter(pe);
     	world.addParticleEmitter(new ParticleEmitter(world,this,true));
     }

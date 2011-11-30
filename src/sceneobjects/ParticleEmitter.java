@@ -1,6 +1,5 @@
 package sceneobjects;
 
-import glproject.Mesh;
 import glproject.Particle;
 import glproject.Polygon;
 import glproject.Vector3f;
@@ -8,10 +7,8 @@ import glproject.Vector4f;
 import glproject.Vertex;
 import glproject.World;
 
-import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLDrawable;
 import javax.media.opengl.glu.GLU;
 

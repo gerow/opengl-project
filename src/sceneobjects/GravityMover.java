@@ -1,9 +1,9 @@
 package sceneobjects;
 
-import java.util.ArrayList;
-
 import glproject.Mesh;
 import glproject.Vector3f;
+
+import java.util.ArrayList;
 
 /**
  * 

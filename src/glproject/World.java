@@ -220,8 +220,8 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 
 	// gl.glEnable(GL2.GL_LIGHTING);
 	
-	this.celFactor.set(celFactorFloat);
-	this.celFactorFloat += 0.01f;
+	//this.celFactor.set(celFactorFloat);
+	//this.celFactorFloat += 0.01f;
 
 	gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 	gl.glClear(GL.GL_DEPTH_BUFFER_BIT);

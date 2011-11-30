@@ -6,7 +6,7 @@ package glproject;
  */
 public class Azimuth {
     private static final Vector3f identity = new Vector3f(0, 0, 1);
-    Vector3f direction = Azimuth.identity;
+    public Vector3f direction = Azimuth.identity;
     private float heading = 0;
     private float altitude = 0;
 

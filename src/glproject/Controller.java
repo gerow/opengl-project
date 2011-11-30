@@ -1,5 +1,7 @@
 package glproject;
 
+import glproject.scenes.SolarSystem;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -14,6 +16,7 @@ public class Controller implements KeyListener, MouseMotionListener,
     public static final int MOUSE_LOCATION_Y = 240;
 
     private World world;
+    private SolarSystem solarSystem;
     private boolean mouseGrabbed = false;
     private Robot robot;
 
@@ -37,6 +40,12 @@ public class Controller implements KeyListener, MouseMotionListener,
 	    this.robot.mouseMove(Controller.MOUSE_LOCATION_X,
 		    Controller.MOUSE_LOCATION_Y);
 	    return;
+	} else {
+	    System.out.println("Doing tihs");
+	    if (this.world instanceof SolarSystem) {
+		SolarSystem s = (SolarSystem) this.world;
+		s.throwComet = true;
+	    }
 	}
     }
 
