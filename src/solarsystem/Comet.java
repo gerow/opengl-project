@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import javax.media.opengl.GLException;
 
 import sceneobjects.DynamicSceneObject;
+import sceneobjects.ParticleEmitter;
 
 public class Comet extends DynamicSceneObject {
     public static final float ATTRACTION_CONSTANT = 1.0f;
@@ -23,6 +24,7 @@ public class Comet extends DynamicSceneObject {
     private ArrayList<Planet> affectingPlanets = new ArrayList<Planet>();
     private World world;
     private Light light;
+    private ParticleEmitter pe;
     
     public Comet(Vector3f location, Vector3f velocity, World world) {
 	this.world = world;
@@ -86,6 +88,12 @@ public class Comet extends DynamicSceneObject {
     }
     
     public void explode() {
-	
+    	world.removeParticleEmitter(pe);
+    	world.addParticleEmitter(new ParticleEmitter(world,this,true));
+    }
+    
+    public void setParticleEmitter(ParticleEmitter pe)
+    {
+    	this.pe=pe;
     }
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import javax.media.opengl.GLAutoDrawable;
 
+import sceneobjects.ParticleEmitter;
 import sceneobjects.SphereLight;
 import solarsystem.Comet;
 import solarsystem.Mercury;
@@ -65,6 +66,9 @@ public class SolarSystem extends World {
 	
 	Comet c = new Comet(cometLocation, cometVelocity, this);
 	this.addSceneObject(c);
+	ParticleEmitter pe=new ParticleEmitter(this,c,false);
+	c.setParticleEmitter(pe);
+	this.addParticleEmitter(pe);
     }
     
     public static void main(String args[])  {
