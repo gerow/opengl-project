@@ -32,7 +32,7 @@ public class Earth extends Planet {
 	mat.specular = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
 	mat.shininess = 40.0f;
 	try {
-	    mat.texture = TextureLoader.loadTexture("earth.jpg");
+	    mat.texture = TextureLoader.loadTexture("venus.jpg");
 	} catch (GLException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -61,6 +61,7 @@ public class Earth extends Planet {
 	
 	this.mesh.setMaterial(mat);
 	this.smaller.setMaterial(mat);
+	
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
 	this.smaller.scaling = new Vector3f(SCALING_FACTOR * Planet.PLANET_SCALE);
 	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_untextured"));

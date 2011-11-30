@@ -161,7 +161,7 @@ public class Mesh implements Renderable {
 	}
 	Vector3f normal = sum.divide(commonVerticies.size());
 	for (Vertex vert : commonVerticies)
-	    vert.normal = normal;
+	    vert.normal = normal.multiply(-1);
     }
 
     public static Mesh loadMeshFromObjFile(String filename) throws IOException {
