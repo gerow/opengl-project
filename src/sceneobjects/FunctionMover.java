@@ -10,6 +10,7 @@ public class FunctionMover implements SceneObject {
     protected RealToVector3fFunction function;
     protected World world;
     protected float rotationalVelocity = 0.0f;
+    protected float step;
     
     public FunctionMover() {
 	
@@ -21,7 +22,9 @@ public class FunctionMover implements SceneObject {
     }
 
     public void step() {
-	this.mesh.translation = this.function.eval(System.currentTimeMillis() / 1000.0f);
+	//System.out.println("Getting time " + System.currentTimeMillis());
+	this.mesh.translation = this.function.eval(step);
+	step += 0.1;
 	this.mesh.rotation.y += rotationalVelocity;
     }
 

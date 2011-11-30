@@ -118,8 +118,9 @@ public class Polygon {
 		gl.glTexCoord2f(v.textureCoordinate.x, v.textureCoordinate.y);
 		// GLErrorChecker.check("Ater enabling textureCoordinate. "
 		// + v.textureCoordinate.x + ", " + v.textureCoordinate.y);
-	    } else {
-		gl.glColor3f(v.color.x, v.color.y, v.color.z);
+	    }
+	    if (v.color != null) {
+		gl.glColor4f(v.color.x, v.color.y, v.color.z, v.color.w);
 		// GLErrorChecker.check("Ater enabling color. (" + v.color.x
 		// + ", " + v.color.y + ", " + v.color.z + ")");
 	    }

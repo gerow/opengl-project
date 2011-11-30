@@ -78,7 +78,7 @@ public class ShaderTest extends World {
 	// Light l = new Light();
 
 	// this.addLight(l);
-	SkySphere ssphere = new SkySphere(1000.0f, "space2.jpg");
+	SkySphere ssphere = new SkySphere(10.0f, "space2.jpg");
 	this.addRenderable(ssphere);
 	// m.setShaderProgram(redShader);
 	ShaderProgram.defaultShader = ShaderProgram

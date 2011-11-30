@@ -42,7 +42,18 @@ public class Mercury extends Planet {
 	
 	this.function = new RealToVector3fFunction() {
 	    public Vector3f eval(float t) {
-		return new Vector3f(500.0f, 0.0f, 0.0f);
+		System.out.println("Using time " + t);
+		
+		float a = 300;
+		float b = 300;
+		float fi = 0.01f;
+		
+		t = t / 5.0f;
+		
+		float x = (float) (a * Math.cos(t)*Math.cos(fi) - b * Math.sin(t)*Math.sin(fi));
+		float y = (float) (a * Math.cos(t) * Math.sin(fi) + b * Math.sin(t)*Math.cos(fi));
+		System.out.println("Evaluated to " + x + " " + y);
+		return new Vector3f(x, 0.0f, y);
 	    }
 	};
 	
@@ -52,7 +63,8 @@ public class Mercury extends Planet {
 	
 	this.mesh.setMaterial(mat);
 	this.mesh.scaling = new Vector3f(SCALING_FACTOR);
-	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("cel_textured"));
+	this.mesh.setShaderProgram(ShaderProgram.getFromShaderLibrary("phong_textured"));
+	this.mesh.setColor(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f));
     }
 
     @Override

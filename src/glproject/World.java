@@ -43,8 +43,15 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     private GLU glu = new GLU();
     private Timer t = new Timer(1000 / World.TICKRATE, this);
     private Animator animator = new Animator(this);
+    
     private Uniform numLightsUniform;
+    private Uniform numLightsUniformPhongUntextured;
+    private Uniform numLightsUniformCelTextured;
+    private Uniform numLightsUniformCelUntextured;
     private Uniform cameraPositionUniform;
+    private Uniform celFactor;
+    
+    private float celFactorFloat = 3.0f;
     private int numLights = 0;
 
     private boolean[] activeLights = { false, false, false, false, false,
@@ -152,6 +159,9 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	light.lightNumber = this.findAndTakeNextAvailableLight();
 	++this.numLights;
 	this.numLightsUniform.set(this.numLights);
+	this.numLightsUniformCelTextured.set(this.numLights);
+	this.numLightsUniformCelUntextured.set(this.numLights);
+	this.numLightsUniformPhongUntextured.set(this.numLights);
 	this.lights.add(light);
     }
 
@@ -159,6 +169,9 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	this.returnUnusedLight(light.lightNumber);
 	--this.numLights;
 	this.numLightsUniform.set(this.numLights);
+	this.numLightsUniformCelTextured.set(this.numLights);
+	this.numLightsUniformCelUntextured.set(this.numLights);
+	this.numLightsUniformPhongUntextured.set(this.numLights);
 	return this.lights.remove(light);
     }
 
@@ -206,6 +219,9 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	// TEST CODE
 
 	// gl.glEnable(GL2.GL_LIGHTING);
+	
+	this.celFactor.set(celFactorFloat);
+	this.celFactorFloat += 0.01f;
 
 	gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 	gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
@@ -253,7 +269,6 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 	this.step();
-
     }
 
     @Override
@@ -275,8 +290,15 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
 	this.numLightsUniform = ShaderProgram.getFromShaderLibrary("phong_textured").getUniform("num_lights");
 	this.numLightsUniform.set(1);
 	this.cameraPositionUniform = ShaderProgram.getFromShaderLibrary("phong_textured").getUniform("camera_position");
+	this.celFactor = ShaderProgram.getFromShaderLibrary("cel_untextured").getUniform("cel_factor");
+	this.celFactor.set(3.0f);
+	
+	this.numLightsUniformCelTextured = ShaderProgram.getFromShaderLibrary("cel_textured").getUniform("num_lights");
+	this.numLightsUniformCelUntextured = ShaderProgram.getFromShaderLibrary("cel_untextured").getUniform("num_lights");
+	this.numLightsUniformPhongUntextured = ShaderProgram.getFromShaderLibrary("phong_untextured").getUniform("num_lights");
+	
 	gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
-	gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f);
+	gl.glClearColor(0.8f, 0.2f, 0.2f, 1.0f);
 	gl.glClearDepth(1.0f);
 	gl.glEnable(GL2.GL_DEPTH_TEST);
 	gl.glDepthFunc(GL2.GL_LEQUAL);

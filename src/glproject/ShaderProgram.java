@@ -18,9 +18,9 @@ public class ShaderProgram {
     private int id = 0;
     private int v = 0;
     private int f = 0;
-    
+
     private HashMap<String, Uniform> uniforms = new HashMap<String, Uniform>();
-    
+
     private static HashMap<String, ShaderProgram> shaderLibrary = new HashMap<String, ShaderProgram>();
 
     public void enable() {
@@ -32,29 +32,31 @@ public class ShaderProgram {
 	ShaderProgram out = new ShaderProgram();
 	out.v = gl.glCreateShader(GL2.GL_VERTEX_SHADER);
 	out.f = gl.glCreateShader(GL2.GL_FRAGMENT_SHADER);
-	//gl.glShaderSource(out.v, vertexStrings.length, vertexStrings,
-	//	lengthArray, 0);
-	//gl.glCompileShader(out.v);
-	String vertShaderString = ShaderProgram.fileToString("assets/shaders/" + vertexShader);
+	// gl.glShaderSource(out.v, vertexStrings.length, vertexStrings,
+	// lengthArray, 0);
+	// gl.glCompileShader(out.v);
+	String vertShaderString = ShaderProgram.fileToString("assets/shaders/"
+		+ vertexShader);
 	String[] vertArray = new String[1];
 	vertArray[0] = vertShaderString;
 	int[] vertLengthArray = new int[1];
 	vertLengthArray[0] = vertShaderString.length();
 	gl.glShaderSource(out.v, 1, vertArray, vertLengthArray, 0);
 	gl.glCompileShader(out.v);
-	
+
 	System.out.println("Compiled vertex shader: \n" + vertShaderString);
 
 	GLErrorChecker.checkShader(out.v, "Vertex shader " + vertexShader);
 
-	String fragShaderString = ShaderProgram.fileToString("assets/shaders/" + fragmentShader);
+	String fragShaderString = ShaderProgram.fileToString("assets/shaders/"
+		+ fragmentShader);
 	String[] fragArray = new String[1];
 	fragArray[0] = fragShaderString;
 	int[] fragLengthArray = new int[1];
 	fragLengthArray[0] = fragShaderString.length();
 	gl.glShaderSource(out.f, 1, fragArray, fragLengthArray, 0);
 	gl.glCompileShader(out.f);
-	
+
 	System.out.println("Compiled fragment shader: \n" + fragShaderString);
 
 	GLErrorChecker.checkShader(out.f, "Fragment shader " + fragmentShader);
@@ -105,42 +107,68 @@ public class ShaderProgram {
 	else
 	    gl.glUseProgram(0);
     }
-    
+
     public int getShaderLocation() {
 	return this.id;
     }
-    
+
     public void addUniform(Uniform uniform) {
 	System.out.println("Adding uniform " + uniform);
 	this.uniforms.put(uniform.name, uniform);
     }
-    
+
     public Uniform getUniform(String name) {
 	return this.uniforms.get(name);
     }
-    
-    public static void addToShaderLibrary(String name, ShaderProgram shaderProgram) {
+
+    public static void addToShaderLibrary(String name,
+	    ShaderProgram shaderProgram) {
 	ShaderProgram.shaderLibrary.put(name, shaderProgram);
     }
-    
+
     public static ShaderProgram getFromShaderLibrary(String name) {
 	return ShaderProgram.shaderLibrary.get(name);
     }
-    
+
     public static void buildShaderLibrary() throws IOException {
-	ShaderProgram phong = ShaderProgram.loadFromFile("phong_textured.vert", "phong_textured.frag");
-	Uniform numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, phong, "num_lights");
-	Uniform cameraPosition = new Uniform(ShaderProgram.gl, Uniform.Type.t3f, phong, "camera_position");
+	ShaderProgram phong = ShaderProgram.loadFromFile("phong_textured.vert",
+		"phong_textured.frag");
+	Uniform numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i,
+		phong, "num_lights");
+	Uniform cameraPosition = new Uniform(ShaderProgram.gl,
+		Uniform.Type.t3f, phong, "camera_position");
 	phong.addUniform(numLights);
 	phong.addUniform(cameraPosition);
 	phong.getUniform("num_lights").set(1);
 	phong.getUniform("camera_position").set(new Vector3f(0.0f, 0.0f, 0.0f));
 	ShaderProgram.shaderLibrary.put("phong_textured", phong);
-	
-	ShaderProgram cel = ShaderProgram.loadFromFile("cel_textured.vert", "cel_textured.frag");
-	numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, cel, "num_lights");
+
+	ShaderProgram phongUntextured = ShaderProgram.loadFromFile(
+		"phong_untextured.vert", "phong_untextured.frag");
+	numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i,
+		phongUntextured, "num_lights");
+	numLights.set(1);
+	phongUntextured.addUniform(numLights);
+	ShaderProgram.shaderLibrary.put("phong_untextured", phongUntextured);
+
+	ShaderProgram cel = ShaderProgram.loadFromFile("cel_textured.vert",
+		"cel_textured.frag");
+	numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i, cel,
+		"num_lights");
 	cel.addUniform(numLights);
 	cel.getUniform("num_lights").set(3);
 	ShaderProgram.shaderLibrary.put("cel_textured", cel);
+
+	ShaderProgram celUntextured = ShaderProgram.loadFromFile(
+		"cel_untextured.vert", "cel_untextured.frag");
+	numLights = new Uniform(ShaderProgram.gl, Uniform.Type.t1i,
+		celUntextured, "num_lights");
+	celUntextured.addUniform(numLights);
+	celUntextured.getUniform("num_lights").set(1);
+	Uniform celFactor = new Uniform(ShaderProgram.gl, Uniform.Type.t1f,
+		celUntextured, "cel_factor");
+	celUntextured.addUniform(celFactor);
+	celUntextured.getUniform("cel_factor").set(3.0f);
+	ShaderProgram.shaderLibrary.put("cel_untextured", celUntextured);
     }
 }

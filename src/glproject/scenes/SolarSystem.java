@@ -3,7 +3,7 @@ package glproject.scenes;
 import glproject.Light;
 import glproject.MainFrame;
 import glproject.Material;
-import glproject.ShaderProgram;
+import glproject.SkySphere;
 import glproject.Vector3f;
 import glproject.Vector4f;
 import glproject.World;
@@ -13,8 +13,8 @@ import java.io.IOException;
 
 import javax.media.opengl.GLAutoDrawable;
 
+import sceneobjects.SphereLight;
 import solarsystem.Mercury;
-import solarsystem.Saturn;
 import solarsystem.Sun;
 
 public class SolarSystem extends World {
@@ -42,8 +42,15 @@ public class SolarSystem extends World {
 	Light sunLight = new Light(new Vector3f(0.0f, 0.0f, 0.0f), mat);
 	this.addLight(sunLight);
 	
+	SphereLight sLight = new SphereLight(new Vector3f(1000.0f, 300.0f, 0.0f));
+	this.addSceneObject(sLight);
+	
 	this.addSceneObject(new Sun());
 	this.addSceneObject(new Mercury());
+	
+	SkySphere ssphere = new SkySphere(10.0f, "space2.jpg");
+	
+	this.addRenderable(ssphere);
 	//this.addSceneObject(new Saturn());
 	
 	//ShaderProgram.defaultShader = ShaderProgram.getFromShaderLibrary("phong");
