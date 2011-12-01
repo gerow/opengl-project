@@ -39,7 +39,7 @@ public class SolarSystem extends World {
      */
     private static final long serialVersionUID = 3171853764150449223L;
     public boolean throwComet = false;
-    private ArrayList<Planet> planets = new ArrayList<Planet>();
+    protected ArrayList<Planet> planets = new ArrayList<Planet>();
 
     public SolarSystem() throws AWTException {
 	super();
@@ -53,7 +53,7 @@ public class SolarSystem extends World {
 	super.init(drawable);
 	GL2 gl = drawable.getGL().getGL2();
 	
-	Planet.cutoff = 999999999;
+	//Planet.cutoff;
 	
 	gl.glEnable(GL2.GL_CULL_FACE);
 	gl.glCullFace(GL2.GL_BACK);
