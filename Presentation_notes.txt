@@ -1,0 +1,17 @@
+-What we did.  Solar system.
+ -Inspiration.  Sort of last minute thing.  We had a lot of backend stuff written but just needed it to do something specific.
+ 
+-Design.  We chose to use java and JOGL.  We also wrote it to be relatively modular, mostly because we weren't sure what exactly we wanted to do.
+ -Have ability to load meshes from obj files and mtl files.  Also can load custom shaders to be applied to meshes.
+ -Also have ability to create particles clouds.
+ 
+-Gerow did a lot of the backend stuff, creating nice classes so we could interact with gl at a higher level.  Gendotti put the
+particle system together.  Gumport and Eisel worked mainly on putting the actual solar system together given these things.
+
+-Challenges
+ -Ran into performance issues.  The system was not quite efficient as we thought.  Tried to work around them, but you will see
+ that they are still evident in the final version.
+ 
+ -If we were to do it again we would have been more careful about performance to begin with.
+ 	-Initially the way we draw an individual polygon was very inefficient.  Note difference between uniforms and attributes at a mesh level.
+ 	-Also would have used VBOs.
