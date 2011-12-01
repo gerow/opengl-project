@@ -30,7 +30,7 @@ public class World extends GLCanvas implements GLEventListener, ActionListener {
      * 
      */
     private static final long serialVersionUID = -7996207185050352558L;
-    public static final int TICKRATE = 66;
+    public static final int TICKRATE = 33;
 
     private Camera activeCamera;
     private ArrayList<Camera> cameras = new ArrayList<Camera>();
